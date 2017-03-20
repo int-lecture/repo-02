@@ -4,19 +4,20 @@ Repository for Team 02
 ## User-Storie's
 
 ### MVP
-1. Ich als Entwickler möchte, dass der Messenger erweiterbar ist damit ich diesem neue Features einfach hinzufügen kann.  (Maintainability)
-2. Ich als User möchte, mit meinen Kontakten schreiben können damit ich ich sie schnell informieren kann 
-4. Ich als User möchte, Kontakte speichern können damit ich sie immer wieder auswählen kann 
-6. Ich als User möchte, mit mehreren Leuten im Raum sein damit ich mit allen gleichzeitig chatten kann. 
-7. Ich als User möchte, dass Nachrichten gespeichert werden  damit ich damit man sie wieder suchen kann 
-8. Ich als User möchte, dass man auch Kontakten die offline sind etwas schicken kann damit ich immer erreichbar bin 
-9. Ich als User möchte, dass die Chats immer auf dem aktuellen Stand sind damit ich das Aktuellste sehe  (Functional Suitability)
-0. Ich als User möchte, einen verschlüsselten Service nutzen  damit ich damit ich meine Privatsphäre habe  (Security)
-1. Ich als User möchte, Benutzer blockieren können damit ich nicht belästigt werde  (Security)
-2. Ich als User  möchte, ein Profil erstellen können damit ich zeigen kann wer ich bin 
 1. Ich als ChatBot möchte, eine Freundin damit ich paar romantische Stunden zu zweit genießen kann.  (Functional Suitability)
-3. Ich als User  möchte, sehen welche Kontakte online sind oder nicht damit ich stalken kann. 
-4. Ich als User  möchte, auf eine festgelegte Vorgehensweise adden damit ich auf einfache Weise Kontakte hinzufügen kann. 
+2. Ich als Entwickler möchte, dass der Messenger erweiterbar ist damit ich diesem neue Features einfach hinzufügen kann  (Maintainability)
+3. Ich als User möchte, mit meinen Kontakten schreiben können damit ich ich sie schnell informieren kann 
+4. Ich als User möchte, Kontakte speichern können damit ich sie immer wieder auswählen kann 
+5. Ich als User möchte, mit mehreren Leuten im Raum sein damit ich mit allen gleichzeitig chatten kann
+6. Ich als User möchte, dass Nachrichten gespeichert werden  damit ich damit man sie wieder suchen kann 
+7. Ich als User möchte, dass man auch Kontakten die offline sind etwas schicken kann damit ich immer erreichbar bin 
+8. Ich als User möchte, dass die Chats immer auf dem aktuellen Stand sind damit ich das Aktuellste sehe  (Functional Suitability)
+9. Ich als User möchte, einen verschlüsselten Service nutzen  damit ich damit ich meine Privatsphäre habe  (Security)
+10. Ich als User möchte, Benutzer blockieren können damit ich nicht belästigt werde  (Security)
+11. Ich als User  möchte, ein Profil erstellen können damit ich zeigen kann wer ich bin 
+12. Ich als User  möchte, sehen welche Kontakte online sind oder nicht damit ich stalken kann
+13. Ich als User  möchte, auf eine festgelegte Vorgehensweise adden damit ich auf einfache Weise Kontakte hinzufügen kann. 
+14. Ich als User möchte, Broadcast-Nachrichten verschicken können damit ich eine Nachricht an mehrere Leute auf einmal schicken kann 
 
 ### HOCH
 1. Ich als Administrator möchte, Statistiken über die Benutzung erhalten damit ich um den Service zu verbessern  (Maintainability)
@@ -33,12 +34,13 @@ Repository for Team 02
 ### OPTIONAL
 1. Ich als Administrator möchte, dass meine Applikation annähernd fehlerfrei ist damit ich bei der Pflege der App weniger Kosten habe  (Functional Suitability)
 2. Ich als User möchte, sehen wenn andere meine Nachricht gelesen haben  damit ich sehen kann wann sie Informationen erhalten haben 
-8. Ich als User möchte, dass ich meinen Standort verschicken kann  damit ich anderen leicht den Weg zeigen kann  
-9. Ich als User möchte, Chats stumm schalten kann damit ich nicht genervt werde 
-6. Ich als User möchte, dass die App im Hintergrund weiterläuft damit ich weiterhin Nachrichten erhalte 
-1. Ich als User möchte, dass die Anwendung wenig Datenvolumen verbraucht  damit ich meinen Verbrauch reduzieren kann  (Performance)
-2. Ich als User  möchte, Kontakte teilen können damit ich Leute verkuppeln kann. 
-3. Ich als User  möchte, dass meine Chats und Dateien gerettet werden damit ich keinen Datenverlust erleide  (Usability)
+3. Ich als User möchte, dass ich meinen Standort verschicken kann  damit ich anderen leicht den Weg zeigen kann  
+4. Ich als User möchte, Chats stumm schalten kann damit ich nicht genervt werde 
+5. Ich als User möchte, dass die App im Hintergrund weiterläuft damit ich weiterhin Nachrichten erhalte 
+6. Ich als User möchte, dass die Anwendung wenig Datenvolumen verbraucht  damit ich meinen Verbrauch reduzieren kann  (Performance)
+7. Ich als User  möchte, Kontakte teilen können damit ich Leute verkuppeln kann. 
+8. Ich als User  möchte, dass meine Chats und Dateien gerettet werden damit ich keinen Datenverlust erleide  (Usability)
+9. Ich als User möchte, Broadcast-Nachrichten verschicken können damit ich eine Nachricht an mehrere Leute auf einmal schicken kann 
 
 
 http://bit.ly/2mLBxyR
