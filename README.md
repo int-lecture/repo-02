@@ -4,9 +4,8 @@ Repository for Team 02
 ## User-Storie's
 
 ### MVP
-1. Ich als ChatBot möchte, eine Freundin damit ich paar romantische Stunden zu zweit genießen kann.  (Functional Suitability)
-2. Ich als Entwickler möchte, dass der Messenger erweiterbar ist damit ich diesem neue Features einfach hinzufügen kann.  (Maintainability)
-3. Ich als User möchte, mit meinen Kontakten schreiben können damit ich ich sie schnell informieren kann 
+1. Ich als Entwickler möchte, dass der Messenger erweiterbar ist damit ich diesem neue Features einfach hinzufügen kann.  (Maintainability)
+2. Ich als User möchte, mit meinen Kontakten schreiben können damit ich ich sie schnell informieren kann 
 4. Ich als User möchte, Kontakte speichern können damit ich sie immer wieder auswählen kann 
 6. Ich als User möchte, mit mehreren Leuten im Raum sein damit ich mit allen gleichzeitig chatten kann. 
 7. Ich als User möchte, dass Nachrichten gespeichert werden  damit ich damit man sie wieder suchen kann 
@@ -15,6 +14,7 @@ Repository for Team 02
 0. Ich als User möchte, einen verschlüsselten Service nutzen  damit ich damit ich meine Privatsphäre habe  (Security)
 1. Ich als User möchte, Benutzer blockieren können damit ich nicht belästigt werde  (Security)
 2. Ich als User  möchte, ein Profil erstellen können damit ich zeigen kann wer ich bin 
+1. Ich als ChatBot möchte, eine Freundin damit ich paar romantische Stunden zu zweit genießen kann.  (Functional Suitability)
 3. Ich als User  möchte, sehen welche Kontakte online sind oder nicht damit ich stalken kann. 
 4. Ich als User  möchte, auf eine festgelegte Vorgehensweise adden damit ich auf einfache Weise Kontakte hinzufügen kann. 
 
