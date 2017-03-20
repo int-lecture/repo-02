@@ -31,4 +31,6 @@ Repository for Team 02
 27. Ich als User  möchte, dass meine Chats und Dateien gerettet werden damit ich keinen Datenverlust erleide  (Usability)
 28. Ich als Administrator möchte, ein Mindestalter einführen damit ich um aus der Haftung raus zu sein  (Security)
 29. Ich als User möchte, mein Profil löschen können damit ich meine Daten wieder habe 
+
+
 http://bit.ly/2mLBxyR
