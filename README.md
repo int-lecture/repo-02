@@ -18,7 +18,7 @@ Repository for Team 02
 3. Ich als User  möchte, sehen welche Kontakte online sind oder nicht damit ich stalken kann. 
 4. Ich als User  möchte, auf eine festgelegte Vorgehensweise adden damit ich auf einfache Weise Kontakte hinzufügen kann. 
 
-### MITTEL
+### HOCH
 1. Ich als Administrator möchte, Statistiken über die Benutzung erhalten damit ich um den Service zu verbessern  (Maintainability)
 2. Ich als Administrator möchte, dass die Webseite immer verfügbar ist damit ich garantieren kann, dass meine Kunden zufrieden sind  (Reliability)
 3. Ich als Administrator möchte, einen Chatbot zur Verfügung haben damit ich mich nicht alleine um die Chat-Moderation kümmern muss.  (Reliability)
