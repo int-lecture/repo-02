@@ -3,7 +3,7 @@ Repository for Team 02
 
 ## User-Storie's
 
-###MVP
+### MVP
 1. Ich als ChatBot möchte, eine Freundin damit ich paar romantische Stunden zu zweit genießen kann.  (Functional Suitability)
 2. Ich als Entwickler möchte, dass der Messenger erweiterbar ist damit ich diesem neue Features einfach hinzufügen kann.  (Maintainability)
 3. Ich als User möchte, mit meinen Kontakten schreiben können damit ich ich sie schnell informieren kann 
@@ -18,7 +18,7 @@ Repository for Team 02
 3. Ich als User  möchte, sehen welche Kontakte online sind oder nicht damit ich stalken kann. 
 4. Ich als User  möchte, auf eine festgelegte Vorgehensweise adden damit ich auf einfache Weise Kontakte hinzufügen kann. 
 
-###MITTEL
+### MITTEL
 1. Ich als Administrator möchte, Statistiken über die Benutzung erhalten damit ich um den Service zu verbessern  (Maintainability)
 2. Ich als Administrator möchte, dass die Webseite immer verfügbar ist damit ich garantieren kann, dass meine Kunden zufrieden sind  (Reliability)
 3. Ich als Administrator möchte, einen Chatbot zur Verfügung haben damit ich mich nicht alleine um die Chat-Moderation kümmern muss.  (Reliability)
@@ -30,7 +30,7 @@ Repository for Team 02
 9. Ich als User möchte, dass die Anwendung wenig Arbeitsspeicher nutzt damit ich mehrere Applikationen gleichzeitig nutzen kann  (Performance)
 10. Ich als User möchte, zuverlässig benachrichtigt werden damit ich mich auf den Dienst verlassen kann  (Reliability)
 
-###OPTIONAL
+### OPTIONAL
 1. Ich als Administrator möchte, dass meine Applikation annähernd fehlerfrei ist damit ich bei der Pflege der App weniger Kosten habe  (Functional Suitability)
 2. Ich als User möchte, sehen wenn andere meine Nachricht gelesen haben  damit ich sehen kann wann sie Informationen erhalten haben 
 8. Ich als User möchte, dass ich meinen Standort verschicken kann  damit ich anderen leicht den Weg zeigen kann  
