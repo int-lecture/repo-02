@@ -7,3 +7,7 @@
 * Wo wird die Nachricht entschlüsselt und verschlüsselt?
 * Ist der erste Weg einer Nachricht über den **"Verschlüsselung"**-Server bevor er zum **"Nachrichten-Verteiler"** kommt?
 * Ist in den Daten auf die der **"Account-Manager"** zugreift eine Tabelle als Zuordnung für die Passwörter?
+* Was ist die Definition der User-Base und welche Daten enthält sie?
+* Mit welchen Komponenten oder Daten "spricht" der **Verschlüssungs**server?
+* Werden die Passwörter bei der Ablage verschlüsselt oder sind sie in Reintext?
+* Wie zeichnet man den Fall, dass der **Nachrichten-Verteiler** zuerst den **Webserver** anspricht?
