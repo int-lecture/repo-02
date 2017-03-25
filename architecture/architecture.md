@@ -1,4 +1,4 @@
-# Komponenten
+# Komponenten 
 
 ## Menschen die damit zu tun haben
 - Interagiert mit der Software-GUI (Schnittstelle) mit Hilfe eines Browsers.
