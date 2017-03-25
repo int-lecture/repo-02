@@ -1,43 +1,21 @@
-# Komponenten 
+# Unsere Komponentenbeschreibung 
+----------------------------------------------------
+## Webserver
+- erhält von Webbrowsern anfragen und stellt unseren Messenger zur Verfügung
+## Authentifizierung
+- Der Authentifizierungsserver verwaltet die Anmeldung 
+- Daten: er verwaltet die Passwörter der User.
+## Verschlüsselung
+- Alle Daten die versendet werden, werden beim Absender verschlüsselt und beim Empfänger entschlüsselt (Algorithmus)
+## Nachrichten-Verteiler
+- Versendet und empfängt alle Nachrichten, verwaltet den Chatverlauf.
+- Daten: Arbeitet in unserem Beispiel mit dem Chatverläufen.
+## Load-Balancer (Verbindungen)
+- Stellt Verbindungen so her, dass die Ressourcen am Besten genutzt werden.
+- Daten: hat (vermutlich) Listen von Webservern.
+## Account-Manager
+- verwaltet alle Daten der User, kümmert sich um Änderungen im Profil etc.
+- Daten: In unserem Beispiel arbeitet er mit den Profilen der Usern.
 
-## Menschen die damit zu tun haben
-- Interagiert mit der Software-GUI (Schnittstelle) mit Hilfe eines Browsers.
-- Gibt die Textnachrichten ein und versendet diese.
-- Ist in der Lage einen "Chatroom" mit einem Kontakt zu öffnen.
-- Hat ein eigenes Profil, welches vor der eigendlichen Benutzung der Software erstellt wird und bearbeitet werden kann.
-- Hat einen Account, welches zwingend erstellt werden muss um die Software zu nutzen.
-- Konfiguriert seine persönlichen Einstellungen.
-- Hat eine Freundesliste und kann diese verwalten. (Freunde adden, löschen, blocken...)
-### User
-- Hat lediglich die Möglichkeit seine persönlichen Einstellungen zu verwalten und Textnachrichten
-  mit seinen Kontakten auszutauschen.
-### Administrator
-- Sperrt User bei Bedarf.
-- Hat eine Liste mit den gesperrten Usern und kann diese verwalten. (User sperren, entsperren...)
-- Kann einen Chat blockieren.
-- Kann einen Chatbot einschalten.
-### Entwickler
-- Wartet die Software. (irgendwie)
-- Kann die Verbindung Server-User unterbrechen.
-- Kann die zentralen Datenbanken dieser Software auslesen, löschen, beschreiben... 
 
-## Datenbanken
-- Enthält alle Accountdaten.
-- Enthält alle Profildaten.
-- Speichert vieleicht temporär die gerade empfangene Nachricht und bittet (nervt) den Server, diese dem Empfänger-
-  Client auszuliefern, sofern dieser online ist.
 
-## Funktionale Komponenten
-### Server
-- Enthält die Response-Vorlage im https-Format für die Anfragen der Clients.
-- Frägt den Client nach Accountdaten
-- Verweist den Client gegebenenfalls auf eine Registrierungsseite
-- Verweißt den Client auf die verschiedenen Seitenkomponenten der Software. (Schnittstellen)
-- Gibt dem Client einen Statusbericht über die Erreichbarkeit der Datenbank mittels Statuscode.
-- Frägt bei der Datenbank, ob der Client Zugriffsrechte auf die Datenbank hat. 
-  (Hat einen Account als User/Admin)
-  
-### Webbrowser
-- Sendet Requestanfragen an den Server.
-- Empfängt die Response des Servers und stellt die vom Server gelieferte Website/GUI dar.
-- Eingabeschnittstelle Mensch - Maschine/Software
