@@ -1,0 +1,67 @@
+.logo img{
+  background-image:image(logo.jpg);
+  position:absolute;
+  float: right;
+  right:10px;
+  top:60px;
+}
+
+.menü {
+    position: fixed;
+    background-color: #37477D;
+    overflow: hidden;
+    top: 0;
+    width: 100%;
+}
+
+
+
+/* Style the links inside the navigation bar */
+.menü a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.menü a:hover {
+    background-color: #7D6D37;
+    color: black;
+}
+
+/* Add a color to the active/current link */
+.menü a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+body{
+  margin-top: 85px;
+}
+
+
+
+.produkte img{
+  float: right;
+  align:center;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  width: 500px;
+}
+.produkte img:hover {
+    box-shadow: 0 0 3px 2px rgba(0, 140, 186, 0.5);
+}
+
+.logo img{
+  float: right;
+}
+hr {
+  size:3px;
+  color: #7D6D37;
+  background-color: #7D6D37;
+}
