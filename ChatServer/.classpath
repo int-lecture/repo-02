@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="var/chatserver/" kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="lib" path="C:/Users/Murmelmunz/Downloads/libraries-master/libraries-master/asm-3.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Murmelmunz/Downloads/libraries-master/libraries-master/commons-codec-1.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Murmelmunz/Downloads/libraries-master/libraries-master/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Murmelmunz/Downloads/libraries-master/libraries-master/grizzly-servlet-webserver-1.9.18-i.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Murmelmunz/Downloads/libraries-master/libraries-master/httpclient-4.1.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Murmelmunz/Downloads/libraries-master/libraries-master/httpclient-cache-4.1.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Murmelmunz/Downloads/libraries-master/libraries-master/httpcore-4.1.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Murmelmunz/Downloads/libraries-master/libraries-master/httpmime-4.1.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Murmelmunz/Downloads/libraries-master/libraries-master/jackson-core-asl-1.8.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Murmelmunz/Downloads/libraries-master/libraries-master/jackson-jaxrs-1.8.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Murmelmunz/Downloads/libraries-master/libraries-master/jackson-mapper-asl-1.8.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Murmelmunz/Downloads/libraries-master/libraries-master/jackson-xc-1.8.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Murmelmunz/Downloads/libraries-master/libraries-master/jersey-client-1.9.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Murmelmunz/Downloads/libraries-master/libraries-master/jersey-core-1.9.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Murmelmunz/Downloads/libraries-master/libraries-master/jersey-grizzly-1.9.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Murmelmunz/Downloads/libraries-master/libraries-master/jersey-json-1.9.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Murmelmunz/Downloads/libraries-master/libraries-master/jersey-server-1.9.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Murmelmunz/Downloads/libraries-master/libraries-master/jettison-1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Murmelmunz/Downloads/libraries-master/libraries-master/jsr311-api-1.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Murmelmunz/Downloads/libraries-master/libraries-master/mysql-connector-java-5.1.22-bin.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Murmelmunz/Downloads/libraries-master/libraries-master/persistence-api-1.0.2.jar"/>
+	<classpathentry kind="lib" path="/libraries/lib/asm-3.1.jar"/>
+	<classpathentry kind="lib" path="/libraries/lib/commons-codec-1.4.jar"/>
+	<classpathentry kind="lib" path="/libraries/lib/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="/libraries/lib/grizzly-servlet-webserver-1.9.18-i.jar"/>
+	<classpathentry kind="lib" path="/libraries/lib/httpclient-4.1.2.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/Users/thomas/Documents/Work/HS-Mannheim/IGT/03_Folien/java/libraries/doc/httpcomponents-client-4.1.2/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/libraries/lib/httpclient-cache-4.1.2.jar"/>
+	<classpathentry kind="lib" path="/libraries/lib/httpcore-4.1.2.jar"/>
+	<classpathentry kind="lib" path="/libraries/lib/httpmime-4.1.2.jar"/>
+	<classpathentry kind="lib" path="/libraries/lib/jackson-core-asl-1.8.3.jar"/>
+	<classpathentry kind="lib" path="/libraries/lib/jackson-jaxrs-1.8.3.jar"/>
+	<classpathentry kind="lib" path="/libraries/lib/jackson-mapper-asl-1.8.3.jar"/>
+	<classpathentry kind="lib" path="/libraries/lib/jackson-xc-1.8.3.jar"/>
+	<classpathentry kind="lib" path="/libraries/lib/jersey-client-1.9.1.jar"/>
+	<classpathentry kind="lib" path="/libraries/lib/jersey-core-1.9.1.jar"/>
+	<classpathentry kind="lib" path="/libraries/lib/jersey-grizzly-1.9.1.jar"/>
+	<classpathentry kind="lib" path="/libraries/lib/jersey-json-1.9.1.jar"/>
+	<classpathentry kind="lib" path="/libraries/lib/jersey-server-1.9.1.jar"/>
+	<classpathentry kind="lib" path="/libraries/lib/jettison-1.1.jar"/>
+	<classpathentry kind="lib" path="/libraries/lib/jsr311-api-1.1.1.jar"/>
+	<classpathentry kind="lib" path="/libraries/lib/mysql-connector-java-5.1.22-bin.jar"/>
+	<classpathentry kind="lib" path="/libraries/lib/persistence-api-1.0.2.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
