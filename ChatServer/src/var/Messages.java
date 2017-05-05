@@ -39,7 +39,7 @@ public class Messages {
 		//Dummystring
 		String[] s = {"bob","David","hallo David","0"};
 		
-		//Dummy-JSON-Nachricht
+		//JSON-Message throw into JSON-Object
 		JSONObject jsonMessage = new JSONObject();
 		jsonMessage.put("from", s[0]);
 		jsonMessage.put("to", s[1]);
