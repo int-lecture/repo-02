@@ -25,11 +25,21 @@ public class Messages {
 	@GET
 	@Produces("application/json")
 	public JSONArray receive(@PathParam("user_id") String username, @PathParam("sequenceNumber") int seqRecieved) throws JSONException {
-		System.out.println("aufruf" + username + seqRecieved);
+		
+		//Feld um die Nachrichten-Listenelemente in 
+		//ein zusammenhängendes JSONArray zu packen
 		JSONArray responseForUser = new JSONArray();
-		LinkedList<String[]> ll = new LinkedList<>();
+		
+		//Verkettete Liste mit einer Nachricht pro Glied<---(hihihi)
+		LinkedList<String[]> messageList = new LinkedList<>();
+		
+		//Erstelle eine Dummy JSON-Nachricht
 		{
+		
+		//Dummystring
 		String[] s = {"bob","David","hallo David","0"};
+		
+		//Dummy-JSON-Nachricht
 		JSONObject jsonMessage = new JSONObject();
 		jsonMessage.put("from", s[0]);
 		jsonMessage.put("to", s[1]);
@@ -37,10 +47,13 @@ public class Messages {
 		jsonMessage.put("sequence", s[3]);
 
 		responseForUser.put(jsonMessage);
-		ll.addFirst(s);
+		messageList.addFirst(s);
 		}
-
-		for (String[] s : ll) {
+		
+		//Der obrige Code nochmal mit ausprobiert mit try-catch
+		//Packe außerdem die JSON-Nachricht in ein JSON-Array
+		//Dieses JSON-Array bekommt der Client vor die Füße geworfen
+		for (String[] s : messageList) {
 			int seqMessage = Integer.parseInt(s[3]);
 			if(username.equals(s[1]) && seqMessage > seqRecieved){
 				try{
