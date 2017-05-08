@@ -1,9 +1,9 @@
 package var;
 
-import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.LinkedList;
+import java.util.Date;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.PUT;
@@ -42,11 +42,12 @@ public class Send {
 			JSONObject createdDetails = new JSONObject();
 			//Hier müsste das aktuelle Datum ins JSON geschrieben werden
 			//Current Systemtime
-			//SimpleDateFormat currentTime = new SimpleDateFormat(ISO8601);
+			SimpleDateFormat currentTime = new SimpleDateFormat(ISO8601);
 
-			createdDetails.put("date", date); //currentTime.toString()
+			createdDetails.put("date", currentTime.format(new Date())); //currentTime.toString()
 			createdDetails.put("sequence", Menu.getSeqCounter());
 			System.out.println("from: " + from + ", to: " + to);
+			System.out.println(currentTime.toPattern());
 			System.out.println(text);
 			System.out.println("Sequence: " +  Menu.getSeqCounter());
 			Menu.incSeqCounter();

@@ -14,6 +14,12 @@ public class Menu {
 	private static LinkedList<String[]> messageList = new LinkedList<>();
 	private static int seqCounter = 1;
 	public static void main(String[] args) throws IllegalArgumentException, IOException {
+		final String ISO8601 = "yyyy-MM-dd'T'HH:mm:ssZ";
+		SimpleDateFormat currentTime = new SimpleDateFormat(ISO8601);
+		System.out.println(currentTime.format(new Date()));
+		System.out.println(new Date());
+
+
 		final String baseUri = "http://localhost:5000/";
 		final String paket = "var";
 		final Map<String, String> initParams = new HashMap<String, String>();
