@@ -29,20 +29,22 @@ public class Send {
 		if(object.getString("from") != null &&
 			object.getString("to") != null &&
 			object.getString("date") != null &&
-			object.getString("text")!= null){
+			object.getString("text")!= null) {
 
 			//Put the message into the list-container
 			LinkedList<String[]> messageList = Menu.getMessageList();
+			SimpleDateFormat currentTime = new SimpleDateFormat(ISO8601);
 			String from = object.getString("to");
 			String to = object.getString("from");
 			String date = object.getString("date");
+			currentTime.parse(date);
 			String text = object.getString("text");
 			String[] newMessage = {from, to, date, text, Menu.getSeqCounter()+ ""};
 			messageList.add(newMessage);
 			JSONObject createdDetails = new JSONObject();
 			//Hier müsste das aktuelle Datum ins JSON geschrieben werden
 			//Current Systemtime
-			SimpleDateFormat currentTime = new SimpleDateFormat(ISO8601);
+
 
 			createdDetails.put("date", currentTime.format(new Date())); //currentTime.toString()
 			createdDetails.put("sequence", Menu.getSeqCounter());
