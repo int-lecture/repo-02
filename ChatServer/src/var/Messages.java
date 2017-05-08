@@ -15,7 +15,7 @@ import org.codehaus.jettison.json.JSONObject;
 @Path("/")
 @Produces(MediaType.APPLICATION_JSON)
 public class Messages {
-	LinkedList<String[]> messageList = Menu.getMessageList();
+	LinkedList<String[]> messageList = Main.getMessageList();
 
 	/**
 	 * Empfängt Anfragen und sendet alle vorhandenen Nachrichten.

@@ -31,14 +31,14 @@ public class Send {
 			object.getString("text")!= null) {
 
 			//Put the message into the list-container
-			LinkedList<String[]> messageList = Menu.getMessageList();
+			LinkedList<String[]> messageList = Main.getMessageList();
 			SimpleDateFormat currentTime = new SimpleDateFormat(ISO8601);
 			String from = object.getString("to");
 			String to = object.getString("from");
 			String date = object.getString("date");
 			currentTime.parse(date);
 			String text = object.getString("text");
-			String[] newMessage = {from, to, date, text, Menu.getSeqCounter()+ ""};
+			String[] newMessage = {from, to, date, text, Main.getSeqCounter()+ ""};
 			messageList.add(newMessage);
 			JSONObject createdDetails = new JSONObject();
 			//Hier müsste das aktuelle Datum ins JSON geschrieben werden
@@ -46,12 +46,12 @@ public class Send {
 
 
 			createdDetails.put("date", currentTime.format(new Date())); //currentTime.toString()
-			createdDetails.put("sequence", Menu.getSeqCounter());
+			createdDetails.put("sequence", Main.getSeqCounter());
 			//Test
 			System.out.println("from: " + from + ", to: " + to);
 			System.out.println(text);
-			System.out.println("Sequence: " +  Menu.getSeqCounter());
-			Menu.incSeqCounter();
+			System.out.println("Sequence: " +  Main.getSeqCounter());
+			Main.incSeqCounter();
 			return Response.status(Response.Status.CREATED).entity(createdDetails).build();
 		}
 		//If with the response is something wrong,
