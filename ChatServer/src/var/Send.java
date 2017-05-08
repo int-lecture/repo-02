@@ -46,6 +46,7 @@ public class Send {
 
 			createdDetails.put("date", currentTime.format(new Date())); //currentTime.toString()
 			createdDetails.put("sequence", Menu.getSeqCounter());
+			//Test
 			System.out.println("from: " + from + ", to: " + to);
 			System.out.println(currentTime.toPattern());
 			System.out.println(text);
