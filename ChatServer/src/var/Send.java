@@ -1,6 +1,5 @@
 package var;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.Date;
@@ -50,7 +49,6 @@ public class Send {
 			createdDetails.put("sequence", Menu.getSeqCounter());
 			//Test
 			System.out.println("from: " + from + ", to: " + to);
-			System.out.println(currentTime.toPattern());
 			System.out.println(text);
 			System.out.println("Sequence: " +  Menu.getSeqCounter());
 			Menu.incSeqCounter();
