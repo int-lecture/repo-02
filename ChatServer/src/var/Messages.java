@@ -58,7 +58,7 @@ public class Messages {
 				System.out.println(username + " ?= " +s[1]);
 
 			}
-			if(username.equals(s[0]) && seqMessage < seqRecieved){
+			if(username.equals(s[1]) && seqMessage < seqRecieved){
 				messageList.remove(i);
 			}
 		}
