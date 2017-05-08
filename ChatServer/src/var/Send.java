@@ -21,11 +21,6 @@ public class Send {
 	//Data-formate
 	public static final String ISO8601 = "yyyy-MM-dd'T'HH:mm:ssZ";
 
-	//Current Systemtime
-	private SimpleDateFormat currentTime = new SimpleDateFormat(ISO8601);
-
-
-
 	@PUT
 	@Consumes("application/json")
 	public Response put(JSONObject object){
@@ -38,21 +33,23 @@ public class Send {
 
 			//Put the message into the list-container
 			LinkedList<String[]> messageList = Menu.getMessageList();
-			String from = object.getString("from");
-			String to = object.getString("to");
+			String from = object.getString("to");
+			String to = object.getString("from");
 			String date = object.getString("date");
 			String text = object.getString("text");
 			String[] newMessage = {from, to, date, text, Menu.getSeqCounter()+ ""};
 			messageList.add(newMessage);
 			JSONObject createdDetails = new JSONObject();
 			//Hier müsste das aktuelle Datum ins JSON geschrieben werden
-			createdDetails.put("date", date);
+			//Current Systemtime
+			//SimpleDateFormat currentTime = new SimpleDateFormat(ISO8601);
+
+			createdDetails.put("date", date); //currentTime.toString()
 			createdDetails.put("sequence", Menu.getSeqCounter());
+			System.out.println("from: " + from + ", to: " + to);
+			System.out.println(text);
+			System.out.println("Sequence: " +  Menu.getSeqCounter());
 			Menu.incSeqCounter();
-
-
-
-
 			return Response.status(Response.Status.CREATED).entity(createdDetails).build();
 		}
 		//If with the response is something wrong,

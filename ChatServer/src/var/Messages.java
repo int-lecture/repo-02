@@ -41,7 +41,7 @@ public class Messages {
 		for (int i = messageList.size() - 1; i >= 0; i--) {
 			String[] s = messageList.get(i);
 			int seqMessage = Integer.parseInt(s[4]);
-			if(username.equals(s[1]) && seqMessage >= seqRecieved){
+			if(username.equals(s[0]) && seqMessage > seqRecieved){
 				try{
 					JSONObject jsonMessage = new JSONObject();
 					jsonMessage.put("from", s[1]);
@@ -53,12 +53,12 @@ public class Messages {
 				} catch (JSONException e){
 					System.out.println("Fehler beim Abrufen einer Nachricht");
 				}
-			} else {
-				System.out.println(seqMessage + " ?>= " + seqRecieved);
-				System.out.println(username + " ?= " +s[1]);
-
 			}
-			if(username.equals(s[1]) && seqMessage < seqRecieved){
+//			else {
+//				System.out.println(seqMessage + " ?>= " + seqRecieved);
+//				System.out.println(username + " ?= " +s[1]);
+//			}
+			if(username.equals(s[0]) && seqMessage <= seqRecieved){
 				messageList.remove(i);
 			}
 		}
