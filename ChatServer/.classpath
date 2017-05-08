@@ -26,27 +26,6 @@
 	<classpathentry kind="lib" path="/libraries/lib/jsr311-api-1.1.1.jar"/>
 	<classpathentry kind="lib" path="/libraries/lib/mysql-connector-java-5.1.22-bin.jar"/>
 	<classpathentry kind="lib" path="/libraries/lib/persistence-api-1.0.2.jar"/>
-	<classpathentry kind="lib" path="H:/workspace/libraries/lib/asm-3.1.jar"/>
-	<classpathentry kind="lib" path="H:/workspace/libraries/lib/commons-codec-1.4.jar"/>
-	<classpathentry kind="lib" path="H:/workspace/libraries/lib/commons-logging-1.1.1.jar"/>
-	<classpathentry kind="lib" path="H:/workspace/libraries/lib/grizzly-servlet-webserver-1.9.18-i.jar"/>
-	<classpathentry kind="lib" path="H:/workspace/libraries/lib/httpclient-4.1.2.jar"/>
-	<classpathentry kind="lib" path="H:/workspace/libraries/lib/httpclient-cache-4.1.2.jar"/>
-	<classpathentry kind="lib" path="H:/workspace/libraries/lib/httpcore-4.1.2.jar"/>
-	<classpathentry kind="lib" path="H:/workspace/libraries/lib/httpmime-4.1.2.jar"/>
-	<classpathentry kind="lib" path="H:/workspace/libraries/lib/jackson-core-asl-1.8.3.jar"/>
-	<classpathentry kind="lib" path="H:/workspace/libraries/lib/jackson-jaxrs-1.8.3.jar"/>
-	<classpathentry kind="lib" path="H:/workspace/libraries/lib/jackson-mapper-asl-1.8.3.jar"/>
-	<classpathentry kind="lib" path="H:/workspace/libraries/lib/jackson-xc-1.8.3.jar"/>
-	<classpathentry kind="lib" path="H:/workspace/libraries/lib/jersey-client-1.9.1.jar"/>
-	<classpathentry kind="lib" path="H:/workspace/libraries/lib/jersey-core-1.9.1.jar"/>
-	<classpathentry kind="lib" path="H:/workspace/libraries/lib/jersey-grizzly-1.9.1.jar"/>
-	<classpathentry kind="lib" path="H:/workspace/libraries/lib/jersey-json-1.9.1.jar"/>
-	<classpathentry kind="lib" path="H:/workspace/libraries/lib/jersey-server-1.9.1.jar"/>
-	<classpathentry kind="lib" path="H:/workspace/libraries/lib/jettison-1.1.jar"/>
-	<classpathentry kind="lib" path="H:/workspace/libraries/lib/jsr311-api-1.1.1.jar"/>
-	<classpathentry kind="lib" path="H:/workspace/libraries/lib/mysql-connector-java-5.1.22-bin.jar"/>
-	<classpathentry kind="lib" path="H:/workspace/libraries/lib/persistence-api-1.0.2.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
