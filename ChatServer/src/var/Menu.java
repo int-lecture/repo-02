@@ -12,7 +12,7 @@ public class Menu {
 	private static LinkedList<String[]> messageList = new LinkedList<>();
 	private static int seqCounter = 0;
 	public static void main(String[] args) throws IllegalArgumentException, IOException {
-		final String baseUri = "http://localhost:9998/";
+		final String baseUri = "http://localhost:5000/";
 		final String paket = "var";
 		final Map<String, String> initParams = new HashMap<String, String>();
 		initParams.put("com.sun.jersey.config.property.packages", paket);
