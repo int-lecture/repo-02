@@ -20,6 +20,8 @@ public class Main {
 		System.in.read();
 		threadSelector.stopEndpoint();
 		System.out.println("Grizzly wurde beendet");
+		UserManagement um = new UserManagement();
+		um.BeispielWerte();
 		System.exit(0);
 	}
 }
