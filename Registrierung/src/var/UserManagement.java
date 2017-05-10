@@ -43,19 +43,23 @@ public class UserManagement {
 	}
 
 	/**
-	 * Erstellt einen neuen Nutzer
+	 * Erstellt einen neuen Nutzer und speichert dessen Daten sicher ab.
 	 * 
 	 * @param user
 	 *            Benutzername Name des neuen Nutzers
 	 */
-	protected void createUser(String username, String email, String password) {
+	protected void createUser(String username, String email, String password) throws InvalidParameterException {
 		if (!UserContacts.containsKey(username)) {
 			UserContacts.put(username, new LinkedList<String>());
-			String[] UserInfo = { email, password, generateToken(), new Date().toString() };
+			int salt = (int) (Math.random() * 100000000 + 10000);
+			String pwHash = (password + salt).hashCode() + "";
+			String[] UserInfo = {email, pwHash, generateToken(), new Date().toString(), salt + "" };
 			Userbase.put(username, UserInfo);
+		} else {
+			throw new InvalidParameterException("Nutzer schon vorhanden");
 		}
 	}
-
+	
 	/**
 	 * Generiert ein neues sicheres Token.
 	 * 
@@ -81,15 +85,20 @@ public class UserManagement {
 
 	/**
 	 * Überprüft ob das Token eines Nutzers korrekt ist und ob es noch gültig
-	 * ist.
+	 * ist. Wirft eine Exception wenn der Nutzer noch nicht registriert ist.
 	 * 
 	 * @param user
 	 *            Benutzername
 	 * @param token
 	 *            Validierungstoken
 	 * @return Gültigkeit
+	 * @throws AccessException 
 	 */
-	protected boolean checkToken(String user, String token) {
+	protected boolean checkToken(String user, String token) throws AccessException {
+		if (!Userbase.containsKey(user)){
+			throw new AccessException("User nicht vorhanden");
+		}
+		
 		// TODO: Gültigkeit hinzufügen
 		return token.equals(Userbase.get(user)[2]);
 	}
@@ -118,7 +127,7 @@ public class UserManagement {
 	 * Exception wenn der Nutzer nicht registriert ist.
 	 * 
 	 * @param user
-	 *            Benutzername Name des Nutzers
+	 *            Benutzername
 	 * @param contact
 	 *            Name des neuen Kontakts
 	 * @throws InvalidParameterException
@@ -138,7 +147,7 @@ public class UserManagement {
 	protected void BeispielWerte() {
 		String[] newUsers = { "Bob", "Hans", "Lisa", "Tom", "Tim", "Kevin", "David", "Fabian", "Philip" };
 		for (String user : newUsers) {
-			createUser(user, " ", " ");
+			createUser(user, "e@mail.de", "Passwort");
 			int length = (int) (Math.random() * 4 + 1);
 			for (int i = 0; i < length; i++) {
 				int Kontakt = (int) (Math.random() * newUsers.length - 1);
@@ -160,10 +169,10 @@ public class UserManagement {
 	public String toString() {
 		String s = "";
 		for (String user : UserContacts.keySet()) {
-			s = s + "User: " + user + " ->";
+			s += getInfo(user) +  " ->";
 			try {
 				for (String contacts : getContacts(user, Userbase.get(user)[2])) {
-					s = s + "  " + contacts;
+					s += "  " + contacts;
 				}
 			} catch (AccessException | NoSuchElementException e) {
 				System.out.println(e.getMessage());
@@ -172,4 +181,29 @@ public class UserManagement {
 		}
 		return s;
 	}
+	
+	/**
+	 * Überprüft ob ein Passwort mit dem gespeicherten Passwort eines Nutzers übereinstimmt.
+	 * @param user
+	 * @param pw
+	 * @return
+	 */
+	protected boolean checkPw(String user, String pw) {
+		String pwHash = (pw + Userbase.get(user)[4]).hashCode() + "";
+		return pwHash.equals(Userbase.get(user)[1]);
+	}
+
+	/**
+	 * Gibt die Email und das gehashte Passwort eines Nutzers zurück.
+	 * @param user
+	 * @return
+	 */
+	private String getInfo(String user){
+		String ausgleich = " ";
+		for (int i = user.length(); i < 10; i++){
+			ausgleich += " ";
+		}
+		return " - " + user + ausgleich + "---> E-Mail: " + Userbase.get(user)[0] + ", Password: " + Userbase.get(user)[1];
+	}
+	
 }
