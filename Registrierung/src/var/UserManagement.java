@@ -10,19 +10,19 @@ import java.util.*;
  */
 public class UserManagement {
 
-	/* Map mit Username als Schlüssel und einer LinkedList für alle Kontakte */
+	/* Map mit Username als Schlüssel und einer LinkedList für alle Kontakte (nsfw)*/
 	private static Map<String, LinkedList<String>> UserContacts = new HashMap<String, LinkedList<String>>();
 
 	/*
 	 * Map mit Username als Schlüssel und einem Array mit der E-Mail und dem
-	 * Passwort
+	 * Passwort (nsfw)
 	 */
 	private static Map<String, String[]> Userbase = new HashMap<String, String[]>();
 
 	/**
 	 * Gibt alle Kontakte eines Nutzers zurück. Wenn es keinen Nutzer mit dem
 	 * Namen gibt wird eine Exception geworfen.
-	 * 
+	 *
 	 * @param user
 	 *            Benutzername
 	 * @return Kontakte
@@ -44,7 +44,7 @@ public class UserManagement {
 
 	/**
 	 * Erstellt einen neuen Nutzer und speichert dessen Daten sicher ab.
-	 * 
+	 * (nsfw)
 	 * @param user
 	 *            Benutzername Name des neuen Nutzers
 	 */
@@ -59,10 +59,10 @@ public class UserManagement {
 			throw new InvalidParameterException("Nutzer schon vorhanden");
 		}
 	}
-	
+
 	/**
 	 * Generiert ein neues sicheres Token.
-	 * 
+	 * (((nsfw)))
 	 * @return Validierungstoken
 	 */
 	private String generateToken() {
@@ -72,7 +72,7 @@ public class UserManagement {
 
 	/**
 	 * Überschreibt das Token und die Zeit an dem es gesetzt wurde.
-	 * 
+	 * (nsfw)
 	 * @param user
 	 *            Benutzername
 	 * @param token
@@ -86,19 +86,19 @@ public class UserManagement {
 	/**
 	 * Überprüft ob das Token eines Nutzers korrekt ist und ob es noch gültig
 	 * ist. Wirft eine Exception wenn der Nutzer noch nicht registriert ist.
-	 * 
+	 *
 	 * @param user
 	 *            Benutzername
 	 * @param token
 	 *            Validierungstoken
 	 * @return Gültigkeit
-	 * @throws AccessException 
+	 * @throws AccessException
 	 */
 	protected boolean checkToken(String user, String token) throws AccessException {
 		if (!Userbase.containsKey(user)){
 			throw new AccessException("User nicht vorhanden");
 		}
-		
+
 		// TODO: Gültigkeit hinzufügen
 		return token.equals(Userbase.get(user)[2]);
 	}
@@ -106,7 +106,7 @@ public class UserManagement {
 	/**
 	 * Gibt die Email eines Nutzers zurück, wenn dieser sich mit dem Token
 	 * ausweisen kann.
-	 * 
+	 *
 	 * @param user
 	 *            Benutzername
 	 * @param token
@@ -125,7 +125,7 @@ public class UserManagement {
 	/**
 	 * Legt einen neuen Kontakt für den angegebenen Nutzer an. Wirft eine
 	 * Exception wenn der Nutzer nicht registriert ist.
-	 * 
+	 * (nsfw)
 	 * @param user
 	 *            Benutzername
 	 * @param contact
@@ -161,7 +161,7 @@ public class UserManagement {
 		System.out.println(this.toString());
 	}
 
-	
+
 	/**
 	 * Gibt einen String zurück der alle User und deren Kontakte enthällt.
 	 */
@@ -181,7 +181,7 @@ public class UserManagement {
 		}
 		return s;
 	}
-	
+
 	/**
 	 * Überprüft ob ein Passwort mit dem gespeicherten Passwort eines Nutzers übereinstimmt.
 	 * @param user
@@ -205,5 +205,5 @@ public class UserManagement {
 		}
 		return " - " + user + ausgleich + "---> E-Mail: " + Userbase.get(user)[0] + ", Password: " + Userbase.get(user)[1];
 	}
-	
+
 }
