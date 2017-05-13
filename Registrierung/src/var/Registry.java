@@ -1,5 +1,7 @@
 package var;
 
+import java.security.InvalidParameterException;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -29,12 +31,19 @@ public class Registry {
 		try {
 			if (jsonObject.getString("pseudonym") != null && jsonObject.getString("password") != null
 					&& jsonObject.getString("user") != null) {
-				if (Math.random() >= 0.5) { // Später soll geschaut werden ob
-											// der Username schon vergeben ist.
+				String pseudonym = jsonObject.getString("pseudonym");
+				String password = jsonObject.getString("password");
+				String email = jsonObject.getString("user");
+				try {
+					//Nutzer erstellen
+					UserManagement um = new UserManagement();
+					um.createUser(pseudonym, email, password);
+					//Rückgabe aufbauen
 					JSONObject profilDetails = new JSONObject();
 					profilDetails.put("succes", "true");
+					System.out.println(um);
 					return Response.status(Response.Status.OK).entity(profilDetails).build();
-				} else {
+				} catch (InvalidParameterException e) {
 					return Response.status(418).entity("Pseudonym or Username taken").build();
 				}
 			}

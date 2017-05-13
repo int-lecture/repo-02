@@ -1,5 +1,7 @@
 package var;
 
+import java.rmi.AccessException;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -28,17 +30,26 @@ public class Profile {
 	public Response profile(JSONObject jsonObject) {
 		try {
 			if (jsonObject.getString("token") != null && jsonObject.getString("getownprofile") != null) {
-				JSONObject profilDetails = new JSONObject();
-				profilDetails.put("name", "susi");
-				profilDetails.put("email", "susiLiebtBob@web.de");
-				JSONArray contacts = new JSONArray();
-				contacts.put("bob");
-				contacts.put("peter");
-				contacts.put("klaus");
-				profilDetails.put("contacts", contacts);
-				return Response.status(Response.Status.CREATED).entity(profilDetails).build();
+				String token = jsonObject.getString("token");
+				String profile = jsonObject.getString("getownprofile");
+				//Authentifizierung prüfen
+				UserManagement um = new UserManagement();
+				if (um.checkToken(profile, token)) {
+					JSONObject profilDetails = new JSONObject();
+					//Rückgabe aufbauen
+					profilDetails.put("name", profile);
+					profilDetails.put("email", um.getEmail(profile, token));
+					//Kontakte abrufen
+					JSONArray contacts = new JSONArray();
+					for (String contact : um.getContacts(profile, token)) {
+						contacts.put(contact);
+					}
+					profilDetails.put("contacts", contacts);
+					return Response.status(Response.Status.CREATED).entity(profilDetails).build();
+				}
 			}
-		} catch (JSONException e) {
+		//Probleme mit Authentifizierung oder Anfrage
+		} catch (JSONException | AccessException e) {
 			return Response.status(Response.Status.BAD_REQUEST).entity("Bad Request").build();
 		}
 		return Response.status(Response.Status.BAD_REQUEST).entity("Bad Request").build();
