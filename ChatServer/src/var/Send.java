@@ -15,7 +15,9 @@ import org.codehaus.jettison.json.JSONObject;
 public class Send {
 
 	// Data-formate
-	public static final String ISO8601 = "yyyy-MM-dd'T'HH:mm:ssZ";
+	private static final String ISO8601 = "yyyy-MM-dd'T'HH:mm:ssZ";
+	
+	private LinkedList<String[]> messageList = Main.getMessageList();
 
 	@PUT
 	@Consumes("application/json")
@@ -26,7 +28,6 @@ public class Send {
 					&& object.getString("text") != null) {
 
 				// Put the message into the list-container
-				LinkedList<String[]> messageList = Main.getMessageList();
 				SimpleDateFormat currentTime = new SimpleDateFormat(ISO8601);
 				String from = object.getString("to");
 				String to = object.getString("from");
@@ -34,11 +35,13 @@ public class Send {
 				currentTime.parse(date);
 				String text = object.getString("text");
 				String[] newMessage = { from, to, date, text, Main.getSeqCounter() + "" };
+				
+				synchronized (Main.tokenMessageList) {
 				messageList.add(newMessage);
+				}
+				
 				JSONObject createdDetails = new JSONObject();
-				// Hier müsste das aktuelle Datum ins JSON geschrieben werden
 				// Current Systemtime
-
 				createdDetails.put("date", currentTime.format(new Date())); // currentTime.toString()
 				createdDetails.put("sequence", Main.getSeqCounter());
 				// Test

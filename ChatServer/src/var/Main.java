@@ -11,8 +11,15 @@ import com.sun.jersey.api.container.grizzly.GrizzlyWebContainerFactory;
 
 
 public class Main {
+	
 	private static LinkedList<String[]> messageList = new LinkedList<>();
+	
 	private static int seqCounter = 1;
+	
+	public static final Object tokenMessageList = new Object();
+	
+	public static final Object tokenSeqCounter = new Object();
+	
 	public static void main(String[] args) throws IllegalArgumentException, IOException {
 		final String baseUri = "http://localhost:5000/";
 		final String paket = "var";
@@ -29,14 +36,20 @@ public class Main {
 		System.exit(0);
 	}
 	static LinkedList<String[]> getMessageList() {
+		synchronized (Main.tokenMessageList) {
 		return messageList;
+		}
 	}
 
 	static int getSeqCounter() {
+		synchronized (Main.tokenSeqCounter) {
 		return seqCounter;
+		}
 	}
 	static void incSeqCounter() {
+		synchronized (Main.tokenSeqCounter) {
 		seqCounter++;
+		}
 	}
 
 }

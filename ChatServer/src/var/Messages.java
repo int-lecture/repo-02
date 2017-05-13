@@ -15,7 +15,8 @@ import org.codehaus.jettison.json.JSONObject;
 @Path("/")
 @Produces(MediaType.APPLICATION_JSON)
 public class Messages {
-	LinkedList<String[]> messageList = Main.getMessageList();
+	
+	private LinkedList<String[]> messageList = Main.getMessageList();
 
 	/**
 	 * Empfängt Anfragen und sendet alle vorhandenen Nachrichten.
@@ -42,6 +43,9 @@ public class Messages {
 		// Feld um die Nachrichten-Listenelemente in
 		// ein zusammenhängendes JSONArray zu packen
 		JSONArray responseForUser = new JSONArray();
+		
+		//VIP's only!
+		synchronized (Main.tokenMessageList) {
 		for (int i = messageList.size() - 1; i >= 0; i--) {
 			String[] s = messageList.get(i);
 			int seqMessage = Integer.parseInt(s[4]);
@@ -61,6 +65,7 @@ public class Messages {
 			if (username.equals(s[0]) && seqMessage <= seqRecieved) {
 				messageList.remove(i);
 			}
+		}
 		}
 		return responseForUser;
 	}
