@@ -48,7 +48,7 @@ public class UserManagement {
 	 * @param user
 	 *            Benutzername Name des neuen Nutzers
 	 */
-	protected void createUser(String username, String email, String password) throws InvalidParameterException {
+	protected synchronized void createUser(String username, String email, String password) throws InvalidParameterException {
 		if (!UserContacts.containsKey(username)) {
 			UserContacts.put(username, new LinkedList<String>());
 			int salt = (int) (Math.random() * 100000000 + 10000);
