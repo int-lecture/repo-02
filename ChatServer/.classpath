@@ -1,31 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry excluding="var/chatserver/" kind="src" path="src"/>
-	<classpathentry kind="lib" path="/libraries/lib/asm-3.1.jar"/>
-	<classpathentry kind="lib" path="/libraries/lib/commons-codec-1.4.jar"/>
-	<classpathentry kind="lib" path="/libraries/lib/commons-logging-1.1.1.jar"/>
-	<classpathentry kind="lib" path="/libraries/lib/grizzly-servlet-webserver-1.9.18-i.jar"/>
-	<classpathentry kind="lib" path="/libraries/lib/httpclient-4.1.2.jar">
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/libraries/lib/grizzly/grizzly-servlet-webserver-1.9.18-i.jar"/>
+	<classpathentry kind="lib" path="/libraries/lib/grizzly/jersey-grizzly-1.9.1.jar"/>
+	<classpathentry kind="lib" path="/libraries/lib/httpcomponents-client/commons-codec-1.9.jar"/>
+	<classpathentry kind="lib" path="/libraries/lib/httpcomponents-client/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="/libraries/lib/httpcomponents-client/fluent-hc-4.5.3.jar"/>
+	<classpathentry kind="lib" path="/libraries/lib/httpcomponents-client/httpclient-4.5.3.jar" sourcepath="/libraries/srcs/httpcomponents-client-4.5.3-src.zip"/>
+	<classpathentry kind="lib" path="/libraries/lib/httpcomponents-client/httpclient-cache-4.5.3.jar"/>
+	<classpathentry kind="lib" path="/libraries/lib/httpcomponents-client/httpclient-win-4.5.3.jar"/>
+	<classpathentry kind="lib" path="/libraries/lib/httpcomponents-client/httpcore-4.4.6.jar"/>
+	<classpathentry kind="lib" path="/libraries/lib/httpcomponents-client/httpmime-4.5.3.jar"/>
+	<classpathentry kind="lib" path="/libraries/lib/httpcomponents-client/jna-4.1.0.jar"/>
+	<classpathentry kind="lib" path="/libraries/lib/httpcomponents-client/jna-platform-4.1.0.jar"/>
+	<classpathentry kind="lib" path="/libraries/lib/httpcomponents-core/commons-cli-1.2.jar"/>
+	<classpathentry kind="lib" path="/libraries/lib/httpcomponents-core/httpcore-4.4.6.jar" sourcepath="/libraries/srcs/httpcomponents-core-4.4.6-src.zip"/>
+	<classpathentry kind="lib" path="/libraries/lib/httpcomponents-core/httpcore-ab-4.4.6.jar"/>
+	<classpathentry kind="lib" path="/libraries/lib/httpcomponents-core/httpcore-nio-4.4.6.jar"/>
+	<classpathentry kind="lib" path="/libraries/lib/jersey/jackson-core-asl-1.9.2.jar"/>
+	<classpathentry kind="lib" path="/libraries/lib/jersey/jackson-jaxrs-1.9.2.jar"/>
+	<classpathentry kind="lib" path="/libraries/lib/jersey/jackson-mapper-asl-1.9.2.jar"/>
+	<classpathentry kind="lib" path="/libraries/lib/jersey/jackson-xc-1.9.2.jar"/>
+	<classpathentry kind="lib" path="/libraries/lib/jersey/jersey-client-1.19.1.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="file:/Users/thomas/Documents/Work/HS-Mannheim/IGT/03_Folien/java/libraries/doc/httpcomponents-client-4.1.2/"/>
+			<attribute name="javadoc_location" value="jar:platform:/resource/libraries/doc/jersey/jersey.zip!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/libraries/lib/httpclient-cache-4.1.2.jar"/>
-	<classpathentry kind="lib" path="/libraries/lib/httpcore-4.1.2.jar"/>
-	<classpathentry kind="lib" path="/libraries/lib/httpmime-4.1.2.jar"/>
-	<classpathentry kind="lib" path="/libraries/lib/jackson-core-asl-1.8.3.jar"/>
-	<classpathentry kind="lib" path="/libraries/lib/jackson-jaxrs-1.8.3.jar"/>
-	<classpathentry kind="lib" path="/libraries/lib/jackson-mapper-asl-1.8.3.jar"/>
-	<classpathentry kind="lib" path="/libraries/lib/jackson-xc-1.8.3.jar"/>
-	<classpathentry kind="lib" path="/libraries/lib/jersey-client-1.9.1.jar"/>
-	<classpathentry kind="lib" path="/libraries/lib/jersey-core-1.9.1.jar"/>
-	<classpathentry kind="lib" path="/libraries/lib/jersey-grizzly-1.9.1.jar"/>
-	<classpathentry kind="lib" path="/libraries/lib/jersey-json-1.9.1.jar"/>
-	<classpathentry kind="lib" path="/libraries/lib/jersey-server-1.9.1.jar"/>
-	<classpathentry kind="lib" path="/libraries/lib/jettison-1.1.jar"/>
-	<classpathentry kind="lib" path="/libraries/lib/jsr311-api-1.1.1.jar"/>
-	<classpathentry kind="lib" path="/libraries/lib/mysql-connector-java-5.1.22-bin.jar"/>
-	<classpathentry kind="lib" path="/libraries/lib/persistence-api-1.0.2.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/libraries/lib/jersey/jersey-core-1.19.1.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/libraries/doc/jersey/jersey.zip!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/libraries/lib/jersey/jersey-json-1.19.1.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/libraries/doc/jersey/jersey.zip!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/libraries/lib/jersey/jersey-server-1.19.1.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/libraries/doc/jersey/jersey-simple-server.zip!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/libraries/lib/jersey/jersey-servlet-1.19.1.jar"/>
+	<classpathentry kind="lib" path="/libraries/lib/jersey/jettison-1.1.jar"/>
+	<classpathentry kind="lib" path="/libraries/lib/jersey/jsr311-api-1.1.1.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/libraries/doc/jersey/jsr311.zip!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/libraries/lib/json/json-20160810.jar"/>
+	<classpathentry kind="lib" path="/libraries/lib/mysql/mysql-connector-java-5.1.42-bin.jar"/>
+	<classpathentry kind="lib" path="/libraries/lib/mysql/persistence-api-1.0.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User/Downloads/mongo-java-driver-2.13.3-javadoc.jar"/>
+	<classpathentry kind="lib" path="/libraries/lib/mongo/mongo-java-driver-3.4.2.jar"/>
+	<classpathentry kind="lib" path="/libraries/lib/mongo/mongodb-driver-3.4.2.jar"/>
+	<classpathentry kind="lib" path="/libraries/lib/mongo/mongodb-driver-core-3.4.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

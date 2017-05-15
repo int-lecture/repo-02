@@ -4,7 +4,6 @@ import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Filters.gt;
 import static com.mongodb.client.model.Filters.lte;
-import static var.chat.server.ChatServerMain.MONGO_URL;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,14 +17,15 @@ import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
-import var.chat.server.domain.Message;
 
 /**
  * Storage provider for a MongoDB.
  */
-class StorageProviderMongoDB implements StorageProvider {
+class StorageProviderMongoDB {
 
-    /** URI to the MongoDB instance. */
+    private static final String MONGO_URL = "";
+
+	/** URI to the MongoDB instance. */
     private static MongoClientURI connectionString =
             new MongoClientURI(MONGO_URL);
 
