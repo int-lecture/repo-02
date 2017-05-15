@@ -2,7 +2,7 @@
 
 * URL: mongodb://141.19.142.56/users
 
-User:
+account:
 ```json
 {
   "pseudonym": "susi",
@@ -12,7 +12,7 @@ User:
 }
 ```
 
-Token:
+token:
 ```json
 {
   "pseudonym": "susi",
