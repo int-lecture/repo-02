@@ -7,9 +7,14 @@ import java.util.Date;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.codehaus.jettison.json.JSONObject;
+
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.WebResource;
 
 @Path("/send")
 public class Send {
@@ -25,10 +30,13 @@ public class Send {
 		try {
 			// Check if all Request-Elements are not empty
 			if (object.getString("from") != null && object.getString("to") != null && object.getString("date") != null
-					&& object.getString("text") != null) {
+					&& object.getString("text") != null && object.getString("token") != null) {
 
 				// Put the message into the list-container
 				SimpleDateFormat currentTime = new SimpleDateFormat(ISO8601);
+				// we would check the token, send a response 
+				
+				String token = object.getString("token");
 				String from = object.getString("to");
 				String to = object.getString("from");
 				String date = object.getString("date");
@@ -36,6 +44,27 @@ public class Send {
 				String text = object.getString("text");
 				String[] newMessage = { from, to, date, text, Main.getSeqCounter() + "" };
 				
+				String url = "http://141.19.142.61:5001/auth";
+				Client client = Client.create();
+
+				WebResource webResource = client
+				   .resource(url);
+
+				String input = "{\"token\": \"" + token + "\",\"pseudonym\": \"" + to + "\"}";
+				System.out.println(input);
+				
+
+				ClientResponse response = webResource.type("application/json")
+				   .post(ClientResponse.class, input);
+
+				if (response.getStatus() != 200) {
+					System.out.println(response.getStatus());
+					return Response.status(Response.Status.UNAUTHORIZED).entity("böser bub").build();
+				}
+
+				System.out.println("Output from Server .... \n");
+				String output = response.getEntity(String.class);
+				System.out.println(output);
 				synchronized (Main.tokenMessageList) {
 				messageList.add(newMessage);
 				}
@@ -59,6 +88,7 @@ public class Send {
 
 			// Send the fail-Response with statuscode 400
 		} catch (Exception e) {
+			e.printStackTrace();
 			return Response.status(Response.Status.BAD_REQUEST).entity("Bad Request").build();
 		}
 	}
