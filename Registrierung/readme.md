@@ -5,10 +5,9 @@
 User:
 ```json
 {
-  "name": "susi",
+  "pseudonym": "susi",
   "email": "susiLiebtBob@web.de",
   "passwort": "hash123",
-  "salt": "very salty",
   "contact": ["bob" , "peter", "klaus"]
 }
 ```
@@ -16,7 +15,7 @@ User:
 Token:
 ```json
 {
-  "user": "susi",
+  "pseudonym": "susi",
   "token": "very save token",
   "expire-date": "dienstag"
 }
