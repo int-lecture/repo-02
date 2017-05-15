@@ -21,7 +21,7 @@ public class Send {
 
 	// Data-formate
 	private static final String ISO8601 = "yyyy-MM-dd'T'HH:mm:ssZ";
-	
+
 	private LinkedList<String[]> messageList = Main.getMessageList();
 
 	@PUT
@@ -34,8 +34,8 @@ public class Send {
 
 				// Put the message into the list-container
 				SimpleDateFormat currentTime = new SimpleDateFormat(ISO8601);
-				// we would check the token, send a response 
-				
+				// we would check the token, send a response
+
 				String token = object.getString("token");
 				String from = object.getString("to");
 				String to = object.getString("from");
@@ -43,8 +43,8 @@ public class Send {
 				currentTime.parse(date);
 				String text = object.getString("text");
 				String[] newMessage = { from, to, date, text, Main.getSeqCounter() + "" };
-				
-				String url = "http://141.19.142.61:5001/auth";
+
+				String url = "http://141.19.142.57:5001/auth";
 				Client client = Client.create();
 
 				WebResource webResource = client
@@ -52,14 +52,14 @@ public class Send {
 
 				String input = "{\"token\": \"" + token + "\",\"pseudonym\": \"" + to + "\"}";
 				System.out.println(input);
-				
+
 
 				ClientResponse response = webResource.type("application/json")
 				   .post(ClientResponse.class, input);
 
 				if (response.getStatus() != 200) {
 					System.out.println(response.getStatus());
-					return Response.status(Response.Status.UNAUTHORIZED).entity("böser bub").build();
+					return Response.status(Response.Status.UNAUTHORIZED).entity("bï¿½ser bub").build();
 				}
 
 				System.out.println("Output from Server .... \n");
@@ -68,7 +68,7 @@ public class Send {
 				synchronized (Main.tokenMessageList) {
 				messageList.add(newMessage);
 				}
-				
+
 				JSONObject createdDetails = new JSONObject();
 				// Current Systemtime
 				createdDetails.put("date", currentTime.format(new Date())); // currentTime.toString()

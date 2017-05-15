@@ -6,7 +6,10 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.MultivaluedMap;
 
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
@@ -15,7 +18,7 @@ import org.codehaus.jettison.json.JSONObject;
 @Path("/")
 @Produces(MediaType.APPLICATION_JSON)
 public class Messages {
-	
+
 	private LinkedList<String[]> messageList = Main.getMessageList();
 
 	/**
@@ -26,8 +29,8 @@ public class Messages {
 	@GET
 	@Path("/messages/{user_id}")
 	@Produces("application/json")
-	public JSONArray receive(@PathParam("user_id") String username) {
-		return receive(username, 0);
+	public JSONArray receive(@PathParam("user_id") String username, @Context HttpHeaders header) {
+		return receive(username, 0, header);
 	}
 
 	/**
@@ -39,11 +42,13 @@ public class Messages {
 	@GET
 	@Path("/messages/{user_id}/{sequenceNumber}")
 	@Produces("application/json")
-	public JSONArray receive(@PathParam("user_id") String username, @PathParam("sequenceNumber") int seqRecieved) {
+	public JSONArray receive(@PathParam("user_id") String username, @PathParam("sequenceNumber") int seqRecieved, @Context HttpHeaders header) {
+		MultivaluedMap<String, String> map = header.getRequestHeaders();
+		map.get("Authorization").get(0);
 		// Feld um die Nachrichten-Listenelemente in
 		// ein zusammenhängendes JSONArray zu packen
 		JSONArray responseForUser = new JSONArray();
-		
+
 		//VIP's only!
 		synchronized (Main.tokenMessageList) {
 		for (int i = messageList.size() - 1; i >= 0; i--) {
