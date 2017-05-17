@@ -8,7 +8,11 @@ account:
   "pseudonym": "susi",
   "email": "susiLiebtBob@web.de",
   "passwort": "hash123",
-  "contact": ["bob" , "peter", "klaus"]
+  "contact": [
+              {"pseudonym" : "bob"},
+              {"pseudonym" : "peter"}, 
+              {"pseudonym" : "klaus"}
+             ]
 }
 ```
 
