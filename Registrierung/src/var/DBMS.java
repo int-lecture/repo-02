@@ -19,7 +19,7 @@ import com.mongodb.client.MongoDatabase;
 
 public class DBMS {
 
-	    private static final String MONGO_URL = "mongodb://141.19.142.56/user";
+	    private static final String MONGO_URL = "mongodb://141.19.142.56/users";
 
 		/** URI to the MongoDB instance. */
 	    private static MongoClientURI connectionString =
@@ -29,8 +29,14 @@ public class DBMS {
 	    private static MongoClient mongoClient = new MongoClient(connectionString);
 
 	    /** Mongo database. */
-	    private static MongoDatabase database = mongoClient.getDatabase("chat");
+	    private static MongoDatabase database = mongoClient.getDatabase("users");
+	    
+	    /** Mongo Collection for accounts */
+	    private static MongoCollection<Document> accountCollection = database.getCollection("account");
 
+	    /** Mongo Collection for tokens which belongs to a account */
+	    private static MongoCollection<Document> tokenCollection = database.getCollection("token");
+	    
 	    /**
 	     * @see var.chat.server.persistence.StorageProvider#retrieveAndUpdateSequence(java.lang.String)
 	     */
@@ -116,5 +122,19 @@ public class DBMS {
 	    public void clearForTest() {
 	        database.getCollection("messages").drop();
 	        database.getCollection("sequences").drop();
+		}
+
+	    /**
+	     * @return collection of tokens which belongs to a account
+	     */
+		public static MongoCollection<Document> getTokenCollection() {
+			return tokenCollection;
+		}
+
+		/**
+		 * @return collection of accounts
+		 */
+		public static MongoCollection<Document> getAccountCollection() {
+			return accountCollection;
 		}
 }
