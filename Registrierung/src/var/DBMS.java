@@ -2,20 +2,12 @@ package var;
 
 import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
-import static com.mongodb.client.model.Filters.gt;
-import static com.mongodb.client.model.Filters.lte;
-
 import java.security.InvalidParameterException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import org.bson.Document;
 import org.json.JSONObject;
 
-import com.mongodb.Block;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.FindIterable;
@@ -36,26 +28,23 @@ public class DBMS {
 	private static MongoDatabase database = mongoClient.getDatabase("userbase");
 
 	/** Mongo Collection for accounts */
-	private static MongoCollection<Document> accountCollection = database.getCollection("account");
 
 	/** Mongo Collection for tokens which belongs to a account */
-	private static MongoCollection<Document> tokenCollection = database.getCollection("token");
 
-	void addContact(String user, String contact) {
+	public void addContact(String user, String contact) {
 		MongoCollection<Document> contactCollection = database.getCollection("contact");
 		Document checkContact = contactCollection.find(and(eq("pseudonym", user), eq("contact", contact))).first();
-		if (checkContact != null) {
+		if (checkContact == null) {
 			Document newContact = new Document("pseudonym", user);
 			newContact.append("contact", contact);
 			contactCollection.insertOne(newContact);
 		}
 	}
 
-	String[] getContacts(String user) {
+	public String[] getContacts(String user) {
 		MongoCollection<Document> contactCollection = database.getCollection("contact");
 		FindIterable<Document> contacts = contactCollection.find(eq("pseudonym", user));
-		@SuppressWarnings("unchecked")
-		long size = ((MongoCollection<Document>) contactCollection.find(eq("pseudonym", user))).count();
+		long size = contactCollection.count(eq("pseudonym", user));
 		String[] contString = new String[(int) size];
 		int i = 0;
 		for (Document cont : contacts) {
@@ -65,7 +54,8 @@ public class DBMS {
 		return contString;
 	}
 
-	public static void createUser(String pseudonym, String password, String email) {
+	public void createUser(String pseudonym, String password, String email) {
+		MongoCollection<Document> accountCollection = database.getCollection("account");
 		FindIterable<Document> iterable = accountCollection.find();
 		for (Document document : iterable) {
 			if (document.getString("pseudonym") == pseudonym) {
@@ -85,7 +75,8 @@ public class DBMS {
 		accountCollection.insertOne(doc);
 	}
 
-	public static boolean checkToken(JSONObject tokenRequest) {
+	public boolean checkToken(JSONObject tokenRequest) {
+		MongoCollection<Document> tokenCollection = database.getCollection("token");
 		// Get Token Collection
 		FindIterable<Document> iterable = tokenCollection.find();
 
@@ -97,7 +88,8 @@ public class DBMS {
 		return false;
 	}
 
-	public static String getEmail(String pseudonym) {
+	public  String getEmail(String pseudonym) {
+		MongoCollection<Document> accountCollection = database.getCollection("account");
 		// Get Account Collection
 		FindIterable<Document> iterable = accountCollection.find();
 

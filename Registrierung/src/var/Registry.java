@@ -42,7 +42,8 @@ public class Registry {
 				String password = jsonObject.getString("password");
 				String email = jsonObject.getString("user");
 				try {
-					DBMS.createUser(pseudonym, password, email);
+					DBMS dbms = new DBMS();
+					dbms.createUser(pseudonym, password, email);
 					JSONObject profilDetails = new JSONObject();
 					profilDetails.put("success", "true");
 					return Response.status(Response.Status.OK).entity(profilDetails).build();
