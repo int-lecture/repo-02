@@ -28,7 +28,6 @@ import com.mongodb.client.MongoCollection;
 
 public class Registry {
 	
-	DBMS database = new DBMS();
 	
 	/**
 	 * Methode die die Registrierungen neuer Nutzer entgegennimmt.
@@ -51,18 +50,7 @@ public class Registry {
 				String password = jsonObject.getString("password");
 				String email = jsonObject.getString("user");
 				try {
-					FindIterable<Document> iterable = DBMS.getAccountCollection().find();
-					for(Document document : iterable){
-						if(document.getString("pseudonym") == pseudonym){
-							throw new InvalidParameterException();
-						}
-					}
-					Document doc = new Document();
-					doc.append("pseudonym", pseudonym);
-					String userPW = SecurityHelper.hashPassword(password);
-					doc.append("password", userPW);
-					doc.append("email", email);
-					DBMS.getAccountCollection().insertOne(doc);
+					DBMS.createUser(pseudonym,password,email);
 					JSONObject profilDetails = new JSONObject();
 					profilDetails.put("success", "true");
 					return Response.status(Response.Status.OK).entity(profilDetails).build();

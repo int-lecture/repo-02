@@ -5,6 +5,9 @@ import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Filters.gt;
 import static com.mongodb.client.model.Filters.lte;
 
+import java.security.InvalidParameterException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -14,6 +17,7 @@ import org.bson.Document;
 import com.mongodb.Block;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
@@ -136,5 +140,25 @@ public class DBMS {
 		 */
 		public static MongoCollection<Document> getAccountCollection() {
 			return accountCollection;
+		}
+		
+		public static void createUser(String pseudonym, String password, String email){
+			FindIterable<Document> iterable = getAccountCollection().find();
+			for(Document document : iterable){
+				if(document.getString("pseudonym") == pseudonym){
+					throw new InvalidParameterException();
+				}
+			}
+			Document doc = new Document();
+			doc.append("pseudonym", pseudonym);
+			String userPW = "";
+			try {
+				userPW = SecurityHelper.hashPassword(password);
+			} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+				e.printStackTrace();
+			}
+			doc.append("password", userPW);
+			doc.append("email", email);
+			DBMS.getAccountCollection().insertOne(doc);
 		}
 }
