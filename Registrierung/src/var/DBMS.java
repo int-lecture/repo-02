@@ -75,11 +75,12 @@ public class DBMS {
 		accountCollection.insertOne(doc);
 	}
 
-	public boolean checkToken(String pseudonym) {
+	public boolean checkToken(String pseudonym, String token) {
 		MongoCollection<Document> tokenCollection = database.getCollection("token");
 		// Get Token Collection
 		try {
-			if (tokenCollection.find(eq("pseudonym", pseudonym)).first() == null) {
+			if (tokenCollection.find(eq("pseudonym", pseudonym)).first() == null
+					&& tokenCollection.find(eq("token", token)).first() == null) {
 				throw new InvalidParameterException();
 			}
 		} catch (InvalidParameterException e) {
