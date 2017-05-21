@@ -29,5 +29,8 @@ public class testDB {
 			}
 			System.out.println();
 		}
+
+		dbms.checkToken("nö");
+
 	}
 }

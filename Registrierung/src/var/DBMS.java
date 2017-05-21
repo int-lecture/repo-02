@@ -106,4 +106,12 @@ public class DBMS {
 		}
 		return null;
 	}
+
+
+    public void clearForTest() {
+        database.getCollection("account").drop();
+        database.getCollection("contact").drop();
+        database.getCollection("token").drop();
+        System.out.println("Cleared");
+    }
 }
