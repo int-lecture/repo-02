@@ -155,12 +155,12 @@ public class DBMS {
 		DBMS.getAccountCollection().insertOne(doc);
 	}
 
-	public static boolean checkToken(JSONObject tokenRequest) {
+	public static boolean checkToken(String tokenRequest) {
 		// Get Token Collection
 		FindIterable<Document> iterable = getTokenCollection().find();
 
 		for (Document document : iterable) {
-			if (document.getString("token") == tokenRequest.getString("token")) {
+			if (document.getString("token") == tokenRequest) {
 				return true;
 			}
 		}
