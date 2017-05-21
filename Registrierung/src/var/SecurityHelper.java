@@ -1,4 +1,4 @@
-package var.chat.login;
+package var;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
