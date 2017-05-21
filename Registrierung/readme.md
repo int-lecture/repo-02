@@ -1,20 +1,23 @@
 # MongoDB
 
-* URL: mongodb://141.19.142.56/users
+* URL: mongodb://141.19.142.56/userbase
 
 account:
 ```json
 {
   "pseudonym": "susi",
-  "email": "susiLiebtBob@web.de",
-  "passwort": "hash123",
-  "contact": [
-              {"pseudonym" : "bob"},
-              {"pseudonym" : "peter"}, 
-              {"pseudonym" : "klaus"}
-             ]
+  "user": "susiLiebtBob@web.de",
+  "password": "hash123",
 }
 ```
+
+contact:
+´´´json
+{
+  "pseudonym" : "bob",
+  "contact" : "susi",
+}
+´´´
 
 token:
 ```json
