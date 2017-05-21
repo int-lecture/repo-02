@@ -75,17 +75,17 @@ public class DBMS {
 		accountCollection.insertOne(doc);
 	}
 
-	public boolean checkToken(String tokenRequest) {
+	public boolean checkToken(String pseudonym) {
 		MongoCollection<Document> tokenCollection = database.getCollection("token");
 		// Get Token Collection
-		FindIterable<Document> iterable = tokenCollection.find();
-
-		for (Document document : iterable) {
-			if (document.getString("token") == tokenRequest) {
-				return true;
+		try {
+			if (tokenCollection.find(eq("pseudonym", pseudonym)).first() == null) {
+				throw new InvalidParameterException();
 			}
+		} catch (InvalidParameterException e) {
+			return false;
 		}
-		return false;
+		return true;
 	}
 
 	public String getEmail(String pseudonym) {
@@ -107,11 +107,10 @@ public class DBMS {
 		return null;
 	}
 
-
-    public void clearForTest() {
-        database.getCollection("account").drop();
-        database.getCollection("contact").drop();
-        database.getCollection("token").drop();
-        System.out.println("Cleared");
-    }
+	public void clearForTest() {
+		database.getCollection("account").drop();
+		database.getCollection("contact").drop();
+		database.getCollection("token").drop();
+		System.out.println("Cleared");
+	}
 }
