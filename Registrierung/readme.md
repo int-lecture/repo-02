@@ -12,7 +12,7 @@ account:
 ```
 
 contact:
-``json
+```json
 {
   "pseudonym" : "bob",
   "contact" : "susi",
