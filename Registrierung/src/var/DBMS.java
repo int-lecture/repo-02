@@ -56,23 +56,23 @@ public class DBMS {
 
 	public void createUser(String pseudonym, String password, String email) {
 		MongoCollection<Document> accountCollection = database.getCollection("account");
-		FindIterable<Document> iterable = accountCollection.find();
-		for (Document document : iterable) {
-			if (document.getString("pseudonym") == pseudonym) {
-				throw new InvalidParameterException();
-			}
+		Document doc = accountCollection.find(eq("pseudonym", pseudonym)).first();
+
+		if (doc != null) {
+			throw new InvalidParameterException();
 		}
-		Document doc = new Document();
-		doc.append("pseudonym", pseudonym);
+
+		Document newDoc = new Document();
+		newDoc.append("pseudonym", pseudonym);
 		String userPW = "";
 		try {
 			userPW = SecurityHelper.hashPassword(password);
 		} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
 			e.printStackTrace();
 		}
-		doc.append("password", userPW);
-		doc.append("email", email);
-		accountCollection.insertOne(doc);
+		newDoc.append("password", userPW);
+		newDoc.append("email", email);
+		accountCollection.insertOne(newDoc);
 	}
 
 	public boolean checkToken(String pseudonym, String token) {
