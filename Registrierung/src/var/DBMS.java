@@ -5,11 +5,15 @@ import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Filters.gt;
 import static com.mongodb.client.model.Filters.lte;
 
+import java.security.InvalidParameterException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import org.bson.Document;
+import org.json.JSONObject;
 
 import com.mongodb.Block;
 import com.mongodb.MongoClient;
@@ -20,67 +24,94 @@ import com.mongodb.client.MongoDatabase;
 
 public class DBMS {
 
-	    private static final String MONGO_URL = "mongodb://141.19.142.56/userbase";
+	private static final String MONGO_URL = "mongodb://141.19.142.56/userbase";
 
-		/** URI to the MongoDB instance. */
-	    private static MongoClientURI connectionString =
-	            new MongoClientURI(MONGO_URL);
+	/** URI to the MongoDB instance. */
+	private static MongoClientURI connectionString = new MongoClientURI(MONGO_URL);
 
-	    /** Client to be used. */
-	    private static MongoClient mongoClient = new MongoClient(connectionString);
+	/** Client to be used. */
+	private static MongoClient mongoClient = new MongoClient(connectionString);
 
-	    /** Mongo database. */
-	    private static MongoDatabase database = mongoClient.getDatabase("userbase");
+	/** Mongo database. */
+	private static MongoDatabase database = mongoClient.getDatabase("userbase");
 
-	    /** Mongo Collection for accounts */
-	    private static MongoCollection<Document> accountCollection = database.getCollection("account");
+	/** Mongo Collection for accounts */
+	private static MongoCollection<Document> accountCollection = database.getCollection("account");
 
-	    /** Mongo Collection for tokens which belongs to a account */
-	    private static MongoCollection<Document> tokenCollection = database.getCollection("token");
+	/** Mongo Collection for tokens which belongs to a account */
+	private static MongoCollection<Document> tokenCollection = database.getCollection("token");
 
+	void addContact(String user, String contact) {
+		MongoCollection<Document> contactCollection = database.getCollection("contact");
+		Document checkContact = contactCollection.find(and(eq("pseudonym", user), eq("contact", contact))).first();
+		if (checkContact != null) {
+			Document newContact = new Document("pseudonym", user);
+			newContact.append("contact", contact);
+			contactCollection.insertOne(newContact);
+		}
+	}
 
-
-
-	    void addContact(String user, String contact){
-		    MongoCollection<Document> contactCollection = database.getCollection("contact");
-	    	Document checkContact = contactCollection.
-	    			find(and(eq("pseudonym", user),
-	    					eq("contact",contact)))
-	    					.first();
-	    	if (checkContact != null){
-	    		Document newContact = new Document("pseudonym", user);
-	    		newContact.append("contact", contact);
-	    		contactCollection.insertOne(newContact);
-	    	}
-	    }
-
-	    String[] getContacts(String user){
-		    MongoCollection<Document> contactCollection = database.getCollection("contact");
-	    	FindIterable<Document> contacts = contactCollection.find(eq("pseudonym", user));
-	    	@SuppressWarnings("unchecked")
-			long size = ((MongoCollection<Document>) contactCollection.find(eq("pseudonym", user))).count();
-	    	String[] contString = new String[(int) size];
-	    	int i = 0;
-	    	for (Document cont : contacts) {
-				contString[i] = cont.get("contact").toString();
-				i++;
-			}
+	String[] getContacts(String user) {
+		MongoCollection<Document> contactCollection = database.getCollection("contact");
+		FindIterable<Document> contacts = contactCollection.find(eq("pseudonym", user));
+		@SuppressWarnings("unchecked")
+		long size = ((MongoCollection<Document>) contactCollection.find(eq("pseudonym", user))).count();
+		String[] contString = new String[(int) size];
+		int i = 0;
+		for (Document cont : contacts) {
+			contString[i] = cont.get("contact").toString();
+			i++;
+		}
 		return contString;
-	    }
+	}
 
-
-
-	    /**
-	     * @return collection of tokens which belongs to a account
-	     */
-		public static MongoCollection<Document> getTokenCollection() {
-			return tokenCollection;
+	public static void createUser(String pseudonym, String password, String email) {
+		FindIterable<Document> iterable = accountCollection.find();
+		for (Document document : iterable) {
+			if (document.getString("pseudonym") == pseudonym) {
+				throw new InvalidParameterException();
+			}
 		}
-
-		/**
-		 * @return collection of accounts
-		 */
-		public static MongoCollection<Document> getAccountCollection() {
-			return accountCollection;
+		Document doc = new Document();
+		doc.append("pseudonym", pseudonym);
+		String userPW = "";
+		try {
+			userPW = SecurityHelper.hashPassword(password);
+		} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+			e.printStackTrace();
 		}
+		doc.append("password", userPW);
+		doc.append("email", email);
+		accountCollection.insertOne(doc);
+	}
+
+	public static boolean checkToken(JSONObject tokenRequest) {
+		// Get Token Collection
+		FindIterable<Document> iterable = tokenCollection.find();
+
+		for (Document document : iterable) {
+			if (document.getString("token") == tokenRequest.getString("token")) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static String getEmail(String pseudonym) {
+		// Get Account Collection
+		FindIterable<Document> iterable = accountCollection.find();
+
+		try {
+			for (Document document : iterable) {
+				if (document.getString("pseudonym") == pseudonym) {
+					return document.getString("email");
+				} else {
+					throw new InvalidParameterException();
+				}
+			}
+		} catch (InvalidParameterException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }
