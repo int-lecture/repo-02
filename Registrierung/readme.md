@@ -17,7 +17,8 @@ contact:
   "pseudonym" : "bob",
   "contact" : "susi",
 }
-´´´
+```
+
 
 token:
 ```json
