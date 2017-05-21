@@ -6,6 +6,7 @@ public class testDB {
 
 	public static void main(String[] args) {
 		DBMS dbms = new DBMS();
+		dbms.clearForTest();
 		String u1 = "user1";
 		String u2 = "user2";
 		String u3 = "user3";
@@ -29,8 +30,9 @@ public class testDB {
 			}
 			System.out.println();
 		}
-
-		dbms.checkToken("nö");
-
+		System.out.println(dbms.checkToken(u[1],"nö"));
+		for (String user : u) {
+			System.out.println(dbms.getEmail(user));
+		}
 	}
 }

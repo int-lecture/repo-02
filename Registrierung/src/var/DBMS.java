@@ -92,20 +92,8 @@ public class DBMS {
 	public String getEmail(String pseudonym) {
 		MongoCollection<Document> accountCollection = database.getCollection("account");
 		// Get Account Collection
-		FindIterable<Document> iterable = accountCollection.find();
-
-		try {
-			for (Document document : iterable) {
-				if (document.getString("pseudonym") == pseudonym) {
-					return document.getString("email");
-				} else {
-					throw new InvalidParameterException();
-				}
-			}
-		} catch (InvalidParameterException e) {
-			e.printStackTrace();
-		}
-		return null;
+		Document doc = accountCollection.find(eq("pseudonym", pseudonym)).first();
+		return doc.getString("email");
 	}
 
 	public void clearForTest() {
