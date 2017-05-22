@@ -52,7 +52,6 @@
 	<classpathentry kind="lib" path="/libraries/lib/json/json-20160810.jar"/>
 	<classpathentry kind="lib" path="/libraries/lib/mysql/mysql-connector-java-5.1.42-bin.jar"/>
 	<classpathentry kind="lib" path="/libraries/lib/mysql/persistence-api-1.0.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/User/Downloads/mongo-java-driver-2.13.3-javadoc.jar"/>
 	<classpathentry kind="lib" path="/libraries/lib/mongo/mongo-java-driver-3.4.2.jar"/>
 	<classpathentry kind="lib" path="/libraries/lib/mongo/mongodb-driver-3.4.2.jar"/>
 	<classpathentry kind="lib" path="/libraries/lib/mongo/mongodb-driver-core-3.4.2.jar"/>

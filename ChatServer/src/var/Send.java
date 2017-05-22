@@ -22,7 +22,6 @@ public class Send {
 	// Data-formate
 	private static final String ISO8601 = "yyyy-MM-dd'T'HH:mm:ssZ";
 
-	private LinkedList<String[]> messageList = Main.getMessageList();
 
 	@PUT
 	@Consumes("application/json")
@@ -31,18 +30,21 @@ public class Send {
 			// Check if all Request-Elements are not empty
 			if (object.getString("from") != null && object.getString("to") != null && object.getString("date") != null
 					&& object.getString("text") != null && object.getString("token") != null) {
-
+				
 				// Put the message into the list-container
 				SimpleDateFormat currentTime = new SimpleDateFormat(ISO8601);
 				// we would check the token, send a response
-
+				
+				StorageProviderMongoDB db = new StorageProviderMongoDB();
+					
 				String token = object.getString("token");
 				String from = object.getString("to");
 				String to = object.getString("from");
 				String date = object.getString("date");
 				currentTime.parse(date);
 				String text = object.getString("text");
-				String[] newMessage = { from, to, date, text, Main.getSeqCounter() + "" };
+				long sequence = db.retrieveAndUpdateSequence(to);
+				Message newMessage = new Message(from, to, date, sequence, text);
 
 				String url = "http://141.19.142.57:5001/auth";
 				Client client = Client.create();
@@ -53,31 +55,28 @@ public class Send {
 				String input = "{\"token\": \"" + token + "\",\"pseudonym\": \"" + to + "\"}";
 				System.out.println(input);
 
-
 				ClientResponse response = webResource.type("application/json")
 				   .post(ClientResponse.class, input);
 
 				if (response.getStatus() != 200) {
 					System.out.println(response.getStatus());
-					return Response.status(Response.Status.UNAUTHORIZED).entity("b�ser bub").build();
+					return Response.status(Response.Status.UNAUTHORIZED).entity("böser bub").build();
 				}
 
 				System.out.println("Output from Server .... \n");
 				String output = response.getEntity(String.class);
 				System.out.println(output);
-				synchronized (Main.tokenMessageList) {
-				messageList.add(newMessage);
-				}
-
+				
+				db.storeMessage(newMessage);
+		
 				JSONObject createdDetails = new JSONObject();
 				// Current Systemtime
 				createdDetails.put("date", currentTime.format(new Date())); // currentTime.toString()
-				createdDetails.put("sequence", Main.getSeqCounter());
+				createdDetails.put("sequence", sequence);
 				// Test
 				System.out.println("from: " + from + ", to: " + to);
 				System.out.println(text);
-				System.out.println("Sequence: " + Main.getSeqCounter());
-				Main.incSeqCounter();
+				System.out.println("Sequence: " + sequence);
 				return Response.status(Response.Status.CREATED).entity(createdDetails).build();
 			}
 			// If with the response is something wrong,
@@ -85,7 +84,6 @@ public class Send {
 			else {
 				return Response.status(Response.Status.BAD_REQUEST).entity("Bad Request").build();
 			}
-
 			// Send the fail-Response with statuscode 400
 		} catch (Exception e) {
 			e.printStackTrace();

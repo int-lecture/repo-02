@@ -35,21 +35,4 @@ public class Main {
 		System.out.println("Grizzly wurde beendet");
 		System.exit(0);
 	}
-	static LinkedList<String[]> getMessageList() {
-		synchronized (Main.tokenMessageList) {
-		return messageList;
-		}
-	}
-
-	static int getSeqCounter() {
-		synchronized (Main.tokenSeqCounter) {
-		return seqCounter;
-		}
-	}
-	static void incSeqCounter() {
-		synchronized (Main.tokenSeqCounter) {
-		seqCounter++;
-		}
-	}
-
 }
