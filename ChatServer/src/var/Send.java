@@ -30,13 +30,13 @@ public class Send {
 			// Check if all Request-Elements are not empty
 			if (object.getString("from") != null && object.getString("to") != null && object.getString("date") != null
 					&& object.getString("text") != null && object.getString("token") != null) {
-				
+
 				// Put the message into the list-container
 				SimpleDateFormat currentTime = new SimpleDateFormat(ISO8601);
 				// we would check the token, send a response
-				
+
 				StorageProviderMongoDB db = new StorageProviderMongoDB();
-					
+
 				String token = object.getString("token");
 				String from = object.getString("to");
 				String to = object.getString("from");
@@ -66,9 +66,9 @@ public class Send {
 				System.out.println("Output from Server .... \n");
 				String output = response.getEntity(String.class);
 				System.out.println(output);
-				
+
 				db.storeMessage(newMessage);
-		
+
 				JSONObject createdDetails = new JSONObject();
 				// Current Systemtime
 				createdDetails.put("date", currentTime.format(new Date())); // currentTime.toString()

@@ -9,9 +9,8 @@ import java.util.Map;
 import com.sun.grizzly.http.SelectorThread;
 import com.sun.jersey.api.container.grizzly.GrizzlyWebContainerFactory;
 
-
 public class Main {
-	
+
 	public static void main(String[] args) throws IllegalArgumentException, IOException {
 		final String baseUri = "http://localhost:5000/";
 		final String paket = "var";
