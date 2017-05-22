@@ -5,16 +5,23 @@ import static com.mongodb.client.model.Filters.eq;
 import java.security.InvalidParameterException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
-import org.bson.Document;
-import org.json.JSONObject;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
+import org.bson.Document;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.sun.xml.internal.ws.wsdl.writer.document.Service;
 
 public class DBMS {
+
+	public static final String ISO8601 = "yyyy-MM-dd'T'HH:mm:ssZ";
+
 
 	private static final String MONGO_URL = "mongodb://141.19.142.56/userbase";
 
@@ -73,21 +80,40 @@ public class DBMS {
 		newDoc.append("password", userPW);
 		newDoc.append("email", email);
 		accountCollection.insertOne(newDoc);
+
+		MongoCollection<Document> tokenCollection = database.getCollection("token");
+		Document tokenDoc = new Document();
+		tokenDoc.append("pseudonym", pseudonym);
+		tokenDoc.append("token", "save token");
+		tokenDoc.append("expire-date", new Date());
+		tokenCollection.insertOne(tokenDoc);
 	}
 
 	public boolean checkToken(String pseudonym, String token) {
 		MongoCollection<Document> tokenCollection = database.getCollection("token");
 		// Get Token Collection
-		try {
-			if (tokenCollection.find(eq("pseudonym", pseudonym)).first() == null
-					&& tokenCollection.find(eq("token", token)).first() == null) {
-				throw new InvalidParameterException();
-			}
-		} catch (InvalidParameterException e) {
+		Document doc = tokenCollection.find(eq("pseudonym", pseudonym)).first();
+
+		if (doc == null) {
 			return false;
 		}
-		return true;
+		if (doc.getString("token").equals(pseudonym)) {
+			SimpleDateFormat sdf = new SimpleDateFormat(ISO8601);
+			Date date;
+			try {
+				date = sdf.parse(doc.getString("expire-date"));
+			} catch (ParseException e1) {
+				System.out.println("invalid Date");
+				return false;
+			}
+			Calendar cal = Calendar.getInstance();
+			if (cal.getTime().before(date)) {
+				return true;
+			}
+		}
+		return false;
 	}
+
 
 	public String getEmail(String pseudonym) {
 		MongoCollection<Document> accountCollection = database.getCollection("account");

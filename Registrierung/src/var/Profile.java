@@ -14,6 +14,7 @@ import org.codehaus.jettison.json.JSONObject;
 
 public class Profile {
 
+
 	/**
 	 * Methode um die per Post einen Auth-Token und den eigenen Namen entgegen
 	 * nimmt und das eigene Profil zurück gibt.
