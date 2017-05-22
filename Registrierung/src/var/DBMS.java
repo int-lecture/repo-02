@@ -10,12 +10,17 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.ws.rs.core.Response;
+
 import org.bson.Document;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.WebResource;
 import com.sun.xml.internal.ws.wsdl.writer.document.Service;
 
 public class DBMS {
@@ -90,28 +95,24 @@ public class DBMS {
 	}
 
 	public boolean checkToken(String pseudonym, String token) {
-		MongoCollection<Document> tokenCollection = database.getCollection("token");
-		// Get Token Collection
-		Document doc = tokenCollection.find(eq("pseudonym", pseudonym)).first();
+		String url = "http://141.19.142.57:5001/auth";
+		Client client = Client.create();
 
-		if (doc == null) {
+		WebResource webResource = client
+		   .resource(url);
+
+		String input = "{\"token\": \"" + token + "\",\"pseudonym\": \"" + pseudonym + "\"}";
+		System.out.println(input);
+
+		ClientResponse response = webResource.type("application/json")
+		   .post(ClientResponse.class, input);
+		
+		if (response.getStatus() != 200) {
+			System.out.println(response.getStatus());
 			return false;
 		}
-		if (doc.getString("token").equals(pseudonym)) {
-			SimpleDateFormat sdf = new SimpleDateFormat(ISO8601);
-			Date date;
-			try {
-				date = sdf.parse(doc.getString("expire-date"));
-			} catch (ParseException e1) {
-				System.out.println("invalid Date");
-				return false;
-			}
-			Calendar cal = Calendar.getInstance();
-			if (cal.getTime().before(date)) {
-				return true;
-			}
-		}
-		return false;
+
+		return true;
 	}
 
 

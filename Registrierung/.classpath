@@ -67,5 +67,7 @@
 	<classpathentry kind="lib" path="/libraries/lib/restassured/rest-assured-3.0.3.jar"/>
 	<classpathentry kind="lib" path="/libraries/lib/restassured/rest-assured-common-3.0.3.jar"/>
 	<classpathentry kind="lib" path="/libraries/lib/restassured/xml-path-3.0.3.jar"/>
+	<classpathentry kind="lib" path="/chat-client/lib/jersey-core-1.9.1.jar"/>
+	<classpathentry kind="lib" path="/chat-client/lib/json.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

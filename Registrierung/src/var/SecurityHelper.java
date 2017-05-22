@@ -11,6 +11,7 @@ import javax.crypto.spec.PBEKeySpec;
 
 /**
  * Helper functions to deal with passwords.
+ * @author Thomas Smits
  */
 public class SecurityHelper {
 
