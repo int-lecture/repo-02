@@ -64,36 +64,36 @@ public class TestRegistrierungsServer {
 		.when().put("/profile");
 	}
 
-//	@Test
-//	public void testProfilanfragen() {
-//		Response resp = expect().statusCode(200).contentType(MediaType.APPLICATION_JSON).body("token", notNullValue())
-//				.body("expire-date", notNullValue()).given().contentType(MediaType.APPLICATION_JSON)
-//				.body(("{ 'user': 'alfred@example.com', 'password': 'abcd1234', 'pseudonym': 'alfi'}".replace('\'',
-//						'"')))
-//				.when().post("/login");
-//
-//		String token = resp.path("token").toString();
-//
-//		JSONObject json = new JSONObject();
-//		json.put("token", token);
-//		json.put("pseudonym", "alfi");
-//
-//		expect().statusCode(200).contentType(MediaType.APPLICATION_JSON).body("success", notNullValue())
-//				.body("expire-date", notNullValue()).given().contentType(MediaType.APPLICATION_JSON)
-//				.body(json.toString()).when().post("/auth");
-//
-//		json = new JSONObject();
-//		json.put("token", token);
-//		json.put("pseudonym", "alfiX");
-//
-//		expect().statusCode(403).given().contentType(MediaType.APPLICATION_JSON).body(json.toString()).when()
-//				.post("/auth");
-//
-//		json = new JSONObject();
-//		json.put("token", token + "x");
-//		json.put("pseudonym", "alfi");
-//
-//		expect().statusCode(403).given().contentType(MediaType.APPLICATION_JSON).body(json.toString()).when()
-//				.post("/auth");
-//	}
+	@Test
+	public void testProfilanfragen() {
+		Response resp = expect().statusCode(200).contentType(MediaType.APPLICATION_JSON).body("token", notNullValue())
+				.body("expire-date", notNullValue()).given().contentType(MediaType.APPLICATION_JSON)
+				.body(("{ 'user': 'alfred@example.com', 'password': 'abcd1234', 'pseudonym': 'alfi'}".replace('\'',
+						'"')))
+				.when().post("/login");
+
+		String token = resp.path("token").toString();
+
+		JSONObject json = new JSONObject();
+		json.put("token", token);
+		json.put("pseudonym", "alfi");
+
+		expect().statusCode(200).contentType(MediaType.APPLICATION_JSON).body("success", notNullValue())
+				.body("expire-date", notNullValue()).given().contentType(MediaType.APPLICATION_JSON)
+				.body(json.toString()).when().post("/auth");
+
+		json = new JSONObject();
+		json.put("token", token);
+		json.put("pseudonym", "alfiX");
+
+		expect().statusCode(403).given().contentType(MediaType.APPLICATION_JSON).body(json.toString()).when()
+				.post("/auth");
+
+		json = new JSONObject();
+		json.put("token", token + "x");
+		json.put("pseudonym", "alfi");
+
+		expect().statusCode(403).given().contentType(MediaType.APPLICATION_JSON).body(json.toString()).when()
+				.post("/auth");
+	}
 }
