@@ -34,12 +34,12 @@ public class TestRegistrierungsServer {
 		dbms.clearForTest();
 	}
 
-	@After
-	public void tearDown() throws IOException {
-		Main.stopGrizzly();
-		DBMS dbms = new DBMS();
-		dbms.clearForTest();
-	}
+//	@After
+//	public void tearDown() throws IOException {
+//		Main.stopGrizzly();
+//		DBMS dbms = new DBMS();
+//		dbms.clearForTest();
+//	}
 
 	@Test
 	public void testRegistrierung() {
@@ -58,7 +58,7 @@ public class TestRegistrierungsServer {
 		expect().statusCode(400).given().contentType(MediaType.APPLICATION_JSON)
 		.body(("{'pseudonym': 'bob', 'user': 'bob@web.de'}").replace('\'', '"'))
 		.when().put("/profile");
-		
+
 		expect().statusCode(400).given().contentType(MediaType.APPLICATION_JSON)
 		.body(("{'pseudonym': 'bob','password': 'halloIchbinBob'}").replace('\'', '"'))
 		.when().put("/profile");
