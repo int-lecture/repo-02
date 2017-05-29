@@ -32,8 +32,8 @@ public class Registry {
 	 */
 	@PUT
 	@Path("/register")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes("application/json")
+	@Produces("application/json")
 	public Response register(String json) {
 		try {
 			JSONObject jsonObject = new JSONObject(json);

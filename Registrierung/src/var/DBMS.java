@@ -28,7 +28,7 @@ public class DBMS {
 	public static final String ISO8601 = "yyyy-MM-dd'T'HH:mm:ssZ";
 
 
-	private static final String MONGO_URL = "mongodb://141.19.142.56/userbase";
+	private static final String MONGO_URL = "mongodb://localhost/userbase";
 
 	/** URI to the MongoDB instance. */
 	private static MongoClientURI connectionString = new MongoClientURI(MONGO_URL);
@@ -106,7 +106,7 @@ public class DBMS {
 
 		ClientResponse response = webResource.type("application/json")
 		   .post(ClientResponse.class, input);
-		
+
 		if (response.getStatus() != 200) {
 			System.out.println(response.getStatus());
 			return false;

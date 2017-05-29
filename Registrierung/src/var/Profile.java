@@ -17,6 +17,8 @@ import netscape.javascript.JSObject;
 @Path("/profile")
 public class Profile {
 
+
+
 	/**
 	 * Methode um die per Post einen Auth-Token und den eigenen Namen entgegen
 	 * nimmt und das eigene Profil zurück gibt.
@@ -26,10 +28,10 @@ public class Profile {
 	 * @return Profil Details / BadRequest
 	 */
 	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response profile(String json) {
-		try {
+	@Consumes("application/json")
+	@Produces("application/json")
+	public Response profile(String json){
+		try{
 			JSONObject jsonObject = new JSONObject(json);
 			if (jsonObject.getString("token") != null && jsonObject.getString("getownprofile") != null) {
 				String token = jsonObject.getString("token");
