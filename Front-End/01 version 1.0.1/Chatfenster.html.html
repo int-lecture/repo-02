@@ -1,0 +1,127 @@
+<html>
+<head>
+<title>Bootstrap Beispiel</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link href="layout.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<script src="configs.js"></script> 
+
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="row" id="headerimage" >
+				<div class="col-sm-12" > Secure Messenger 
+				<img src="benutzer.png" id="Image" class="img-rounded">
+					<button type="button" class="btn btn-default" id="settings" onClick="javascript:open('', 'popup-beispiel', 'height=400,width=400,resizable=no')">
+						<span class="glyphicon glyphicon-cog"></span>
+							Einstellungen
+					</button>	
+				</div>
+		</div>
+			<div class="row equalheight">
+				<div class="col-md-3 equal" id="kontakte">
+					<div class="scrollbar" id="style-1">
+						<div class="force-overflow">
+						</div>
+					</div>
+						<h2>Kontaktleiste</h2>
+							<button type="button" class="btn btn-default" id="user" onClick=chatWindowOpener()>
+								<span class="glyphicon glyphicon-user">
+								</span>
+									vllt jetzt
+							</button>
+							<button type="button" class="btn btn-default" id="user">
+								<span class="glyphicon glyphicon-user">
+								</span>
+									Beispiel 2
+							</button>
+							<button type="button" class="btn btn-default" id="user">
+								<span class="glyphicon glyphicon-user">
+								</span>
+									Beispiel 3
+							</button>
+							<button type="button" class="btn btn-default" id="user">
+								<span class="glyphicon glyphicon-user">
+								</span>
+									Beispiel 4
+							</button>
+							<button type="button" class="btn btn-default" id="user">
+								<span class="glyphicon glyphicon-user">
+								</span>
+									Beispiel 5
+							</button>
+							<button type="button" class="btn btn-default" id="user">
+								<span class="glyphicon glyphicon-user">
+								</span>
+									Beispiel 6
+							</button>
+							
+							
+					
+				</div>
+						<div id="equal">
+						<div class="col-md-3 equal" id="equal">
+						<div class="col-md-12" id="Chatkontakt">  
+							<img src="benutzer.png" id="image" class="img-rounded">
+										Beispielkontakt
+						</div>
+							<div id="chatBox" style="height:590px;width:320px;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow-y:auto; overflow-x:hidden;">
+												</div>
+								<div class="input-group" id="send">
+									<input type="text" class="form-control" id="newMessage" placeholder="..." >
+										<span class="input-group-btn">
+											<button class="btn btn-default" id="sendtwo" onclick=addElement()>
+												<span class="glyphicon glyphicon-send">
+												</span> 
+													Senden
+											</button>
+										</span>
+								</div>
+				</div>
+				<div class="col-md-3 equal" id="equal">
+						<div class="col-md-12" id="Chatkontakt">  
+							<img src="benutzer.png" id="image" class="img-rounded">
+										Beispielkontakt
+						</div>
+							<div id="chatBox" style="height:590px;width:320px;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow-y:auto; overflow-x:hidden;">
+												</div>
+								<div class="input-group" id="send">
+									<input type="text" class="form-control" id="newMessage" placeholder="..." >
+										<span class="input-group-btn">
+											<button class="btn btn-default" id="sendtwo" onclick=addElement()>
+												<span class="glyphicon glyphicon-send">
+												</span> 
+													Senden
+											</button>
+										</span>
+								</div>
+				</div>
+				<div class="col-md-3 equal" id="equal">
+						<div class="col-md-12" id="Chatkontakt">  
+							<img src="benutzer.png" id="image" class="img-rounded">
+										Beispielkontakt
+							<button type="button" class="close" aria-label="Close" id="closeButton">
+								<span>&times;</span>
+							</button>
+						</div>
+						
+							<div id="chatBox" style="height:590px;width:320px;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow-y:auto; overflow-x:hidden;">
+												</div>
+								<div class="input-group" id="send">
+									<input type="text" class="form-control" id="newMessage" placeholder="..." >
+										<span class="input-group-btn">
+											<button class="btn btn-default" id="sendtwo" onclick=addElement()>
+												<span class="glyphicon glyphicon-send">
+												</span> 
+													Senden
+											</button>
+										</span>
+								</div>
+				</div>
+						</div>
+			</div>
+</body>
+</html>
