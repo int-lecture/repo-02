@@ -17,6 +17,7 @@
 				<img src="benutzer.png" id="Image" class="img-rounded">
 				<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" id="settings"><span class="glyphicon glyphicon-cog"></span> Einstellungen</button>
 
+				
 				<!-- Einstellungen -->
 		   <div class="modal fade" id="myModal" role="dialog">
 		     <div class="modal-dialog">
@@ -36,7 +37,7 @@
 							 <input type="text" class="form-control" id="registerUrl">
 		         </div>
 		         <div class="modal-footer">
-							  <button type="button" class="btn btn-primary">Speichern</button>
+							  <button type="button" class="btn btn-primary" onclick=loadSettings()>Speichern</button>
 		           <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
 		         </div>
 		       </div>
