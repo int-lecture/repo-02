@@ -1,6 +1,8 @@
 //Kontainer um die user_id zu speichern.
 var user_id;
-
+var chatUrl = setSettings("","chat");
+var loginUrl = setSettings("","login");
+var registerUrl = setSettings("","register");
 function chatWindowOpener() {
 
 	var chatWindow = document.getElementById("equal");
@@ -38,16 +40,39 @@ function loadChatValues(){
 		//Bin nicht sicher ob ichs überhaupt parsen muss.
 		var messagesAsJSON = JSON.parse(chatRequest.responseTest);
 	}
-
 }
 
 function loadSettings(){
-
-
+	chatUrl = document.getElementById("chatUrl").value;
+	loginUrl = document.getElementById("loginUrl").value;
+	registerUrl = document.getElementById("registerUrl").value;
+	$('#myModal').modal('hide');
+	chatUrl = setSettings(chatUrl,"chat");
+	loginUrl = setSettings(loginUrl,"login");
+	registerUrl = setSettings(registerUrl,"register");
+	console.log(chatUrl);
+	console.log(loginUrl);
+	console.log(registerUrl);
+	document.getElementById("chatUrl").value = "";
+	document.getElementById("loginUrl").value = "";
+	document.getElementById("registerUrl").value = "";
 }
 
-function setSettings(){
-
+function setSettings(url, type){
+		if(!url.includes(":")){
+			switch (type) {
+					case "chat":
+						return "141.19.142.56:5000"
+					case "login":
+						return "141.19.142.56:5001"
+					case "register":
+							return "141.19.142.56:5002"
+					default:
+							return "localhost"
+				}
+		} else {
+			return url;
+		}
 }
 
 function loadContacts(user){
