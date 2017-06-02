@@ -75,6 +75,37 @@ function setSettings(url, type){
 		}
 }
 
+function getMessages() {
+    var URL = chatUrl + "/messages/" + pseudonym + "/";
+    $.ajax({
+        headers: {
+            "Authorization": getToken()
+        },
+        url: URL,
+        type: 'GET',
+        contentType: "application/json; charset=utf-8",
+        dataType: 'json',
+        success: function (result, textStatus, xhr) {
+            if (xhr.status == 200) {
+                if (typeof (sequenceNumbers[pseudonym]) == 'undefined') {
+                    messages = result;
+                } else {
+
+                    $.each(result, function (index, value) {
+                        messages = messages.concat(value);
+                    });
+                    showMessages();
+                }
+            }
+        },
+        error: function (xhr, a, b) {
+            //alert(" error");
+            alert("getMessages von " + pseudonym + " fehlgeschlagen");
+        }
+    });
+
+}
+
 function loadContacts(user){
 
 	var contactList = new XMLHttpRequest();
@@ -91,7 +122,7 @@ function loadContacts(user){
 }
 
 function getToken(){
-
+		var date = new Date();
 }
 
 function messagePusher(){

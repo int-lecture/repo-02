@@ -26,21 +26,21 @@
       <form class="form-signin" onsubmit='return checkPw();'>
         <div class="input-group">
           <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-          <input id="pseudonym" type="text" class="form-control" name="pseudonym" placeholder="pseudonym" required>
+          <input id="pseudonym" type="text" class="form-control" id="pseudonym" placeholder="pseudonym" required>
         </div>
 
         <div class="input-group">
           <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-          <input id="email" type="email" class="form-control" name="email" placeholder="Email" required>
+          <input id="email" type="email" class="form-control" id="email" placeholder="Email" required>
         </div>
 
         <p>
           <div class="col-lg-6">
-            <input id="Passwort1" type="password" class="form-control" name="Passwort1" placeholder="Passwort" required>
+            <input id="Passwort1" type="password" class="form-control" id="Passwort1" placeholder="Passwort" required>
           </div>
 
           <div class="col-lg-6">
-            <input id="Passwort2" type="password" class="form-control" name="Passwort2" placeholder="Passwort wiederhohlen" required>
+            <input id="Passwort2" type="password" class="form-control" id="Passwort2" placeholder="Passwort wiederhohlen" required>
           </div>
         </p>
         <hr>

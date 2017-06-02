@@ -104,6 +104,9 @@
   font-size: 80%;
 }
 
+body{
+  max-width: 99vw;
+}
 
 .scrollbar
 {
