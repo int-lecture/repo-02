@@ -1,8 +1,8 @@
 /* CSS used here will be applied after bootstrap.css */
- 
+
 #headerimage {
 	padding-top: 2px;
-	font-size: 32px; 
+	font-size: 32px;
 	background:#36749C;
 	height: 50px;
 	margin-left: -15px;
@@ -34,7 +34,7 @@
 	float:left;
 	color: black;
 	height: 50px;
-	font-size: 32px; 
+	font-size: 32px;
 }
 #user {
 	float:left;
@@ -44,12 +44,13 @@
 #settings {
 	float: right;
 	right: 20px;
+  color: black;
 }
 
  #footer {
-  background-color: #282F37; 
-  text-align: center; 
-  color:white; 
+  background-color: #282F37;
+  text-align: center;
+  color:white;
   height:109px;
 	border-style: solid;
 	border-color: black;
@@ -81,7 +82,7 @@
 
 #style-1::-webkit-scrollbar-track
 {
-	
+
 	background-color: #8DAABC ;
 }
 
@@ -96,6 +97,14 @@
 	background-color: #605340;
 }
 
+#mymodal{
+  color: black;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 100;
+  font-size: 80%;
+}
+
+
 .scrollbar
 {
 	float: right;
@@ -108,4 +117,3 @@
 {
 	min-height:2000px;
 }
-
