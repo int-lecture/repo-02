@@ -7,8 +7,9 @@
   <link rel="stylesheet" href="formate.css" type="text/css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="loginJS.js"></script>
 </head>
-<body>
+<body onkeypress="onEnter(event)">
   <?php
   include 'navbar.html';
   ?>
@@ -18,7 +19,7 @@
     <p style="color:#605340">Bist du schon drin?</p>
   </div>
 
-  <div class="form-group row">
+  <form class="form-signin" onsubmit='return setLoginCookie();'>
 
     <div class="col-lg-4 col-sm-3 col-xs-1">
     </div>
@@ -26,23 +27,16 @@
     <div class="col-lg-4 col-m-5 col-sm-6 col-xs-10">
       <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-        <input id="pseudonym" type="text" class="form-control" name="pseudonym" placeholder="Pseudonym" required>
+        <input id="email" type="email" class="form-control" placeholder="Email" required>
       </div>
-
-      <div class="input-group">
-        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-        <input id="email" type="email" class="form-control" name="email" placeholder="Email" required>
-      </div>
-
-
       <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-        <input id="password" type="password" class="form-control" name="password" placeholder="Password" required>
+        <input id="password" type="password" class="form-control" placeholder="Password" required>
       </div>
-      <input type="submit" class="btn btn-info" value="Einloggen">
+      <input type="submit" class="btn btn-info" value="Einloggen"></input>
       <br>
         <a href="register.php">noch nicht angemeldet?</a>
     </div>
-  </div>
+  </form>
 </body>
 </html>

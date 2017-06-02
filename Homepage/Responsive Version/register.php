@@ -9,7 +9,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="passwordSavety.js"></script>
 </head>
-<body>
+<body onkeypress="onEnter(event)">
   <?php
   include 'navbar.html';
   ?>
@@ -46,7 +46,7 @@
         <hr>
         <hr>
         <input type="submit" class="btn btn-info" value="Loslegen!">
-        <input type="checkbox" name="agb">Ich stimme den <a href="AGB.html">AGBs</a> zu.</input>
+        <input type="checkbox" id="agb">Ich stimme den <a href="AGB.html">AGBs</a> zu.</input>
         <p id="passwAllert"></p>
         <br>
       </from>
