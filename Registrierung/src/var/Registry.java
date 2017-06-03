@@ -5,11 +5,9 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.json.JSONException;
@@ -34,9 +32,8 @@ public class Registry {
 	@Path("/register")
 	@Consumes("application/json")
 	@Produces("application/json")
-	public Response register(String json) {
+	public Response register(JSONObject jsonObject) {
 		try {
-			JSONObject jsonObject = new JSONObject(json);
 			if (jsonObject.getString("pseudonym") != null && jsonObject.getString("password") != null
 					&& jsonObject.getString("user") != null) {
 				String pseudonym = jsonObject.getString("pseudonym");
