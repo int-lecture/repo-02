@@ -23,7 +23,7 @@ function setLoginCookie(){
   var port = get("port");
   if(ip == null || port==null){
     ip = "141.19.142.56";
-    port = 5002;
+    port = 5001;
   } else {
     console.log(ip + ":" + port);
   }
