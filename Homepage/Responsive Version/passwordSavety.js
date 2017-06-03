@@ -7,9 +7,16 @@ function onEnter(event) {
     setLoginCookie();
   }
 }
+function get(key) {
+    var url = location.href;
+    key = key.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+    var regexS = "[\\?&]"+key+"=([^&#]*)";
+    var regex = new RegExp( regexS );
+    var results = regex.exec( url );
+    return results == null ? null : results[1];
+}
 
 function checkPw(){
-	var ip = "141.19.142.57";
 	var pw1 = $("#Passwort1").val();
 	var pw2 = $("#Passwort2").val();
  if (pw1 != pw2){
@@ -24,7 +31,15 @@ function checkPw(){
 		$("#passwAllert").html("Um den Service nutzen zu können musst du die AGBs aktzeptieren.");
 		return false;
 	}
-	var URL = "http://" + ip + ":5002/register/";
+  var ip = get("ip");
+  var port = get("port");
+  if(ip == null || port==null){
+    ip = "141.19.142.56";
+    port = 5002;
+  } else {
+    console.log(ip + ":" + port);
+  }
+	var URL = "http://" + ip + ":" + port + "/register/";
 	$.ajax({
 		url: URL,
 		type: 'PUT',
