@@ -1,50 +1,153 @@
-<!DOCTYPE html>
-<html lang="de">
-
+<html>
 <head>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-<link href="test.css" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta charset="utf-8">
+	<title>Bootstrap Beispiel</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link href="layout.css" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="utf-8">
+	<script src="configs.js"></script>
 
 </head>
-
 <body>
+	<div class="container-fluid">
+		<div class="row" id="headerimage" >
+			<div class="col-sm-12" > Secure Messenger
+				<img src="benutzer.png" id="Image" class="img-rounded">
+				<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" id="settings"><span class="glyphicon glyphicon-cog"></span> Einstellungen</button>
 
-<div class="container-fluid">
-<div class="row" style="background-color: #36749C">
-<h1> SECURE MESSENGER </h1> <p><button type="button" class="btn btn-default btn-lg settingsBottom">
-          <span class="glyphicon glyphicon-cog"></span>
-        </button>
-      </p>
-</div>
-<div class="row">
-  <div class="col-sm-3 chatBlock">
-  <label for="ex2">col-xs-3</label>
-  <div class="footer">
-  <input class="form-control eingabefeld" id="ex2" type="text" placeholder="BIATCH!!!!!"></div>
-	<h2>Chatfenster 1</h2>  
-  </div>
-  <div class="col-sm-3 chatBlock">
-  <h2>Chatfenster 2</h2>
-  </div>
-  <div class="col-sm-3 chatBlock">
-	<h2>Chatfenster 3</h2>  
-  </div>
-  <div class="col-sm-3 contacts">
-	<h2>Kontaktefenster</h2>  
-  </div>
-</div>
-</div>
-	
+				
+				<!-- Einstellungen -->
+		   <div class="modal fade" id="myModal" role="dialog">
+		     <div class="modal-dialog">
+		       <div class="modal-content">
+		         <div class="modal-header">
+		           <button type="button" class="close" data-dismiss="modal">&times;</button>
+		           <h4 class="modal-title">Einstellungen</h4>
+		         </div>
+		         <div class="modal-body">
+		           CHAT-Server: (url und port)
+							 <input type="text" class="form-control" id="chatUrl">
+							 <br>
+							 LOGIN-Server: (url und port)
+							 <input type="text" class="form-control" id="loginUrl">
+							 <br>
+							REGISTRIER-Server: (url und port)
+							 <input type="text" class="form-control" id="registerUrl">
+		         </div>
+		         <div class="modal-footer">
+							  <button type="button" class="btn btn-primary" onclick=loadSettings()>Speichern</button>
+		           <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+		         </div>
+		       </div>
+		     </div>
+		   </div>
+
+		 </div>
+			</div>
+		</div>
+		<div class="row equalheight">
+			<div class="col-md-3 equal" id="kontakte">
+				<div class="scrollbar" id="style-1">
+					<div class="force-overflow">
+					</div>
+				</div>
+				<h2>Kontaktleiste</h2>
+				<button type="button" class="btn btn-default" id="user" onClick=chatWindowOpener()>
+					<span class="glyphicon glyphicon-user">
+					</span>
+					vllt jetzt
+				</button>
+				<button type="button" class="btn btn-default" id="user">
+					<span class="glyphicon glyphicon-user">
+					</span>
+					Beispiel 2
+				</button>
+				<button type="button" class="btn btn-default" id="user">
+					<span class="glyphicon glyphicon-user">
+					</span>
+					Beispiel 3
+				</button>
+				<button type="button" class="btn btn-default" id="user">
+					<span class="glyphicon glyphicon-user">
+					</span>
+					Beispiel 4
+				</button>
+				<button type="button" class="btn btn-default" id="user">
+					<span class="glyphicon glyphicon-user">
+					</span>
+					Beispiel 5
+				</button>
+				<button type="button" class="btn btn-default" id="user">
+					<span class="glyphicon glyphicon-user">
+					</span>
+					Beispiel 6
+				</button>
 
 
-<script></script>
-</body>
 
+			</div>
+			<div id="equal">
+				<div class="col-md-3 equal" id="equal">
+					<div class="col-md-12" id="Chatkontakt">
+						<img src="benutzer.png" id="image" class="img-rounded">
+						Beispielkontakt
+					</div>
+					<div id="chatBox" style="height:590px;width:320px;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow-y:auto; overflow-x:hidden;">
+					</div>
+					<div class="input-group" id="send">
+						<input type="text" class="form-control" id="newMessage" placeholder="..." >
+						<span class="input-group-btn">
+							<button class="btn btn-default" id="sendtwo" onclick=addElement()>
+								<span class="glyphicon glyphicon-send">
+								</span>
+								Senden
+							</button>
+						</span>
+					</div>
+				</div>
+				<div class="col-md-3 equal" id="equal">
+					<div class="col-md-12" id="Chatkontakt">
+						<img src="benutzer.png" id="image" class="img-rounded">
+						Beispielkontakt
+					</div>
+					<div id="chatBox" style="height:590px;width:320px;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow-y:auto; overflow-x:hidden;">
+					</div>
+					<div class="input-group" id="send">
+						<input type="text" class="form-control" id="newMessage" placeholder="..." >
+						<span class="input-group-btn">
+							<button class="btn btn-default" id="sendtwo" onclick=addElement()>
+								<span class="glyphicon glyphicon-send">
+								</span>
+								Senden
+							</button>
+						</span>
+					</div>
+				</div>
+				<div class="col-md-3 equal" id="equal">
+					<div class="col-md-12" id="Chatkontakt">
+						<img src="benutzer.png" id="image" class="img-rounded">
+						Beispielkontakt
+						<button type="button" class="close" aria-label="Close" id="closeButton">
+							<span>&times;</span>
+						</button>
+					</div>
 
-
-
-</html>
+					<div id="chatBox" style="height:590px;width:320px;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow-y:auto; overflow-x:hidden;">
+					</div>
+					<div class="input-group" id="send">
+						<input type="text" class="form-control" id="newMessage" placeholder="..." >
+						<span class="input-group-btn">
+							<button class="btn btn-default" id="sendtwo" onclick=addElement()>
+								<span class="glyphicon glyphicon-send">
+								</span>
+								Senden
+							</button>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	</html>

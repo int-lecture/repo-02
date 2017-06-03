@@ -41,40 +41,12 @@ public class Main {
 		System.out.println("Starte grizzly...");
 		try {
 			threadSelector = GrizzlyWebContainerFactory.create(baseUri, initParams);
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (IllegalArgumentException | IOException e) {
 			e.printStackTrace();
 		}
-		System.out.printf("Grizzly(loginServer) läuft unter %s%n", baseUri);
-		// Wait forever
-		try {
-			Thread.currentThread().join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-
-		System.out.println("Grizzly wurde beendet");
-		System.exit(0);
+		System.out.printf("Grizzly läuft unter %s%n", baseUri);
 	}
 
-	public static void starteLoginServer(String uri){
-		final String baseUri = uri;
-		final String paket = "var";
-		final Map<String, String> initParams = new HashMap<String, String>();
-
-		initParams.put("com.sun.jersey.config.property.packages", paket);
-		System.out.println("Starte grizzly...");
-		try {
-			threadSelector = GrizzlyWebContainerFactory.create(baseUri, initParams);
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		System.out.printf("Grizzly(loginServer) l�uft unter %s%n", baseUri);
-
-	}
 	public static void stopLoginServer(){
 		//System.exit(0);
 		threadSelector.stopEndpoint();
@@ -187,27 +159,27 @@ public class Main {
 
 	}
 
-	@OPTIONS
-	@Path("/login")
-	public Response optionsReg() {
-	    return Response.ok("")
-	            .header("Access-Control-Allow-Origin", "*")
-	            .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
-	            .header("Access-Control-Allow-Credentials", "true")
-	            .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
-	            .header("Access-Control-Max-Age", "1209600")
-	            .build();
-	}
-
-	@OPTIONS
-	@Path("/auth")
-	public Response optionsProfile() {
-	    return Response.ok("")
-	            .header("Access-Control-Allow-Origin", "*")
-	            .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
-	            .header("Access-Control-Allow-Credentials", "true")
-	            .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
-	            .header("Access-Control-Max-Age", "1209600")
-	            .build();
-	}
+//	@OPTIONS
+//	@Path("/login")
+//	public Response optionsReg() {
+//	    return Response.ok("")
+//	            .header("Access-Control-Allow-Origin", "*")
+//	            .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+//	            .header("Access-Control-Allow-Credentials", "true")
+//	            .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+//	            .header("Access-Control-Max-Age", "1209600")
+//	            .build();
+//	}
+//
+//	@OPTIONS
+//	@Path("/auth")
+//	public Response optionsProfile() {
+//	    return Response.ok("")
+//	            .header("Access-Control-Allow-Origin", "*")
+//	            .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+//	            .header("Access-Control-Allow-Credentials", "true")
+//	            .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+//	            .header("Access-Control-Max-Age", "1209600")
+//	            .build();
+//	}
 }

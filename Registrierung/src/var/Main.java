@@ -13,9 +13,6 @@ public class Main {
 		final String baseUri = "http://localhost:5002/";
 		startGrizzly(baseUri);
 		System.out.printf("Grizzly läuft unter %s%n", baseUri);
-		// System.out.println("[ENTER] drücken, um Grizzly zu beenden");
-		// System.in.read();
-		// stopGrizzly();o
 	}
 
 	public static void startGrizzly(String baseUri) throws IllegalArgumentException, IOException {
@@ -26,9 +23,9 @@ public class Main {
 		threadSelector = GrizzlyWebContainerFactory.create(baseUri, initParams);
 	}
 
-	// public static void stopGrizzly() {
-	// threadSelector.stopEndpoint();
-	// System.out.println("Grizzly wurde beendet");
-	// System.exit(0);
-	// }
+	 public static void stopGrizzly() {
+	 threadSelector.stopEndpoint();
+	 System.out.println("Grizzly wurde beendet");
+	 System.exit(0);
+	 }
 }
