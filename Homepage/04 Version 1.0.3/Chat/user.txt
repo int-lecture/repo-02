@@ -1,5 +1,0 @@
-<option value="Philip Oesterlin">Philip Oesterlin</option>
-<option value="David Casparby">David Casparby</option>
-<option value="Luca Schilling">Luca Schilling</option>
-<option value="Fabian Munzinger">Fabian Munzinger</option>
-<option value="Chris Wolf">Chris Wolf</option>
