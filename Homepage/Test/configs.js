@@ -8,7 +8,7 @@ function chatWindowOpener() {
 	var chatWindow = document.getElementById("equal");
 	var chatString = "<div class=\"col-md-3 equal\" id=\"equal\">" +
 						"<div class=\"col-md-12\" id=\"Chatkontakt\">" +
-							"<img src=\"benutzer.png\" id=\"image\" class=\"img-rounded\">" +
+							"<img src=\"benutzer.png\" id=\"kontaktbild\" class=\"img-rounded\">" +
 								"Beispielkontakt" +
 						"</div>" +
 							"<div id=\"chatBox\" style=\"height:590px;width:320px;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow-y:auto; overflow-x:hidden;\">" +
@@ -46,12 +46,13 @@ function sendMessage(){
 		var text = $("newMessage").val(); //id (newMessage)
 		
 		var myJSON = {
-			"to": $("#empfaenger").val(), // abfragen wer der Kontakt ist
-			"from": $("#sender").val(), // von wem die Nachricht kommt (Pseudo?)
-			"text": text, // Nachricht
-			"token": "", //token abfragen
-			"sequence": "" // Sequenz generieren
+			"token": "",
+			"to": $("#pn").val(),
+			"from": $("#email").val(),
+			"text": text,
+			"sequence": ""
 			};
+		
 		
 		$.ajax({
 			url: chatUrl, 
@@ -176,3 +177,27 @@ function addElement() {
 	$("#newMessage").value = "";
     scrollbox.append(newElement);
 }
+
+
+/* Dropdownmenü: alles was mit dem Dropdown zu tun hat*/
+/* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+function myFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+	
