@@ -45,6 +45,13 @@ function loadChatValues(){
 function sendMessage(){
 		var text = $("newMessage").val(); //id (newMessage)
 		
+		var myJSON = {
+			"to": $("#empfaenger").val(), // abfragen wer der Kontakt ist
+			"from": $("#sender").val(), // von wem die Nachricht kommt (Pseudo?)
+			"text": text, // Nachricht
+			"token": "", //token abfragen
+			"sequence": "" // Sequenz generieren
+			};
 		
 		$.ajax({
 			url: chatUrl, 
