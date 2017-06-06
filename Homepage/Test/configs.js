@@ -3,28 +3,28 @@ var user_id;
 var chatUrl = setSettings("","chat");
 var loginUrl = setSettings("","login");
 var registerUrl = setSettings("","register");
-function chatWindowOpener() {
+// function chatWindowOpener() {
 
-	var chatWindow = document.getElementById("equal");
-	var chatString = "<div class=\"col-md-3 equal\" id=\"equal\">" +
-						"<div class=\"col-md-12\" id=\"Chatkontakt\">" +
-							"<img src=\"benutzer.png\" id=\"kontaktbild\" class=\"img-rounded\">" +
-								"Beispielkontakt" +
-						"</div>" +
-							"<div id=\"chatBox\" style=\"height:590px;width:320px;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow-y:auto; overflow-x:hidden;\">" +
-							"</div>" +
-								"<div class=\"input-group\" id=\"send\">" +
-									"<input type=\"text\" class=\"form-control\" id=\"newMessage\" placeholder=\"...\" >" +
-										"<span class=\"input-group-btn\">" +
-											"<button class=\"btn btn-default\" id=\"sendtwo\" onclick=addElement()>" +
-												"<span class=\"glyphicon glyphicon-send\">" + "</span>" +
-													"Senden" +
-											"</button>" +
-										"</span>" +
-								"</div>" +
-					"</div>"
-	chatWindow.insertAdjacentHTML("beforeend",chatString);
-}
+	// var chatWindow = document.getElementById("equal");
+	// var chatString = "<div class=\"col-md-3 equal\" id=\"equal\">" +
+						// "<div class=\"col-md-12\" id=\"Chatkontakt\">" +
+							// "<img src=\"benutzer.png\" id=\"kontaktbild\" class=\"img-rounded\">" +
+								// "Beispielkontakt" +
+						// "</div>" +
+							// "<div id=\"chatBox\" style=\"height:590px;width:320px;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow-y:auto; overflow-x:hidden;\">" +
+							// "</div>" +
+								// "<div class=\"input-group\" id=\"send\">" +
+									// "<input type=\"text\" class=\"form-control\" id=\"newMessage\" placeholder=\"...\" >" +
+										// "<span class=\"input-group-btn\">" +
+											// "<button class=\"btn btn-default\" id=\"sendtwo\" onclick=addElement()>" +
+												// "<span class=\"glyphicon glyphicon-send\">" + "</span>" +
+													// "Senden" +
+											// "</button>" +
+										// "</span>" +
+								// "</div>" +
+					// "</div>"
+	// chatWindow.insertAdjacentHTML("beforeend",chatString);
+// }
 
 function loadChatValues(){
 
