@@ -2,8 +2,7 @@
 
 /* Topbar: alles was mit der Kopfzeile zu tun hat */
 #kopfzeile {
-	padding-top: 2px;
-	font-size: 32px;
+	padding-top: 3px;
 	background:#36749C;
 	height: 50px;
 	font-family: Brush Script;
@@ -11,16 +10,16 @@
 }
 
 #titel{
-	font-size: 100%;
+	font-size: 32px;
+	width: 100%;
 	color: #282F37;
 }
 
 #settings {
 	float: right;
-	right: 20px;
 	color: black;
 	background: white;
-	width: 5%;
+	width: 70px;
 }
 
 #titelbild {
@@ -147,9 +146,8 @@
 }
 
 
-
-
 body{
   max-width: 99vw;
 }
+
 
