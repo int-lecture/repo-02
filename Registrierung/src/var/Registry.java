@@ -5,6 +5,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.OPTIONS;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -53,5 +54,11 @@ public class Registry {
 			return Responder.badRequest();
 		}
 		return Responder.badRequest();
+	}
+
+	@OPTIONS
+	@Path("/register")
+	public Response optionsReg() {
+	    return Responder.preFlight();
 	}
 }

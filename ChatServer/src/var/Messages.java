@@ -3,6 +3,7 @@ package var;
 import java.util.List;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.OPTIONS;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -88,5 +89,17 @@ public class Messages {
 			responseForUser.put(jsonMessage);
 		}
 		return Responder.created(responseForUser);
+	}
+
+	@OPTIONS
+	@Path("/messages/{user_id}")
+	public Response optionsMessage() {
+	    return Responder.preFlight();
+	}
+
+	@OPTIONS
+	@Path("/messages/{user_id}/{sequenceNumber}")
+	public Response optionsMessages() {
+	    return Responder.preFlight();
 	}
 }

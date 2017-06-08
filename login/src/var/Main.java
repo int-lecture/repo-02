@@ -12,8 +12,6 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.OPTIONS;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.json.JSONException;
@@ -47,8 +45,8 @@ public class Main {
 		System.out.printf("Grizzly läuft unter %s%n", baseUri);
 	}
 
-	public static void stopLoginServer(){
-		//System.exit(0);
+	public static void stopLoginServer() {
+		// System.exit(0);
 		threadSelector.stopEndpoint();
 	}
 
@@ -122,8 +120,8 @@ public class Main {
 			System.out.println("Fehler beim extrahieren des jsonObject");
 			return Responder.badRequest();
 		}
-		String expireDate= spMDB.retrieveToken(pseudonym, token);
-		if (expireDate!=null) {
+		String expireDate = spMDB.retrieveToken(pseudonym, token);
+		if (expireDate != null) {
 			SimpleDateFormat sdf = new SimpleDateFormat(Main.ISO8601);
 			Date date;
 			try {
@@ -151,6 +149,17 @@ public class Main {
 			}
 		}
 		return Responder.unauthorised();
+	}
 
+	@OPTIONS
+	@Path("/login")
+	public Response optionsLogin() {
+	    return Responder.preFlight();
+	}
+
+	@OPTIONS
+	@Path("/auth")
+	public Response optionsAuth() {
+	    return Responder.preFlight();
 	}
 }

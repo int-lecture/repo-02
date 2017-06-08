@@ -42,12 +42,21 @@ public class Responder {
 	}
 
 
-
 	static Response unauthorised(){
 		return Responder.build(Response.Status.UNAUTHORIZED, "böser bub", false);
 	}
 
 	public static Response teapot() {
 		return Responder.build(418, "Pseudonym or Username taken", true);
+	}
+
+	public static Response preFlight(){
+		return Response.ok("")
+	            .header("Access-Control-Allow-Origin", "*")
+	            .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+	            .header("Access-Control-Allow-Credentials", "true")
+	            .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+	            .header("Access-Control-Max-Age", "1209600")
+	            .build();
 	}
 }
