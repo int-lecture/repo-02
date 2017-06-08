@@ -1,13 +1,11 @@
 package var;
 
 import java.text.SimpleDateFormat;
-import java.util.LinkedList;
 import java.util.Date;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.codehaus.jettison.json.JSONObject;
@@ -21,7 +19,6 @@ public class Send {
 
 	// Data-formate
 	private static final String ISO8601 = "yyyy-MM-dd'T'HH:mm:ssZ";
-
 
 	@PUT
 	@Consumes("application/json")
@@ -46,28 +43,18 @@ public class Send {
 				long sequence = db.retrieveAndUpdateSequence(to);
 				Message newMessage = new Message(from, to, date, sequence, text);
 
-				String url = "http://141.19.142.57:5001/auth";
+				String url = "http://localhost:5001/auth";
 				Client client = Client.create();
-
-				WebResource webResource = client
-				   .resource(url);
-
+				WebResource webResource = client.resource(url);
 				String input = "{\"token\": \"" + token + "\",\"pseudonym\": \"" + to + "\"}";
 				System.out.println(input);
-
-				ClientResponse response = webResource.type("application/json")
-				   .post(ClientResponse.class, input);
-
+				ClientResponse response = webResource.type("application/json").post(ClientResponse.class, input);
 				if (response.getStatus() != 200) {
 					System.out.println(response.getStatus());
-					return Response.status(Response.Status.UNAUTHORIZED).entity("böser bub").build();
+					return Responder.unauthorised();
+				} else {
+					db.storeMessage(newMessage);
 				}
-
-				System.out.println("Output from Server .... \n");
-				String output = response.getEntity(String.class);
-				System.out.println(output);
-
-				db.storeMessage(newMessage);
 
 				JSONObject createdDetails = new JSONObject();
 				// Current Systemtime
@@ -77,17 +64,19 @@ public class Send {
 				System.out.println("from: " + from + ", to: " + to);
 				System.out.println(text);
 				System.out.println("Sequence: " + sequence);
-				return Response.status(Response.Status.CREATED).entity(createdDetails).build();
+				return Responder.created(createdDetails);
 			}
 			// If with the response is something wrong,
 			// get oudda this try and get catched
 			else {
-				return Response.status(Response.Status.BAD_REQUEST).entity("Bad Request").build();
+				return Responder.badRequest();
 			}
 			// Send the fail-Response with statuscode 400
 		} catch (Exception e) {
 			e.printStackTrace();
-			return Response.status(Response.Status.BAD_REQUEST).entity("Bad Request").build();
+			return Responder.badRequest();
 		}
 	}
+
+
 }

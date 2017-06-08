@@ -6,9 +6,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
-import org.codehaus.jettison.json.JSONArray;
-import org.codehaus.jettison.json.JSONException;
-import org.codehaus.jettison.json.JSONObject;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 @Path("/profile")
@@ -45,13 +45,13 @@ public class Profile {
 						contacts.put(contact);
 					}
 					profilDetails.put("contacts", contacts);
-					return Response.status(Response.Status.CREATED).entity(profilDetails).build();
+					return Responder.created(profilDetails);
 				}
 			}
 			// Probleme mit Authentifizierung oder Anfrage
 		} catch (JSONException e) {
-			return Response.status(Response.Status.BAD_REQUEST).entity("Bad Request").build();
+			return Responder.badRequest();
 		}
-		return Response.status(Response.Status.BAD_REQUEST).entity("Bad Request").build();
+		return Responder.badRequest();
 	}
 }

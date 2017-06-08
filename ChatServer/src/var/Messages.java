@@ -1,6 +1,5 @@
 package var;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.ws.rs.GET;
@@ -11,10 +10,15 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.core.Response;
 
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
+
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.WebResource;
 
 @Path("/")
 @Produces(MediaType.APPLICATION_JSON)
@@ -28,7 +32,7 @@ public class Messages {
 	@GET
 	@Path("/messages/{user_id}")
 	@Produces("application/json")
-	public JSONArray receive(@PathParam("user_id") String username, @Context HttpHeaders header) {
+	public Response receive(@PathParam("user_id") String username, @Context HttpHeaders header) {
 		return receive(username, 0, header);
 	}
 
@@ -41,10 +45,28 @@ public class Messages {
 	@GET
 	@Path("/messages/{user_id}/{sequenceNumber}")
 	@Produces("application/json")
-	public JSONArray receive(@PathParam("user_id") String username, @PathParam("sequenceNumber") int seqRecieved,
+	public Response receive(@PathParam("user_id") String username, @PathParam("sequenceNumber") int seqRecieved,
 			@Context HttpHeaders header) {
 		MultivaluedMap<String, String> map = header.getRequestHeaders();
-		map.get("Authorization").get(0);
+
+		List<String> check = map.get("Authorization");
+		String token;
+		if(check != null){
+			token = check.get(0);
+		} else {
+			return Responder.unauthorised();
+		}
+
+		String url = "http://localhost:5001/auth";
+		Client client = Client.create();
+		WebResource webResource = client.resource(url);
+		String input = "{\"token\": \"" + token + "\",\"pseudonym\": \"" + username + "\"}";
+		ClientResponse response = webResource.type("application/json").post(ClientResponse.class, input);
+		if (response.getStatus() != 200) {
+			System.out.println(response.getStatus());
+			return Responder.unauthorised();
+		}
+
 		// Feld um die Nachrichten-Listenelemente in
 		// ein zusammenhängendes JSONArray zu packen
 		JSONArray responseForUser = new JSONArray();
@@ -65,7 +87,6 @@ public class Messages {
 			}
 			responseForUser.put(jsonMessage);
 		}
-		return responseForUser;
+		return Responder.created(responseForUser);
 	}
-
 }

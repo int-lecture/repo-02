@@ -44,14 +44,14 @@ public class Registry {
 					dbms.createUser(pseudonym, password, email);
 					JSONObject profilDetails = new JSONObject();
 					profilDetails.put("success", "true");
-					return Response.status(Response.Status.OK).entity(profilDetails).build();
+					return Responder.ok(profilDetails);
 				} catch (InvalidParameterException e) {
-					return Response.status(418).entity("Pseudonym or Username taken").build();
+					return Responder.teapot();
 				}
 			}
 		} catch (JSONException e) {
-			return Response.status(Response.Status.BAD_REQUEST).entity("Bad Request").build();
+			return Responder.badRequest();
 		}
-		return Response.status(Response.Status.BAD_REQUEST).entity("Bad Request").build();
+		return Responder.badRequest();
 	}
 }

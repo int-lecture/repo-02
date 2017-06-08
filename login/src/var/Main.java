@@ -62,24 +62,21 @@ public class Main {
 	 */
 	@POST
 	@Path("/login")
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response LoginUser(String jsonString) {
+	@Consumes("application/json")
+	public Response LoginUser(JSONObject obj) {
 		String userName = "";
 		String password = "";
 		try {
-			JSONObject obj = new JSONObject(jsonString);
 			password = obj.getString("password");
 			userName = obj.getString("user");
 			System.out.println("user: " + userName);
-
 		} catch (JSONException e) {
 			System.out.println("Problem beim jsonString extrahieren");
-			return Response.status(Response.Status.BAD_REQUEST).build();
+			return Responder.badRequest();
 		}
 		User user = spMDB.retrieveUser(userName);
 		if (user != null && user.VerifyPassword(password)) {
-			JSONObject obj = new JSONObject();
+			obj = new JSONObject();
 			user.GenerateToken();
 			try {
 				SimpleDateFormat sdf = new SimpleDateFormat(Main.ISO8601);
@@ -88,17 +85,17 @@ public class Main {
 				obj.put("expire-date", sdf.format(expireDate.getTime()));
 				obj.put("token", user.GetToken().toString());
 			} catch (JSONException e) {
-				System.out.println("Problem beim jasonobjekt f�llen");
+				System.out.println("Problem beim jsonobjekt füllen");
 				e.printStackTrace();
-				return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+				return Responder.build(Response.Status.INTERNAL_SERVER_ERROR, "", false);
 			}
 			SimpleDateFormat sdf = new SimpleDateFormat(Main.ISO8601);
 			Calendar expireDate = user.GetTokenExpireDate();
 			sdf.setTimeZone(expireDate.getTimeZone());
 			spMDB.saveToken(user.GetToken(), sdf.format(expireDate.getTime()), user.pseudonym);
-			return Response.status(Response.Status.OK).header("Access-Control-Allow-Origin", "*").entity(obj.toString()).build();
+			return Responder.ok(obj);
 		} else {
-			return Response.status(Response.Status.UNAUTHORIZED).build();
+			return Responder.unauthorised();
 		}
 	}
 
@@ -112,20 +109,18 @@ public class Main {
 	 */
 	@POST
 	@Path("/auth")
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response ValidateToken(String jsonString) {
+	@Consumes("application/json")
+	public Response ValidateToken(JSONObject obj) {
 		String token = "";
 		String pseudonym = "";
 		try {
-			JSONObject obj = new JSONObject(jsonString);
 			token = obj.getString("token");
 			pseudonym = obj.getString("pseudonym");
 			System.out.println(token);
 			System.out.println(pseudonym);
 		} catch (JSONException e) {
 			System.out.println("Fehler beim extrahieren des jsonObject");
-			return Response.status(Response.Status.BAD_REQUEST).build();
+			return Responder.badRequest();
 		}
 		String expireDate= spMDB.retrieveToken(pseudonym, token);
 		if (expireDate!=null) {
@@ -135,51 +130,27 @@ public class Main {
 				date = sdf.parse(expireDate);
 			} catch (ParseException e1) {
 				System.out.println("invalid Date");
-				return Response.status(Response.Status.BAD_REQUEST).build();
+				return Responder.badRequest();
 			}
 			Calendar cal = Calendar.getInstance();
 			if (cal.getTime().before(date)) {
-				JSONObject obj = new JSONObject();
+				obj = new JSONObject();
 				try {
 					sdf = new SimpleDateFormat(Main.ISO8601);
 					obj.put("success", "true");
 					obj.put("expire-date", expireDate);
-					return Response.status(Response.Status.OK).header("Access-Control-Allow-Origin", "*").entity(obj.toString()).build();
+					return Responder.ok(obj);
 
 				} catch (JSONException e) {
-					System.out.println("Fehler beim jsonObject f�llen");
-					return Response.status(Response.Status.UNAUTHORIZED).build();
+					System.out.println("Fehler beim jsonObject füllen");
+					return Responder.unauthorised();
 				}
 			} else {
 				// Token has expired
 				spMDB.deleteToken(token);
 			}
 		}
-		return Response.status(Response.Status.UNAUTHORIZED).build();
+		return Responder.unauthorised();
 
 	}
-
-//	@OPTIONS
-//	@Path("/login")
-//	public Response optionsReg() {
-//	    return Response.ok("")
-//	            .header("Access-Control-Allow-Origin", "*")
-//	            .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
-//	            .header("Access-Control-Allow-Credentials", "true")
-//	            .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
-//	            .header("Access-Control-Max-Age", "1209600")
-//	            .build();
-//	}
-//
-//	@OPTIONS
-//	@Path("/auth")
-//	public Response optionsProfile() {
-//	    return Response.ok("")
-//	            .header("Access-Control-Allow-Origin", "*")
-//	            .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
-//	            .header("Access-Control-Allow-Credentials", "true")
-//	            .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
-//	            .header("Access-Control-Max-Age", "1209600")
-//	            .build();
-//	}
 }
