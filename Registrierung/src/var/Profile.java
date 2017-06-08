@@ -27,8 +27,9 @@ public class Profile {
 	@POST
 	@Consumes("application/json")
 	@Produces("application/json")
-	public Response profile(JSONObject jsonObject){
+	public Response profile(String json){
 		try{
+			JSONObject jsonObject = new JSONObject(json);
 			if (jsonObject.getString("token") != null && jsonObject.getString("getownprofile") != null) {
 				String token = jsonObject.getString("token");
 				String profile = jsonObject.getString("getownprofile");

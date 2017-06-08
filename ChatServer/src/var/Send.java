@@ -24,8 +24,9 @@ public class Send {
 
 	@PUT
 	@Consumes("application/json")
-	public Response put(JSONObject object) {
+	public Response put(String json) {
 		try {
+			JSONObject object = new JSONObject(json);
 			// Check if all Request-Elements are not empty
 			if (object.getString("from") != null && object.getString("to") != null && object.getString("date") != null
 					&& object.getString("text") != null && object.getString("token") != null) {

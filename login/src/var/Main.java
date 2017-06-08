@@ -61,8 +61,9 @@ public class Main {
 	@POST
 	@Path("/login")
 	@Consumes("application/json")
-	public Response LoginUser(JSONObject obj) {
+	public Response LoginUser(String json) {
 		try {
+			JSONObject obj = new JSONObject(json);
 			String userName = "";
 			String password = "";
 			try {
@@ -112,8 +113,9 @@ public class Main {
 	@POST
 	@Path("/auth")
 	@Consumes("application/json")
-	public Response ValidateToken(JSONObject obj) {
+	public Response ValidateToken(String json) {
 		try {
+			JSONObject obj = new JSONObject(json);
 			String token = "";
 			String pseudonym = "";
 			try {
@@ -163,14 +165,12 @@ public class Main {
 	@OPTIONS
 	@Path("/login")
 	public Response optionsLogin() {
-		System.out.println("log pre flight");
 		return Responder.preFlight();
 	}
 
 	@OPTIONS
 	@Path("/auth")
 	public Response optionsAuth() {
-		System.out.println("auth pre flight");
 		return Responder.preFlight();
 	}
 }
