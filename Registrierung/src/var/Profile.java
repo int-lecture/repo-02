@@ -7,9 +7,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.codehaus.jettison.json.JSONArray;
+import org.codehaus.jettison.json.JSONObject;
 
 
 @Path("/profile")
@@ -50,10 +49,10 @@ public class Profile {
 				}
 			}
 			// Probleme mit Authentifizierung oder Anfrage
-		} catch (JSONException e) {
 			return Responder.badRequest();
+		} catch (Exception e) {
+			return Responder.exception(e);
 		}
-		return Responder.badRequest();
 	}
 
 	@OPTIONS

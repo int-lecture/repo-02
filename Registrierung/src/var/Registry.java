@@ -11,8 +11,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.codehaus.jettison.json.JSONObject;
 
 @Path("/")
 
@@ -50,10 +49,10 @@ public class Registry {
 					return Responder.teapot();
 				}
 			}
-		} catch (JSONException e) {
 			return Responder.badRequest();
+		} catch (Exception e) {
+			return Responder.exception(e);
 		}
-		return Responder.badRequest();
 	}
 
 	@OPTIONS

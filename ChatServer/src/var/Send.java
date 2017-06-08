@@ -12,6 +12,7 @@ import javax.ws.rs.core.Response;
 import org.codehaus.jettison.json.JSONObject;
 
 import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 
@@ -49,7 +50,12 @@ public class Send {
 				WebResource webResource = client.resource(url);
 				String input = "{\"token\": \"" + token + "\",\"pseudonym\": \"" + to + "\"}";
 				System.out.println(input);
-				ClientResponse response = webResource.type("application/json").post(ClientResponse.class, input);
+				ClientResponse response;
+				try {
+					response = webResource.type("application/json").post(ClientResponse.class, input);
+				} catch (ClientHandlerException e) {
+					return Responder.build(Response.Status.INTERNAL_SERVER_ERROR, e.getMessage(), false);
+				}
 				if (response.getStatus() != 200) {
 					System.out.println(response.getStatus());
 					return Responder.unauthorised();
@@ -74,15 +80,14 @@ public class Send {
 			}
 			// Send the fail-Response with statuscode 400
 		} catch (Exception e) {
-			e.printStackTrace();
-			return Responder.badRequest();
+			return Responder.exception(e);
 		}
 	}
 
 	@OPTIONS
 	@Path("/send")
 	public Response optionsSend() {
-	    return Responder.preFlight();
+		return Responder.preFlight();
 	}
 
 }

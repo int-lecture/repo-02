@@ -13,14 +13,14 @@ public class Responder {
 	private static ResponseBuilder cors(ResponseBuilder resp, boolean allowed) {
 		if (allowed) {
 			return resp.header("Access-Control-Allow-Origin", "*").header("Access-Control-Allow-Methods",
-					"GET, POST, DELETE, PUT");
+					"GET, POST, PUT, DELETE, OPTIONS, HEAD");
 		} else {
 			return resp;
 		}
 	}
 
 	static Response badRequest() {
-		return Responder.build(Response.Status.BAD_REQUEST, "Bad Request", false);
+		return Responder.build(Response.Status.BAD_REQUEST, "Bad Request", true);
 	}
 
 	public static Response created(JSONArray responseForUser) {
@@ -41,5 +41,9 @@ public class Responder {
 				.header("Access-Control-Allow-Credentials", "true")
 				.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
 				.header("Access-Control-Max-Age", "1209600").build();
+	}
+
+	public static Response exception(Exception e) {
+		return Responder.build(Response.Status.BAD_REQUEST, e.getMessage(), false);
 	}
 }
