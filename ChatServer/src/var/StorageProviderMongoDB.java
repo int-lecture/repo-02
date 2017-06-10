@@ -24,7 +24,7 @@ import com.mongodb.client.MongoDatabase;
  */
 class StorageProviderMongoDB {
 
-    private static final String MONGO_URL = "mongodb://localhost/chat";
+    private static final String MONGO_URL = "mongodb://141.19.142.56/chat";
 
 	/** URI to the MongoDB instance. */
     private static MongoClientURI connectionString =

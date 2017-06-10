@@ -1,0 +1,26 @@
+.chatBlock {
+	border-style: solid;
+	border-color: #605340;
+	height: 800px;
+	overflow-y: scroll;
+	}
+	
+.contacts {
+	background-color: #C7E2F4;
+	border-style: solid;
+	border-color: #605340;
+	height: 800px;
+	overflow-y: scroll;
+}
+
+body {
+	background-color: #282F37;
+}
+
+.settingsBottom {
+	float: right;
+	top: 20px;
+}
+
+.eingabefeld {
+}
