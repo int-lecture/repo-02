@@ -12,12 +12,10 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.OPTIONS;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
 
 import com.sun.grizzly.http.SelectorThread;
 import com.sun.jersey.api.container.grizzly.GrizzlyWebContainerFactory;
@@ -47,8 +45,8 @@ public class Main {
 		System.out.printf("Grizzly läuft unter %s%n", baseUri);
 	}
 
-	public static void stopLoginServer(){
-		//System.exit(0);
+	public static void stopLoginServer() {
+		// System.exit(0);
 		threadSelector.stopEndpoint();
 	}
 
@@ -62,43 +60,45 @@ public class Main {
 	 */
 	@POST
 	@Path("/login")
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response LoginUser(String jsonString) {
-		String userName = "";
-		String password = "";
+	@Consumes("application/json")
+	public Response LoginUser(String json) {
 		try {
-			JSONObject obj = new JSONObject(jsonString);
-			password = obj.getString("password");
-			userName = obj.getString("user");
-			System.out.println("user: " + userName);
-
-		} catch (JSONException e) {
-			System.out.println("Problem beim jsonString extrahieren");
-			return Response.status(Response.Status.BAD_REQUEST).build();
-		}
-		User user = spMDB.retrieveUser(userName);
-		if (user != null && user.VerifyPassword(password)) {
-			JSONObject obj = new JSONObject();
-			user.GenerateToken();
+			JSONObject obj = new JSONObject(json);
+			String userName = "";
+			String password = "";
 			try {
+				password = obj.getString("password");
+				userName = obj.getString("user");
+				System.out.println("user: " + userName);
+			} catch (JSONException e) {
+				System.out.println("Problem beim jsonString extrahieren");
+				return Responder.badRequest();
+			}
+			User user = spMDB.retrieveUser(userName);
+			if (user != null && user.VerifyPassword(password)) {
+				obj = new JSONObject();
+				user.GenerateToken();
+				try {
+					SimpleDateFormat sdf = new SimpleDateFormat(Main.ISO8601);
+					Calendar expireDate = user.GetTokenExpireDate();
+					sdf.setTimeZone(expireDate.getTimeZone());
+					obj.put("expire-date", sdf.format(expireDate.getTime()));
+					obj.put("token", user.GetToken().toString());
+				} catch (JSONException e) {
+					System.out.println("Problem beim jsonobjekt füllen");
+					e.printStackTrace();
+					return Responder.build(Response.Status.INTERNAL_SERVER_ERROR, "", false);
+				}
 				SimpleDateFormat sdf = new SimpleDateFormat(Main.ISO8601);
 				Calendar expireDate = user.GetTokenExpireDate();
 				sdf.setTimeZone(expireDate.getTimeZone());
-				obj.put("expire-date", sdf.format(expireDate.getTime()));
-				obj.put("token", user.GetToken().toString());
-			} catch (JSONException e) {
-				System.out.println("Problem beim jasonobjekt f�llen");
-				e.printStackTrace();
-				return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+				spMDB.saveToken(user.GetToken(), sdf.format(expireDate.getTime()), user.pseudonym);
+				return Responder.ok(obj);
+			} else {
+				return Responder.unauthorised();
 			}
-			SimpleDateFormat sdf = new SimpleDateFormat(Main.ISO8601);
-			Calendar expireDate = user.GetTokenExpireDate();
-			sdf.setTimeZone(expireDate.getTimeZone());
-			spMDB.saveToken(user.GetToken(), sdf.format(expireDate.getTime()), user.pseudonym);
-			return Response.status(Response.Status.OK).header("Access-Control-Allow-Origin", "*").entity(obj.toString()).build();
-		} else {
-			return Response.status(Response.Status.UNAUTHORIZED).build();
+		} catch (Exception e) {
+			return Responder.exception(e);
 		}
 	}
 
@@ -112,74 +112,65 @@ public class Main {
 	 */
 	@POST
 	@Path("/auth")
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response ValidateToken(String jsonString) {
-		String token = "";
-		String pseudonym = "";
+	@Consumes("application/json")
+	public Response ValidateToken(String json) {
 		try {
-			JSONObject obj = new JSONObject(jsonString);
-			token = obj.getString("token");
-			pseudonym = obj.getString("pseudonym");
-			System.out.println(token);
-			System.out.println(pseudonym);
-		} catch (JSONException e) {
-			System.out.println("Fehler beim extrahieren des jsonObject");
-			return Response.status(Response.Status.BAD_REQUEST).build();
-		}
-		String expireDate= spMDB.retrieveToken(pseudonym, token);
-		if (expireDate!=null) {
-			SimpleDateFormat sdf = new SimpleDateFormat(Main.ISO8601);
-			Date date;
+			JSONObject obj = new JSONObject(json);
+			String token = "";
+			String pseudonym = "";
 			try {
-				date = sdf.parse(expireDate);
-			} catch (ParseException e1) {
-				System.out.println("invalid Date");
-				return Response.status(Response.Status.BAD_REQUEST).build();
+				token = obj.getString("token");
+				pseudonym = obj.getString("pseudonym");
+				System.out.println(token);
+				System.out.println(pseudonym);
+			} catch (JSONException e) {
+				System.out.println("Fehler beim extrahieren des jsonObject");
+				return Responder.badRequest();
 			}
-			Calendar cal = Calendar.getInstance();
-			if (cal.getTime().before(date)) {
-				JSONObject obj = new JSONObject();
+			String expireDate = spMDB.retrieveToken(pseudonym, token);
+			if (expireDate != null) {
+				SimpleDateFormat sdf = new SimpleDateFormat(Main.ISO8601);
+				Date date;
 				try {
-					sdf = new SimpleDateFormat(Main.ISO8601);
-					obj.put("success", "true");
-					obj.put("expire-date", expireDate);
-					return Response.status(Response.Status.OK).header("Access-Control-Allow-Origin", "*").entity(obj.toString()).build();
-
-				} catch (JSONException e) {
-					System.out.println("Fehler beim jsonObject f�llen");
-					return Response.status(Response.Status.UNAUTHORIZED).build();
+					date = sdf.parse(expireDate);
+				} catch (ParseException e1) {
+					System.out.println("invalid Date");
+					return Responder.badRequest();
 				}
-			} else {
-				// Token has expired
-				spMDB.deleteToken(token);
+				Calendar cal = Calendar.getInstance();
+				if (cal.getTime().before(date)) {
+					obj = new JSONObject();
+					try {
+						sdf = new SimpleDateFormat(Main.ISO8601);
+						obj.put("success", "true");
+						obj.put("expire-date", expireDate);
+						// return Responder.ok(obj);
+
+					} catch (JSONException e) {
+						System.out.println("Fehler beim jsonObject füllen");
+						return Responder.unauthorised();
+					}
+				} else {
+					// Token has expired
+					spMDB.deleteToken(token);
+				}
 			}
+			return Responder.unauthorised();
+		} catch (Exception e) {
+			return Responder.exception(e);
 		}
-		return Response.status(Response.Status.UNAUTHORIZED).build();
 
 	}
 
-//	@OPTIONS
-//	@Path("/login")
-//	public Response optionsReg() {
-//	    return Response.ok("")
-//	            .header("Access-Control-Allow-Origin", "*")
-//	            .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
-//	            .header("Access-Control-Allow-Credentials", "true")
-//	            .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
-//	            .header("Access-Control-Max-Age", "1209600")
-//	            .build();
-//	}
-//
-//	@OPTIONS
-//	@Path("/auth")
-//	public Response optionsProfile() {
-//	    return Response.ok("")
-//	            .header("Access-Control-Allow-Origin", "*")
-//	            .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
-//	            .header("Access-Control-Allow-Credentials", "true")
-//	            .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
-//	            .header("Access-Control-Max-Age", "1209600")
-//	            .build();
-//	}
+	@OPTIONS
+	@Path("/login")
+	public Response optionsLogin() {
+		return Responder.preFlight();
+	}
+
+	@OPTIONS
+	@Path("/auth")
+	public Response optionsAuth() {
+		return Responder.preFlight();
+	}
 }

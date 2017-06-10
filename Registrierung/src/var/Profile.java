@@ -1,13 +1,13 @@
 package var;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.OPTIONS;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
 import org.codehaus.jettison.json.JSONArray;
-import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
 
@@ -27,8 +27,9 @@ public class Profile {
 	@POST
 	@Consumes("application/json")
 	@Produces("application/json")
-	public Response profile(JSONObject jsonObject){
+	public Response profile(String json){
 		try{
+			JSONObject jsonObject = new JSONObject(json);
 			if (jsonObject.getString("token") != null && jsonObject.getString("getownprofile") != null) {
 				String token = jsonObject.getString("token");
 				String profile = jsonObject.getString("getownprofile");
@@ -45,13 +46,19 @@ public class Profile {
 						contacts.put(contact);
 					}
 					profilDetails.put("contacts", contacts);
-					return Response.status(Response.Status.CREATED).entity(profilDetails).build();
+					return Responder.created(profilDetails);
 				}
 			}
 			// Probleme mit Authentifizierung oder Anfrage
-		} catch (JSONException e) {
-			return Response.status(Response.Status.BAD_REQUEST).entity("Bad Request").build();
+			return Responder.badRequest();
+		} catch (Exception e) {
+			return Responder.exception(e);
 		}
-		return Response.status(Response.Status.BAD_REQUEST).entity("Bad Request").build();
+	}
+
+	@OPTIONS
+	@Path("/register")
+	public Response optionsReg() {
+	    return Responder.preFlight();
 	}
 }

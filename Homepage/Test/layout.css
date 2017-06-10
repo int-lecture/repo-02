@@ -1,0 +1,153 @@
+/* CSS used here will be applied after bootstrap.css */
+
+/* Topbar: alles was mit der Kopfzeile zu tun hat */
+#kopfzeile {
+	padding-top: 3px;
+	background:#36749C;
+	height: 50px;
+	font-family: Brush Script;
+	color: white;
+}
+
+#titel{
+	font-size: 32px;
+	width: 100%;
+	color: #282F37;
+}
+
+#settings {
+	float: right;
+	color: black;
+	background: white;
+	width: 70px;
+}
+
+#titelbild {
+	float: left;
+	width: 50px;
+	height: 45px;
+}
+
+/* Für das Kommunikationsfenster bei Einstellungen */
+#mymodal{
+  color: black;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 100;
+  font-size: 80%;
+}
+
+/* Contacts: alles was mit der Spalte Kontakte zu tun hat */
+ #kontakte {
+	background:#36749C;
+	color:black;
+	height: 94%;
+	border-style: solid;
+	border-color: black;
+}
+
+#kontaktbox{
+	height: 90%;
+	width: 100%;
+	border:1px solid #ccc;
+	font:16px/26px Georgia, Garamond, Serif;
+	overflow-y:auto; 
+	overflow-x:hidden;
+	border-color: #36749C;
+}
+
+#user {
+	width: 100%;
+}
+
+
+.dropbtn {
+    background-color: #282F37;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+	width: 100%;
+    border: none;
+    cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+    background-color: #8DAABC;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+	width: 100%;
+	font-size: 25px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #282F37;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown a:hover {background-color: #282F37}
+
+.show {display:block;}
+
+
+
+/* Chat: alles was mit dem Chatblock zu tun hat */
+#Chatkontakt{
+	background: #8DAABC;
+	width: 99%;
+	float:left;
+	color: black;
+	height: 50px;
+	font-size: 32px;
+}
+
+#Chatfenster{
+	height: 94%;
+	background: #282F37;
+	border-style: solid;
+	border-color: black;
+	color: white;
+}
+
+#kontaktbild {
+	float:left;
+	height:50px;
+	width: 55px;
+}
+
+#send{
+	position: absolute;
+	bottom: 20px;
+	left: 20px;
+	width: 95%;
+}
+
+#chatBox {
+	height:85%;
+	width:100%;
+	border:1px solid #ccc;
+	font:16px/26px Georgia, Garamond, Serif;
+	overflow-y:auto; 
+	overflow-x:hidden;
+	border-color: #282F37;
+}
+
+
+body{
+  max-width: 99vw;
+}
+
+

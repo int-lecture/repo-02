@@ -5,13 +5,13 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.OPTIONS;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.codehaus.jettison.json.JSONObject;
 
 @Path("/")
 
@@ -32,8 +32,9 @@ public class Registry {
 	@Path("/register")
 	@Consumes("application/json")
 	@Produces("application/json")
-	public Response register(JSONObject jsonObject) {
+	public Response register(String json) {
 		try {
+			JSONObject jsonObject = new JSONObject(json);
 			if (jsonObject.getString("pseudonym") != null && jsonObject.getString("password") != null
 					&& jsonObject.getString("user") != null) {
 				String pseudonym = jsonObject.getString("pseudonym");
@@ -44,14 +45,20 @@ public class Registry {
 					dbms.createUser(pseudonym, password, email);
 					JSONObject profilDetails = new JSONObject();
 					profilDetails.put("success", "true");
-					return Response.status(Response.Status.OK).entity(profilDetails).build();
+					return Responder.ok(profilDetails);
 				} catch (InvalidParameterException e) {
-					return Response.status(418).entity("Pseudonym or Username taken").build();
+					return Responder.teapot();
 				}
 			}
-		} catch (JSONException e) {
-			return Response.status(Response.Status.BAD_REQUEST).entity("Bad Request").build();
+			return Responder.badRequest();
+		} catch (Exception e) {
+			return Responder.exception(e);
 		}
-		return Response.status(Response.Status.BAD_REQUEST).entity("Bad Request").build();
+	}
+
+	@OPTIONS
+	@Path("/register")
+	public Response optionsReg() {
+	    return Responder.preFlight();
 	}
 }
