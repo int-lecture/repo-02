@@ -8,6 +8,7 @@ import org.codehaus.jettison.json.JSONObject;
 
 public class Responder {
 	static Response build(Response.Status stat, String entity, boolean allowed) {
+		System.out.println(stat + " " + entity);
 		return cors(Response.status(stat).entity(entity), allowed).build();
 	}
 
@@ -21,7 +22,7 @@ public class Responder {
 	}
 
 	static Response badRequest() {
-		return Responder.build(Response.Status.BAD_REQUEST, "Bad Request", false);
+		return Responder.build(Response.Status.BAD_REQUEST, "Bad Request", true);
 	}
 
 	public static Response created(JSONArray responseForUser) {
@@ -37,7 +38,7 @@ public class Responder {
 	}
 
 	static Response unauthorised() {
-		return Responder.build(Response.Status.UNAUTHORIZED, "böser bub", false);
+		return Responder.build(Response.Status.UNAUTHORIZED, "böser bub", true);
 	}
 
 	public static Response preFlight() {

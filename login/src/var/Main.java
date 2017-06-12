@@ -1,7 +1,6 @@
 package var;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -12,6 +11,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.OPTIONS;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
 import org.codehaus.jettison.json.JSONException;
@@ -27,8 +27,6 @@ public class Main {
 
 	/** String for date parsing in ISO 8601 format. */
 	public static final String ISO8601 = "yyyy-MM-dd'T'HH:mm:ssZ";
-
-	private StorageProviderMongoDB spMDB = new StorageProviderMongoDB();
 
 	public static void main(String[] args) {
 		final String baseUri = "http://localhost:5001/";
@@ -57,110 +55,99 @@ public class Main {
 	 *            A JSON object containing the fields user(email) and password.
 	 * @return Returns a JSON object containing the fields token and
 	 *         expire-date.
+	 * @throws JSONException
 	 */
 	@POST
 	@Path("/login")
 	@Consumes("application/json")
-	public Response LoginUser(String json) {
-		try {
-			JSONObject obj = new JSONObject(json);
-			String userName = "";
-			String password = "";
-			try {
-				password = obj.getString("password");
-				userName = obj.getString("user");
-				System.out.println("user: " + userName);
-			} catch (JSONException e) {
-				System.out.println("Problem beim jsonString extrahieren");
-				return Responder.badRequest();
-			}
-			User user = spMDB.retrieveUser(userName);
-			if (user != null && user.VerifyPassword(password)) {
-				obj = new JSONObject();
-				user.GenerateToken();
-				try {
-					SimpleDateFormat sdf = new SimpleDateFormat(Main.ISO8601);
-					Calendar expireDate = user.GetTokenExpireDate();
-					sdf.setTimeZone(expireDate.getTimeZone());
-					obj.put("expire-date", sdf.format(expireDate.getTime()));
-					obj.put("token", user.GetToken().toString());
-				} catch (JSONException e) {
-					System.out.println("Problem beim jsonobjekt füllen");
-					e.printStackTrace();
-					return Responder.build(Response.Status.INTERNAL_SERVER_ERROR, "", false);
-				}
-				SimpleDateFormat sdf = new SimpleDateFormat(Main.ISO8601);
-				Calendar expireDate = user.GetTokenExpireDate();
-				sdf.setTimeZone(expireDate.getTimeZone());
-				spMDB.saveToken(user.GetToken(), sdf.format(expireDate.getTime()), user.pseudonym);
-				return Responder.ok(obj);
-			} else {
-				return Responder.unauthorised();
-			}
-		} catch (Exception e) {
-			return Responder.exception(e);
-		}
+	@Produces("application/json")
+	public Response LoginUser(String json) throws JSONException {
+		String userName, password, pseudonym;
+        boolean allowEmailLogin = true;
+        try {
+            JSONObject obj = new JSONObject(json);
+            password = obj.getString("password");
+            userName = obj.getString("user");
+            pseudonym = obj.optString("pseudonym");
+            if (pseudonym.equals("")){
+            	pseudonym = null;
+            }
+            System.out.println("user: " + userName);
+        } catch (JSONException e) {
+            System.out.println("[/login] Failed to parse json request.");
+            return Responder.badRequest();
+        }
+        // Check in settings if a login with partial login data is allow.
+        if (pseudonym == null && !allowEmailLogin) {
+            return  Responder.badRequest();
+        }
+        User user = StorageProviderMongoDB.retrieveUser(userName, pseudonym);
+        if (user != null && user.VerifyPassword(password)) {
+            JSONObject obj = new JSONObject();
+            user.GenerateToken();
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat(ISO8601);
+                Calendar expireDate = user.GetTokenExpireDate();
+                sdf.setTimeZone(expireDate.getTimeZone());
+                obj.put("expire-date", sdf.format(expireDate.getTime()));
+                obj.put("token", user.GetToken());
+                obj.put("pseudonym", user.pseudonym);
+            } catch (JSONException e) {
+                System.out.println("[/login] Error when building json response.");
+                return  Responder.badRequest();
+            }
+            SimpleDateFormat sdf = new SimpleDateFormat(ISO8601);
+            Calendar expireDate = user.GetTokenExpireDate();
+            sdf.setTimeZone(expireDate.getTimeZone());
+            StorageProviderMongoDB.saveToken(user.GetToken(), sdf.format(expireDate.getTime()), user.pseudonym);
+            return  Responder.ok(obj);
+        } else {
+            return  Responder.unauthorised();
+        }
 	}
 
-	/**
-	 * Validates a user token.
-	 *
-	 * @param jsonString
-	 *            A JSON object containing the fields token and pseudonym.
-	 * @return Returns a JSON object containing the fields expire-date and
-	 *         success.
-	 */
-	@POST
-	@Path("/auth")
+	 /**
+     * Validates a user token.
+     *
+     * @param jsonString A JSON object containing the fields token and pseudonym.
+     * @return Returns a JSON object containing the fields expire-date and
+     * success.
+     */
+    @POST
+    @Path("/auth")
 	@Consumes("application/json")
-	public Response ValidateToken(String json) {
-		try {
-			JSONObject obj = new JSONObject(json);
-			String token = "";
-			String pseudonym = "";
-			try {
-				token = obj.getString("token");
-				pseudonym = obj.getString("pseudonym");
-				System.out.println(token);
-				System.out.println(pseudonym);
-			} catch (JSONException e) {
-				System.out.println("Fehler beim extrahieren des jsonObject");
-				return Responder.badRequest();
-			}
-			String expireDate = spMDB.retrieveToken(pseudonym, token);
-			if (expireDate != null) {
-				SimpleDateFormat sdf = new SimpleDateFormat(Main.ISO8601);
-				Date date;
-				try {
-					date = sdf.parse(expireDate);
-				} catch (ParseException e1) {
-					System.out.println("invalid Date");
-					return Responder.badRequest();
-				}
-				Calendar cal = Calendar.getInstance();
-				if (cal.getTime().before(date)) {
-					obj = new JSONObject();
-					try {
-						sdf = new SimpleDateFormat(Main.ISO8601);
-						obj.put("success", "true");
-						obj.put("expire-date", expireDate);
-						// return Responder.ok(obj);
+	@Produces("application/json")
+    public Response ValidateToken(String jsonString) {
+        String token, pseudonym;
+        try {
+            JSONObject obj = new JSONObject(jsonString);
+            token = obj.getString("token");
+            pseudonym = obj.getString("pseudonym");
+        } catch (JSONException e) {
+            System.out.println("[/auth] Failed to parse json request.");
+            return Responder.badRequest();
+        }
+        Date expireDate = StorageProviderMongoDB.retrieveToken(pseudonym, token);
+        if (expireDate != null) {
+            Calendar cal = Calendar.getInstance();
+            if (cal.getTime().before(expireDate)) {
+                JSONObject obj = new JSONObject();
+                try {
+                    SimpleDateFormat sdf = new SimpleDateFormat(ISO8601);
+                    obj.put("success", "true");
+                    obj.put("expire-date", sdf.format(expireDate));
+                    return Responder.ok(obj);
+                } catch (JSONException e) {
+                    System.out.println("[/auth] Error when building json response.");
+                    return Responder.exception(e);
+                }
+            } else {
+                StorageProviderMongoDB.deleteToken(token);
+            }
+        }
+        return Responder.unauthorised();
 
-					} catch (JSONException e) {
-						System.out.println("Fehler beim jsonObject füllen");
-						return Responder.unauthorised();
-					}
-				} else {
-					// Token has expired
-					spMDB.deleteToken(token);
-				}
-			}
-			return Responder.unauthorised();
-		} catch (Exception e) {
-			return Responder.exception(e);
-		}
-
-	}
+    }
 
 	@OPTIONS
 	@Path("/login")

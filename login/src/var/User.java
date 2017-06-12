@@ -84,7 +84,10 @@ public class User {
 	 * @return Returns true if the password was correct otherwise false.
 	 */
 	public boolean VerifyPassword(String password) {
-		return SecurityHelper.validatePassword(password, passwordHash);
+		boolean result = SecurityHelper.validatePassword(password, passwordHash);
+		System.out.println(result);
+		return result;
+		//return SecurityHelper.validatePassword(password, passwordHash);
 	}
 
 	/**

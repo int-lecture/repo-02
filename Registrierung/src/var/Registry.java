@@ -31,6 +31,7 @@ public class Registry {
 	@Consumes("application/json")
 	@Produces("application/json")
 	public Response register(String json) {
+		System.out.println(json);
 		try {
 			JSONObject jsonObject = new JSONObject(json);
 			if (jsonObject.getString("pseudonym") != null && jsonObject.getString("password") != null

@@ -5,12 +5,7 @@ import static com.mongodb.client.model.Filters.eq;
 import java.security.InvalidParameterException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-
-import javax.ws.rs.core.Response;
 
 import org.bson.Document;
 import com.mongodb.MongoClient;
@@ -21,7 +16,6 @@ import com.mongodb.client.MongoDatabase;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
-import com.sun.xml.internal.ws.wsdl.writer.document.Service;
 
 public class DBMS {
 
