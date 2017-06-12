@@ -19,7 +19,7 @@ public class Main {
 		for (String port : ports) {
 			String uri = baseUri + port + "/";
 			GrizzlyWebContainerFactory.create(uri, initParams);
-			System.out.printf("Grizzly läuft unter %s%n", uri);
+			System.out.printf("Grizzls spielen unter %s%n", uri);
 		}
 	}
 }

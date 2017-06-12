@@ -73,7 +73,7 @@ public class Messages {
 
 			if (response.getStatus() != 200) {
 				System.out.println(response.getStatus());
-				// return Responder.unauthorised();
+				return Responder.unauthorised();
 			}
 
 			// Feld um die Nachrichten-Listenelemente in

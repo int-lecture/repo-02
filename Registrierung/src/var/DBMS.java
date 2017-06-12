@@ -89,7 +89,7 @@ public class DBMS {
 	}
 
 	public boolean checkToken(String pseudonym, String token) {
-		String url = "http://141.19.142.57:5001/auth";
+		String url = "http://141.19.142.56:5001/auth";
 		Client client = Client.create();
 
 		WebResource webResource = client

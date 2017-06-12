@@ -47,6 +47,8 @@ public class Profile {
 					}
 					profilDetails.put("contacts", contacts);
 					return Responder.created(profilDetails);
+				} else {
+					return Responder.unauthorised();
 				}
 			}
 			// Probleme mit Authentifizierung oder Anfrage

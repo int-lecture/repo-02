@@ -44,6 +44,7 @@ public class Registry {
 					dbms.createUser(pseudonym, password, email);
 					JSONObject profilDetails = new JSONObject();
 					profilDetails.put("success", "true");
+					dbms.addContact(pseudonym, "mama");
 					return Responder.ok(profilDetails);
 				} catch (InvalidParameterException e) {
 					return Responder.teapot();
