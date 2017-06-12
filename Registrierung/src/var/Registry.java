@@ -17,8 +17,6 @@ import org.codehaus.jettison.json.JSONObject;
 
 public class Registry {
 
-	DBMS database = new DBMS();
-
 	/**
 	 * Methode die die Registrierungen neuer Nutzer entgegennimmt.
 	 *
