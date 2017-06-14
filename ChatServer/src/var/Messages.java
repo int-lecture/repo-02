@@ -30,11 +30,12 @@ public class Messages {
 	 * Empfängt Anfragen und sendet alle vorhandenen Nachrichten.
 	 *
 	 * @return Array von neuen Nachrichten
+	 * @throws JSONException 
 	 */
 	@GET
 	@Path("/messages/{user_id}")
 	@Produces("application/json")
-	public Response receive(@PathParam("user_id") String username, @Context HttpHeaders header) {
+	public Response receive(@PathParam("user_id") String username, @Context HttpHeaders header) throws JSONException {
 		return receive(username, 0, header);
 	}
 
@@ -43,6 +44,7 @@ public class Messages {
 	 * Nachrichten.
 	 *
 	 * @return Array von neuen Nachrichten
+	 * @throws JSONException 
 	 */
 	@GET
 	@Path("/messages/{user_id}/{sequenceNumber}")
@@ -57,23 +59,28 @@ public class Messages {
 			if (check != null) {
 				token = check.get(0);
 			} else {
-				// return Responder.unauthorised();
-			}
-
-			String url = "http://localhost:5001/auth";
-			Client client = Client.create();
-			WebResource webResource = client.resource(url);
-			String input = "{\"token\": \"" + token + "\",\"pseudonym\": \"" + username + "\"}";
-			ClientResponse response;
-			try {
-				response = webResource.type("application/json").post(ClientResponse.class, input);
-			} catch (ClientHandlerException e) {
-				return Responder.build(Response.Status.INTERNAL_SERVER_ERROR, e.getMessage(), false);
-			}
-
-			if (response.getStatus() != 200) {
-				System.out.println(response.getStatus());
 				return Responder.unauthorised();
+			}
+			if (!token.equals(Cache.getCachedToken(username))) {
+				String url = "http://141.19.142.56:5001";
+				String input = "{\"token\": \"" + token + "\",\"pseudonym\": \"" + username + "\"}";
+				String response;
+				try {
+				Client client = Client.create();
+		        
+		            response = client.resource(url + "/auth").accept("application/json")
+		                    .type("application/json").post(String.class, input);
+		            client.destroy();
+				} catch (Exception e) {
+					return Responder.unauthorised();
+				}
+				 JSONObject resp = new JSONObject(response);
+				 if (!resp.get("success").equals("true")) {
+					return Responder.unauthorised();
+				} else {
+					System.out.println("try cash");
+					Cache.cacheToken(username, token, resp.getString("expire-date"));
+				}
 			}
 
 			// Feld um die Nachrichten-Listenelemente in
@@ -81,6 +88,9 @@ public class Messages {
 			JSONArray responseForUser = new JSONArray();
 			StorageProviderMongoDB db = new StorageProviderMongoDB();
 			List<Message> messageList = db.retrieveMessages(username, seqRecieved, true);
+			if (messageList == null) {
+				return Responder.created(new JSONObject());
+			}
 			for (int i = messageList.size() - 1; i >= 0; i--) {
 				Message m = messageList.get(i);
 				JSONObject jsonMessage = new JSONObject();

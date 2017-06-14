@@ -45,7 +45,7 @@ public class Responder {
 
 	public static Response exception(Exception e) {
 		System.out.println(e.getMessage());
-		e.getStackTrace();
+		e.printStackTrace();
 		return Responder.build(Response.Status.BAD_REQUEST, e.getMessage(), false);
 	}
 }

@@ -1,7 +1,10 @@
 package var;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.OPTIONS;
@@ -9,15 +12,14 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 
+import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
 import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientHandlerException;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.WebResource;
 
 @Path("/send")
 public class Send {
+	static HashMap<String, String[]> cache = new HashMap<String, String[]>();
 
 	// Data-formate
 	private static final String ISO8601 = "yyyy-MM-dd'T'HH:mm:ssZ";
@@ -38,40 +40,42 @@ public class Send {
 				StorageProviderMongoDB db = new StorageProviderMongoDB();
 
 				String token = object.getString("token");
-				String from = object.getString("to");
-				String to = object.getString("from");
+				String from = object.getString("from");
+				String to = object.getString("to");
 				String date = object.getString("date");
 				currentTime.parse(date);
 				String text = object.getString("text");
 				long sequence = db.retrieveAndUpdateSequence(to);
 				Message newMessage = new Message(from, to, date, sequence, text);
-
-				String url = "http://localhost:5001/auth";
-				Client client = Client.create();
-				WebResource webResource = client.resource(url);
-				String input = "{\"token\": \"" + token + "\",\"pseudonym\": \"" + to + "\"}";
-				System.out.println(input);
-				ClientResponse response;
-				try {
-					response = webResource.type("application/json").post(ClientResponse.class, input);
-				} catch (ClientHandlerException e) {
-					return Responder.build(Response.Status.INTERNAL_SERVER_ERROR, e.getMessage(), false);
-				}
-				if (response.getStatus() != 200) {
-					System.out.println(response.getStatus());
-					return Responder.unauthorised();
-				} else {
+				
+				if(token.equals(Cache.getCachedToken(from))){
 					db.storeMessage(newMessage);
+				} else {
+					String url = "http://141.19.142.56:5001";
+					String input = "{\"token\": \"" + token + "\",\"pseudonym\": \"" + from + "\"}";
+					String response;
+					try {
+					Client client = Client.create();
+			        
+			            response = client.resource(url + "/auth").accept("application/json")
+			                    .type("application/json").post(String.class, input);
+			            client.destroy();
+					} catch (Exception e) {
+						return Responder.unauthorised();
+					}
+					 JSONObject resp = new JSONObject(response);
+					 if (!resp.get("success").equals("true")) {
+						return Responder.unauthorised();
+					} else {
+						System.out.println("try cash");
+						Cache.cacheToken(from, token, resp.getString("expire-date"));
+					}
 				}
-
+				
 				JSONObject createdDetails = new JSONObject();
 				// Current Systemtime
 				createdDetails.put("date", currentTime.format(new Date())); // currentTime.toString()
 				createdDetails.put("sequence", sequence);
-				// Test
-				System.out.println("from: " + from + ", to: " + to);
-				System.out.println(text);
-				System.out.println("Sequence: " + sequence);
 				return Responder.created(createdDetails);
 			}
 			// If with the response is something wrong,
