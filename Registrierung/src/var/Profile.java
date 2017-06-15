@@ -59,7 +59,6 @@ public class Profile {
 	}
 
 	@OPTIONS
-	@Path("/register")
 	public Response optionsReg() {
 	    return Responder.preFlight();
 	}

@@ -21,7 +21,7 @@ public class User {
 	/**
 	 * The duration a token is valid in seconds.
 	 */
-	private static final int tokenDuration = 10 * 60; // seconds
+	private static final int tokenDuration = 30 * 60; // seconds
 
 	/**
 	 * Create a new User with an imported password hash.

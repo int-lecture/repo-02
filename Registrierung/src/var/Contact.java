@@ -4,6 +4,7 @@ import java.security.InvalidParameterException;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.OPTIONS;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
@@ -13,14 +14,13 @@ import org.codehaus.jettison.json.JSONObject;
 @Path("/contact")
 public class Contact {
 	
-	@PUT
+	@POST
 	@Consumes("application/json")
-	public Response put(String json) {
+	public Response addContact(String json) {
 		try {
 			JSONObject object = new JSONObject(json);
 			// Check if all Request-Elements are there
 			if (object.getString("pseudonym") != null && object.getString("contact") != null && object.getString("token") != null) {
-
 				DBMS db = new DBMS();
 
 				String pseudo = object.getString("pseudonym");
@@ -49,9 +49,7 @@ public class Contact {
 	}
 
 	@OPTIONS
-	@Path("/contact")
 	public Response optionsContact() {
 		return Responder.preFlight();
 	}
-
 }
