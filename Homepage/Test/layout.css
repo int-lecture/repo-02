@@ -10,22 +10,25 @@
 }
 
 #titel{
-	font-size: 32px;
+	font-size: 30px;
 	width: 100%;
 	color: #282F37;
+	position: center;
 }
 
 #settings {
 	float: right;
 	color: black;
 	background: white;
-	width: 70px;
+	width: 4%;
+	min-width: 50px;
 }
 
 #titelbild {
 	float: left;
-	width: 50px;
-	height: 45px;
+	width: 3.5%;
+	min-width: 40px;
+	height: 95%;
 }
 
 /* Für das Kommunikationsfenster bei Einstellungen */
@@ -38,6 +41,7 @@
 
 /* Contacts: alles was mit der Spalte Kontakte zu tun hat */
  #kontakte {
+	padding-top: 2px;
 	background:#36749C;
 	color:black;
 	height: 94%;
@@ -57,6 +61,22 @@
 
 #user {
 	width: 100%;
+	background: #8DAABC;
+}
+
+#addContact {
+	width: 100%;
+	background: white;
+}
+
+#userBox {
+	height:90%;
+	width:100%;
+	border:1px solid #ccc;
+	font:16px/26px Georgia, Garamond, Serif;
+	overflow-y:auto; 
+	overflow-x:hidden;
+	border-color: #282F37;
 }
 
 
@@ -68,6 +88,7 @@
 	width: 100%;
     border: none;
     cursor: pointer;
+	
 }
 
 .dropbtn:hover, .dropbtn:focus {
@@ -79,6 +100,8 @@
     display: inline-block;
 	width: 100%;
 	font-size: 25px;
+	max-height: 10px;
+	
 }
 
 .dropdown-content {
@@ -89,6 +112,8 @@
     overflow: auto;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
+	max-height: 200px;
+	overflow-y: scroll;
 }
 
 .dropdown-content a {
@@ -149,5 +174,3 @@
 body{
   max-width: 99vw;
 }
-
-
