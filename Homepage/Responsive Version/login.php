@@ -1,4 +1,4 @@
-<html lang="de">
+<html>
 <head>
   <title>Login</title>
   <meta charset="utf-8">
@@ -27,7 +27,7 @@
     <div class="col-lg-4 col-m-5 col-sm-6 col-xs-10">
       <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-        <input id="email" type="email" class="form-control" placeholder="Email" required>
+        <input id="user" type="email" class="form-control" placeholder="Email" required>
       </div>
       <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>

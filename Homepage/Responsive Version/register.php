@@ -23,7 +23,7 @@
     </div>
 
     <div class="col-lg-6 col-xs-10">
-      <form class="form-signin" onsubmit='return checkPw();'>
+      <form class="form-signin" >
         <div class="input-group">
           <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
           <input id="pseudonym" type="text" class="form-control" id="pseudonym" placeholder="pseudonym" required>
@@ -46,10 +46,10 @@
         <hr>
         <hr>
         <input type="submit" class="btn btn-info" value="Loslegen!">
-        <input type="checkbox" id="agb">Ich stimme den <a href="AGB.html">AGBs</a> zu.</input>
+        <input type="checkbox" id="agb">Ich stimme den <a href="AGB.html">AGBs</a> zu.
         <p id="passwAllert"></p>
         <br>
-      </from>
+      </form>
     </div>
   </div>
   <br>

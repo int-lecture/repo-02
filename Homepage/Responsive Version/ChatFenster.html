@@ -1,6 +1,6 @@
-<html>
+﻿<html>
 <head>
-	<title>Bootstrap Beispiel</title>
+	<title>Secure Messenger</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<link href="layout.css" rel="stylesheet">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -8,23 +8,24 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta charset="utf-8">
 	<script src="configs.js"></script>
+	<script src="contactConfig.js"></script>
 
 </head>
 <body>
 	<div class="container-fluid">
-		<div class="row" id="headerimage" >
-			<div class="col-sm-12" > Secure Messenger
-				<img src="benutzer.png" id="Image" class="img-rounded">
-				<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" id="settings"><span class="glyphicon glyphicon-cog"></span> Einstellungen</button>
+		<div class="row" id="kopfzeile" >
+			<div class="col-sm-12" id="titel">Secure Messenger
+				<img src="logo.jpg" id="titelbild" class="img-rounded">
+				<button type="button" class="btn btn-info btn-lg" id="settings" data-toggle="modal" data-target="#myModal" ><span class="glyphicon glyphicon-cog"></span></button>
 
-				
+
 				<!-- Einstellungen -->
 		   <div class="modal fade" id="myModal" role="dialog">
 		     <div class="modal-dialog">
 		       <div class="modal-content">
 		         <div class="modal-header">
 		           <button type="button" class="close" data-dismiss="modal">&times;</button>
-		           <h4 class="modal-title">Einstellungen</h4>
+		           <span class="modal-title">Einstellungen</span>
 		         </div>
 		         <div class="modal-body">
 		           CHAT-Server: (url und port)
@@ -44,102 +45,51 @@
 		     </div>
 		   </div>
 
+			 <!-- Einstellungen -->
+			<div class="modal fade" id="contactsModal" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<span class="modal-title">Kontakt hinzufügen</span>
+						</div>
+						<div class="modal-body">
+							Username deiner Mama:
+							<input type="text" class="form-control" id="contactName">
+						</div>
+						<div class="modal-footer">
+							 <button type="button" class="btn btn-primary" onclick=addContacts()>Speichern</button>
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
 		 </div>
 			</div>
 		</div>
 		<div class="row equalheight">
-			<div class="col-md-3 equal" id="kontakte">
-				<div class="scrollbar" id="style-1">
-					<div class="force-overflow">
-					</div>
+			<div class="col-md-3" id="kontakte">
+					<button type="button" class="btn btn-default" id="addContact" data-toggle="modal" data-target="#contactsModal" >
+						<span class="glyphicon glyphicon-user">
+						</span>
+							Kontakt hinzufügen
+					</button>
+				<div id="userBox">
 				</div>
-				<h2>Kontaktleiste</h2>
-				<button type="button" class="btn btn-default" id="user" onClick=chatWindowOpener()>
-					<span class="glyphicon glyphicon-user">
-					</span>
-					vllt jetzt
-				</button>
-				<button type="button" class="btn btn-default" id="user">
-					<span class="glyphicon glyphicon-user">
-					</span>
-					Beispiel 2
-				</button>
-				<button type="button" class="btn btn-default" id="user">
-					<span class="glyphicon glyphicon-user">
-					</span>
-					Beispiel 3
-				</button>
-				<button type="button" class="btn btn-default" id="user">
-					<span class="glyphicon glyphicon-user">
-					</span>
-					Beispiel 4
-				</button>
-				<button type="button" class="btn btn-default" id="user">
-					<span class="glyphicon glyphicon-user">
-					</span>
-					Beispiel 5
-				</button>
-				<button type="button" class="btn btn-default" id="user">
-					<span class="glyphicon glyphicon-user">
-					</span>
-					Beispiel 6
-				</button>
-
-
-
 			</div>
 			<div id="equal">
-				<div class="col-md-3 equal" id="equal">
+				<div class="col-md-9" id="Chatfenster">
 					<div class="col-md-12" id="Chatkontakt">
-						<img src="benutzer.png" id="image" class="img-rounded">
-						Beispielkontakt
+						<!-- <img src="benutzer.png" id="kontaktbild" class="img-rounded">
+						Beispielkontakt -->
 					</div>
-					<div id="chatBox" style="height:590px;width:320px;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow-y:auto; overflow-x:hidden;">
+					<div id="chatBox">
 					</div>
 					<div class="input-group" id="send">
-						<input type="text" class="form-control" id="newMessage" placeholder="..." >
+						<input type="text" class="form-control" id="newMessage" placeholder="..." id="form" >
 						<span class="input-group-btn">
-							<button class="btn btn-default" id="sendtwo" onclick=addElement()>
-								<span class="glyphicon glyphicon-send">
-								</span>
-								Senden
-							</button>
-						</span>
-					</div>
-				</div>
-				<div class="col-md-3 equal" id="equal">
-					<div class="col-md-12" id="Chatkontakt">
-						<img src="benutzer.png" id="image" class="img-rounded">
-						Beispielkontakt
-					</div>
-					<div id="chatBox" style="height:590px;width:320px;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow-y:auto; overflow-x:hidden;">
-					</div>
-					<div class="input-group" id="send">
-						<input type="text" class="form-control" id="newMessage" placeholder="..." >
-						<span class="input-group-btn">
-							<button class="btn btn-default" id="sendtwo" onclick=addElement()>
-								<span class="glyphicon glyphicon-send">
-								</span>
-								Senden
-							</button>
-						</span>
-					</div>
-				</div>
-				<div class="col-md-3 equal" id="equal">
-					<div class="col-md-12" id="Chatkontakt">
-						<img src="benutzer.png" id="image" class="img-rounded">
-						Beispielkontakt
-						<button type="button" class="close" aria-label="Close" id="closeButton">
-							<span>&times;</span>
-						</button>
-					</div>
-
-					<div id="chatBox" style="height:590px;width:320px;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow-y:auto; overflow-x:hidden;">
-					</div>
-					<div class="input-group" id="send">
-						<input type="text" class="form-control" id="newMessage" placeholder="..." >
-						<span class="input-group-btn">
-							<button class="btn btn-default" id="sendtwo" onclick=addElement()>
+							<button class="btn btn-default" id="sendtwo" onclick=sendMessage() type="reset">
 								<span class="glyphicon glyphicon-send">
 								</span>
 								Senden

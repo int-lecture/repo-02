@@ -1,8 +1,6 @@
 package var;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -12,21 +10,19 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 
-import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
 import com.sun.jersey.api.client.Client;
 
 @Path("/send")
 public class Send {
-	static HashMap<String, String[]> cache = new HashMap<String, String[]>();
 
 	// Data-formate
 	private static final String ISO8601 = "yyyy-MM-dd'T'HH:mm:ssZ";
 
 	@PUT
 	@Consumes("application/json")
-	public Response put(String json) {
+	public Response sendMessage(String json) {
 		try {
 			JSONObject object = new JSONObject(json);
 			// Check if all Request-Elements are not empty
@@ -89,7 +85,6 @@ public class Send {
 	}
 
 	@OPTIONS
-	@Path("/send")
 	public Response optionsSend() {
 		return Responder.preFlight();
 	}
