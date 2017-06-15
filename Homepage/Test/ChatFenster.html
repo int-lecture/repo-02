@@ -1,6 +1,6 @@
 <html>
 <head>
-	<title>Bootstrap Beispiel</title>
+	<title>Secure Messenger</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<link href="layout.css" rel="stylesheet">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -8,7 +8,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta charset="utf-8">
 	<script src="configs.js"></script>
-	
+
 </head>
 <body>
 	<div class="container-fluid">
@@ -17,7 +17,7 @@
 				<img src="logo.jpg" id="titelbild" class="img-rounded">
 				<button type="button" class="btn btn-info btn-lg" id="settings" data-toggle="modal" data-target="#myModal" ><span class="glyphicon glyphicon-cog"></span></button>
 
-				
+
 				<!-- Einstellungen -->
 		   <div class="modal fade" id="myModal" role="dialog">
 		     <div class="modal-dialog">
@@ -44,63 +44,132 @@
 		     </div>
 		   </div>
 
+			 <!-- Einstellungen -->
+			<div class="modal fade" id="contactsModal" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<span class="modal-title">Kontakt hinzufügen</span>
+						</div>
+						<div class="modal-body">
+							Username deiner Mama:
+							<input type="text" class="form-control" id="contactName">
+						</div>
+						<div class="modal-footer">
+							 <button type="button" class="btn btn-primary" onclick=addContacts()>Speichern</button>
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
 		 </div>
 			</div>
 		</div>
 		<div class="row equalheight">
 			<div class="col-md-3" id="kontakte">
-				<div class="dropdown">
-				<button onclick="myFunction()" class="dropbtn" id="dropdown">Kontakte</button>
-					<div id="myDropdown" class="dropdown-content">
-							<div id="kontaktbox">
-							<button type="button" class="btn btn-default" id="user" onClick=chatWindowOpener()>
+					<button type="button" class="btn btn-default" id="addContact" data-toggle="modal" data-target="#contactsModal" >
+						<span class="glyphicon glyphicon-user">
+						</span>
+							Kontakt hinzufügen
+					</button>
+				<div id="userBox">
+							<button type="button" class="btn btn-default" id="user" onclick="getMessages()">
 							<span class="glyphicon glyphicon-user">
 							</span>
-							KontakteButton
+							Kontakt Numero One
 							</button>
-							<button type="button" class="btn btn-default" id="user" onClick=chatWindowOpener()>
+							<button type="button" class="btn btn-default" id="user" onclick="getMessages()">
 							<span class="glyphicon glyphicon-user">
 							</span>
-							KontakteButton
+							Kontakt Numero One
 							</button>
-							<button type="button" class="btn btn-default" id="user" onClick=chatWindowOpener()>
+							<button type="button" class="btn btn-default" id="user" onclick="getMessages()">
 							<span class="glyphicon glyphicon-user">
 							</span>
-							KontakteButton
+							Kontakt Numero One
 							</button>
-							<button type="button" class="btn btn-default" id="user" onClick=chatWindowOpener()>
+							<button type="button" class="btn btn-default" id="user" onclick="getMessages()">
 							<span class="glyphicon glyphicon-user">
 							</span>
-							KontakteButton
+							Kontakt Numero One
 							</button>
-							<button type="button" class="btn btn-default" id="user" onClick=chatWindowOpener()>
+							<button type="button" class="btn btn-default" id="user" onclick="getMessages()">
 							<span class="glyphicon glyphicon-user">
 							</span>
-							KontakteButton
+							Kontakt Numero One
 							</button>
-							<button type="button" class="btn btn-default" id="user" onClick=chatWindowOpener()>
+							<button type="button" class="btn btn-default" id="user" onclick="getMessages()">
 							<span class="glyphicon glyphicon-user">
 							</span>
-							KontakteButton
+							Kontakt Numero One
 							</button>
-							<button type="button" class="btn btn-default" id="user" onClick=chatWindowOpener()>
+							<button type="button" class="btn btn-default" id="user" onclick="getMessages()">
 							<span class="glyphicon glyphicon-user">
 							</span>
-							KontakteButton
+							Kontakt Numero One
 							</button>
-							<button type="button" class="btn btn-default" id="user" onClick=chatWindowOpener()>
+							<button type="button" class="btn btn-default" id="user" onclick="getMessages()">
 							<span class="glyphicon glyphicon-user">
 							</span>
-							KontakteButton
+							Kontakt Numero One
 							</button>
-							<button type="button" class="btn btn-default" id="user" onClick=chatWindowOpener()>
+							<button type="button" class="btn btn-default" id="user" onclick="getMessages()">
 							<span class="glyphicon glyphicon-user">
 							</span>
-							KontakteButton
+							Kontakt Numero One
 							</button>
-							
-							</div>
-				</div>
+							<button type="button" class="btn btn-default" id="user" onclick="getMessages()">
+							<span class="glyphicon glyphicon-user">
+							</span>
+							Kontakt Numero One
+							</button>
+							<button type="button" class="btn btn-default" id="user" onclick="getMessages()">
+							<span class="glyphicon glyphicon-user">
+							</span>
+							Kontakt Numero One
+							</button>
+							<button type="button" class="btn btn-default" id="user" onclick="getMessages()">
+							<span class="glyphicon glyphicon-user">
+							</span>
+							Kontakt Numero One
+							</button>
+							<button type="button" class="btn btn-default" id="user" onclick="getMessages()">
+							<span class="glyphicon glyphicon-user">
+							</span>
+							Kontakt Numero One
+							</button>
+							<button type="button" class="btn btn-default" id="user" onclick="getMessages()">
+							<span class="glyphicon glyphicon-user">
+							</span>
+							Kontakt Numero One
+							</button>
+							<button type="button" class="btn btn-default" id="user" onclick="getMessages()">
+							<span class="glyphicon glyphicon-user">
+							</span>
+							Kontakt Numero One
+							</button>
+							<button type="button" class="btn btn-default" id="user" onclick="getMessages()">
+							<span class="glyphicon glyphicon-user">
+							</span>
+							Kontakt Numero One
+							</button>
+							<button type="button" class="btn btn-default" id="user" onclick="getMessages()">
+							<span class="glyphicon glyphicon-user">
+							</span>
+							Kontakt Numero One
+							</button>
+							<button type="button" class="btn btn-default" id="user" onclick="getMessages()">
+							<span class="glyphicon glyphicon-user">
+							</span>
+							Kontakt Numero One
+							</button>
+							<button type="button" class="btn btn-default" id="user" onclick="getMessages()">
+							<span class="glyphicon glyphicon-user">
+							</span>
+							Kontakt Numero One
+							</button>
 				</div>
 			</div>
 			<div id="equal">
@@ -109,12 +178,15 @@
 						<img src="benutzer.png" id="kontaktbild" class="img-rounded">
 						Beispielkontakt
 					</div>
-					<div id="chatBox">
-					</div>
+					<!-- <div id="chatBox">
+					<script>
+					getMessages();
+					</script>
+					</div> -->
 					<div class="input-group" id="send">
 						<input type="text" class="form-control" id="newMessage" placeholder="..." id="form" >
 						<span class="input-group-btn">
-							<button class="btn btn-default" id="sendtwo" onclick=addElement() type="reset">
+							<button class="btn btn-default" id="sendtwo" onclick=sendMessage() type="reset">
 								<span class="glyphicon glyphicon-send">
 								</span>
 								Senden

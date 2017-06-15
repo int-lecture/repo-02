@@ -26,41 +26,25 @@ var registerUrl = setSettings("","register");
 	// chatWindow.insertAdjacentHTML("beforeend",chatString);
 // }
 
-function loadChatValues(){
-
-	var chatRequest = new XMLHttpRequest();
-
-	//Testweise wird als SequenceNumber die 0 übergeben damits überhaupt tut.
-	var messageServerAdress = "141.19.142.56/messages/" + user_id + "/" + "/" + "0";
-	var messageString;
-
-	chatRequest.open(messageServerAdress);
-	chatRequest.onload() = function () {
-
-		//Bin nicht sicher ob ichs überhaupt parsen muss.
-		var messagesAsJSON = JSON.parse(chatRequest.responseTest);
-	}
-}
-
 function sendMessage(){
 		var text = $("newMessage").val(); //id (newMessage)
-		
+
 		var myJSON = {
-			"token": "",
+			"token": getToken(),
+			"from": getUser(),
 			"to": $("#pn").val(),
-			"from": $("#email").val(),
 			"text": text,
-			"sequence": ""
+			"sequence": "0"
 			};
-		
-		
+
+
 		$.ajax({
-			url: chatUrl, 
+			url: chatUrl,
 			type: "POST",
 			contentType: "application/json; charset=utf-8",
 			dataType:"json",
 			succes : function(response){
-				
+
 			},
 			error : function(xhr,status,error){
 				alert(status);
@@ -103,7 +87,7 @@ function setSettings(url, type){
 }
 
 function getMessages() {
-    var URL = chatUrl + "/messages/" + pseudonym + "/";
+    var URL = chatUrl + "/messages/" + getUser();
     $.ajax({
         headers: {
             "Authorization": getToken()
@@ -114,42 +98,77 @@ function getMessages() {
         dataType: 'json',
         success: function (result, textStatus, xhr) {
             if (xhr.status == 200) {
+							console.log(result);
                 if (typeof (sequenceNumbers[pseudonym]) == 'undefined') {
                     messages = result;
                 } else {
-
                     $.each(result, function (index, value) {
                         messages = messages.concat(value);
                     });
-                    showMessages();
+                    showMessages(result);
                 }
             }
         },
         error: function (xhr, a, b) {
-            //alert(" error");
-            alert("getMessages von " + pseudonym + " fehlgeschlagen");
+            alert("getMessages von " + getUser() + " fehlgeschlagen");
         }
     });
-
-}
-
-function loadContacts(user){
-
-	var contactList = new XMLHttpRequest();
-	var profile = contactList("GET", "http://141.19.142.56:5002/profile");
-
-	for(var i = 0; i < profile.contacts.length; i++){
-		var contactWindow = document.getElementById("kontakte");
-		var contactString = "<button type=\"button\" class=\"btn btn-default\" id=\"user	\" onclick=chatWindowOpener()>" +
-							"<span class=\"glyphicon glyphicon-user\"></span>" +
-							"profile.contacts[i];" +
-							"</button>";
-		contactWindow.insertAdjacentHTML("beforeend",contactString);
-	}
 }
 
 function getToken(){
-		var date = new Date();
+		console.log(readCookie("token"));
+		var token = readCookie("token");
+		if(!token){
+			alert("bitte melde dich an");
+			window.location.href = "login.php";
+		}
+		return token;
+}
+
+function addContacts(){
+	var newContact = document.getElementById("contactName").value;
+	$('#contactsModal').modal('hide');
+	console.log(newContact);
+	document.getElementById("contactName").value = "";
+	var URL = registerUrl + "/contact/";
+	console.log(JSON.stringify({'pseudonym': getUser(), 'token': getToken(), 'contact': newContact}));
+	$.ajax({
+			url: URL,
+			type: 'PUT',
+			data: JSON.stringify({'pseudonym': getUser(), 'token': getToken(), 'contact': newContact}),
+			contentType: "application/json; charset=utf-8",
+			dataType: 'json',
+			success: function (result, textStatus, xhr) {
+					if (xhr.status == 201) {
+						console.log(result);
+						//window.location.href = "ChatFenster.php";
+					}
+			},
+			error: function (xhr, a, b) {
+					alert("Deine Mama wurde nicht gefunden... Bitte melde dich im Småland");
+			}
+	});
+}
+
+function getUser(){
+		console.log(readCookie("pseudonym"));
+		var user = readCookie("pseudonym");
+		if(!user){
+			alert("bitte melde dich an");
+			window.location.href = "login.php";
+		}
+		return user;
+}
+
+function readCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
 }
 
 function messagePusher(){
@@ -180,7 +199,7 @@ function addElement() {
 
 
 /* Dropdownmenü: alles was mit dem Dropdown zu tun hat*/
-/* When the user clicks on the button, 
+/* When the user clicks on the button,
 toggle between hiding and showing the dropdown content */
 function myFunction() {
     document.getElementById("myDropdown").classList.toggle("show");
@@ -200,4 +219,4 @@ window.onclick = function(event) {
     }
   }
 }
-	
+
