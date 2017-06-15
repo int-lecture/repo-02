@@ -8,6 +8,9 @@ import java.security.spec.InvalidKeySpecException;
 import java.util.Date;
 
 import org.bson.Document;
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
+
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.FindIterable;
@@ -20,7 +23,6 @@ import com.sun.jersey.api.client.WebResource;
 public class DBMS {
 
 	public static final String ISO8601 = "yyyy-MM-dd'T'HH:mm:ssZ";
-
 
 	private static final String MONGO_URL = "mongodb://141.19.142.56/userbase";
 
@@ -37,7 +39,18 @@ public class DBMS {
 
 	/** Mongo Collection for tokens which belongs to a account */
 
-	public void addContact(String user, String contact) {
+	/**
+	 * 
+	 * @param user
+	 * @param contact
+	 */
+	public void addContact(String user, String contact) throws InvalidParameterException {
+		MongoCollection<Document> accountCollection = database.getCollection("account");
+		Document doc = accountCollection.find(eq("pseudonym", contact)).first();
+		if (doc == null) {
+			throw new InvalidParameterException();
+		}
+
 		MongoCollection<Document> contactCollection = database.getCollection("contact");
 		Document checkContact = contactCollection.find(and(eq("pseudonym", user), eq("contact", contact))).first();
 		if (checkContact == null) {
@@ -88,27 +101,35 @@ public class DBMS {
 		tokenCollection.insertOne(tokenDoc);
 	}
 
-	public boolean checkToken(String pseudonym, String token) {
-		String url = "http://141.19.142.56:5001/auth";
-		Client client = Client.create();
-
-		WebResource webResource = client
-		   .resource(url);
-
-		String input = "{\"token\": \"" + token + "\",\"pseudonym\": \"" + pseudonym + "\"}";
-		System.out.println(input);
-
-		ClientResponse response = webResource.type("application/json")
-		   .post(ClientResponse.class, input);
-
-		if (response.getStatus() != 200) {
-			System.out.println(response.getStatus());
+	public boolean checkToken(String username, String token) {
+		try {
+			if (token.equals(Cache.getCachedToken(username))) {
+				return true;
+			} else {
+				String url = "http://141.19.142.56:5001";
+				String input = "{\"token\": \"" + token + "\",\"pseudonym\": \"" + username + "\"}";
+				String response;
+				try {
+					Client client = Client.create();
+					response = client.resource(url + "/auth").accept("application/json").type("application/json")
+							.post(String.class, input);
+					client.destroy();
+				} catch (Exception e) {
+					return false;
+				}
+				JSONObject resp = new JSONObject(response);
+				if (resp.get("success").equals("true")) {
+					System.out.println("try cash");
+					Cache.cacheToken(username, token, resp.getString("expire-date"));
+					return true;
+				} else {
+					return false;
+				}
+			}
+		} catch (JSONException e) {
 			return false;
 		}
-
-		return true;
 	}
-
 
 	public String getEmail(String pseudonym) {
 		MongoCollection<Document> accountCollection = database.getCollection("account");

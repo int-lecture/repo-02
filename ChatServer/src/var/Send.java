@@ -56,7 +56,6 @@ public class Send {
 					String response;
 					try {
 					Client client = Client.create();
-			        
 			            response = client.resource(url + "/auth").accept("application/json")
 			                    .type("application/json").post(String.class, input);
 			            client.destroy();

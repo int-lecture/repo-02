@@ -1,5 +1,7 @@
 package var;
 
+import java.security.InvalidParameterException;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.OPTIONS;
 import javax.ws.rs.PUT;
@@ -24,13 +26,16 @@ public class Contact {
 				String pseudo = object.getString("pseudonym");
 				String contact = object.getString("contact");
 				String token = object.getString("token");
-				
+				System.out.println(object.toString());
 				if (db.checkToken(pseudo, token)) {
-					return Responder.unauthorised();
+					try{
+						db.addContact(pseudo, contact);
+					} catch(InvalidParameterException e) {
+						return Responder.build(418, "Kontakt nicht gefunden", true);
+					}
 				} else {
-					db.addContact(pseudo, contact);
+					return Responder.unauthorised();
 				}
-
 				JSONObject createdDetails = new JSONObject();
 				createdDetails.put("succes", pseudo + " has a new friend now");
 				return Responder.created(createdDetails);
