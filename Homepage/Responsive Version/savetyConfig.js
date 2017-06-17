@@ -26,7 +26,7 @@ function tokenValid(){
 function getToken(){
 	var token = readCookie("token");
 	if(!token){
-		alert("bitte melde dich an");
+		console.log("bitte melde dich an");
 		window.location.href = "login.php";
 	}
 	return token;
@@ -35,7 +35,7 @@ function getToken(){
 function getUser(){
 	var user = readCookie("pseudonym");
 	if(!user){
-		alert("bitte melde dich an");
+		console.log("bitte melde dich an");
 		window.location.href = "login.php";
 	}
 	return user;

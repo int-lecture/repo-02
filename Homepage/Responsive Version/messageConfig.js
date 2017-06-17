@@ -6,6 +6,12 @@ function onEnter(event) {
   }
 }
 
+function notifyMe() {
+	console.log("play");
+	var snd = new Audio("TING.WAV");
+	snd.play();
+}
+
 window.setInterval(function(){
 	getMessages();
 }, 1000);
@@ -41,14 +47,19 @@ function getMessages() {
 
 function showMessages(responseJSON) {
 	var neu;
+	var newDownload = false;
 	for (var i = 0; i < responseJSON.length; i++) {
 		if(responseJSON[i].from == $("#Chatkontakt").text()){
 			if (responseJSON[i].sequence > sequence) {
+				newDownload = true;
 				neu = responseJSON[i].text;
 	      $("#chatBox").append(formatMessage($("#Chatkontakt").text(), neu, "nachrichtContact", responseJSON.date));
 				sequence = responseJSON[i].sequence;
 				document.getElementById('chatBox').scrollTop = 1000;
 			}
+		}
+		if (newDownload) {
+			notifyMe();
 		}
 	}
 }
