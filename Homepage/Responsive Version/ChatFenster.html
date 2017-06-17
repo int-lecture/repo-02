@@ -7,11 +7,13 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta charset="utf-8">
-	<script src="configs.js"></script>
+	<script src="messageConfig.js"></script>
 	<script src="contactConfig.js"></script>
+	<script src="savetyConfig.js"></script>
+
 
 </head>
-<body>
+<body onkeypress="onEnter(event)">
 	<div class="container-fluid">
 		<div class="row" id="kopfzeile" >
 			<div class="col-sm-12" id="titel">Secure Messenger
@@ -89,7 +91,7 @@
 					<div class="input-group" id="send">
 						<input type="text" class="form-control" id="newMessage" placeholder="..." id="form" >
 						<span class="input-group-btn">
-							<button class="btn btn-default" id="sendtwo" onclick=sendMessage() type="reset">
+							<button class="btn btn-default" id="sendtwo" onclick=sendMessage()>
 								<span class="glyphicon glyphicon-send">
 								</span>
 								Senden

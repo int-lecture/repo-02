@@ -15,6 +15,44 @@
 	color: #282F37;
 }
 
+#nachrichtEigene {
+	float: right;
+	padding: 5;
+	max-width: 60%;
+	border-style: solid;
+	border-color: black;
+	color: black;
+	background: white;
+	border: 5px solid #ddd;
+	border-radius: 10px;
+	word-wrap: break-word;
+}
+
+#nachrichtContact {
+	float: left;
+	padding: 5;
+	max-width: 60%;
+	border-style: solid;
+	border-color: black;
+	color: black;
+	background: white;
+	border: 5px solid #ddd;
+	border-radius: 10px;
+	word-wrap: break-word;
+}
+
+#uhrZ{
+	color: black;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 100;
+  font-size: 70%;
+	line-height: 0.5;
+}
+
+#messageName {
+	color:red;
+}
+
 #settings {
 	float: right;
 	color: black;
@@ -65,7 +103,7 @@
     color: white;
     padding: 16px;
     font-size: 16px;
-	width: 100%;
+		width: 100%;
     border: none;
     cursor: pointer;
 }
