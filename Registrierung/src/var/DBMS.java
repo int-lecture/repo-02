@@ -138,10 +138,27 @@ public class DBMS {
 		return doc.getString("email");
 	}
 
-	public void clearForTest() {
-		database.getCollection("account").drop();
-		database.getCollection("contact").drop();
-		database.getCollection("token").drop();
-		System.out.println("Cleared");
+	public void addMember(String user, String group) {
+		MongoCollection<Document> memberCollection = database.getCollection("members");
+		Document doc = memberCollection.find(and(eq("member", user), eq("group", group))).first();
+		if (doc == null) {
+			Document newDoc = new Document();
+			newDoc.append("member", user);
+			newDoc.append("group", group);
+			memberCollection.insertOne(newDoc);
+		}
+	}
+	
+	String[] getGroups(String user){
+		MongoCollection<Document> memberCollection = database.getCollection("members");
+		FindIterable<Document> contacts = memberCollection.find(eq("member", user));
+		long size = memberCollection.count(eq("member", user));
+		String[] memberString = new String[(int) size];
+		int i = 0;
+		for (Document cont : contacts) {
+			memberString[i] = cont.get("group").toString();
+			i++;
+		}
+		return memberString;
 	}
 }

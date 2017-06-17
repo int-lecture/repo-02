@@ -1,16 +1,14 @@
-window.onload = function() {
-	makeContactButton();
-};
-
 function chatFenster(i){
-	sequence = 0;
+	var sequence = 0;
+	groupSelected = false;
 	var contact = $("#user" + i).text();
+	console.log(contact);
 	document.getElementById("Chatkontakt").innerHTML= contact;
 	$("#chatBox").html("");
 }
 
 function makeContactButton() {
-    var URL = "http://" + registerUrl + "/profile";
+  var URL = "http://" + registerUrl + "/profile";
     var requestJSON = {
         "token" : getToken(),
         "getownprofile" : getUser()
@@ -21,7 +19,7 @@ function makeContactButton() {
 		data: JSON.stringify(requestJSON),
 		contentType: "application/json; charset=utf-8",
 		success: function (responseJSON) {
-			showContacts(responseJSON.contacts);
+			loadContacts(responseJSON.contacts);
 		},
 		error: function (xhr, ajaxOptions, thrownError) {
 		console.log("Problem bei der Abfrage nach den Kontakten.");
@@ -29,7 +27,7 @@ function makeContactButton() {
 });
 }
 
-function showContacts(json) {
+function loadContacts(json) {
 	var contacts = json;
 	var contactsSize = contacts.length;
 	var htmlString;
@@ -40,6 +38,7 @@ function showContacts(json) {
 							"</span>" + contacts[i] + "</button>";
 							var d1 = document.getElementById('userBox');
 							d1.insertAdjacentHTML("beforeend", htmlString);
+							console.log(contacts[i]);
 	}
 }
 
@@ -47,13 +46,13 @@ function addContacts(){
 	tokenValid();
 	var newContact = document.getElementById("contactName").value;
 	$('#contactsModal').modal('hide');
+	console.log(newContact);
 	document.getElementById("contactName").value = "";
 	var URL = "http://" + registerUrl + "/contact/";
-	var dataObject = {'user': getUser(), 'password':  getToken()};
 	$.ajax({
 		url: URL,
 		type: 'POST',
-		data: JSON.stringify({'pseudonym': getUser(), 'token': getToken(), 'contact': newContact}),
+		data: JSON.stringify({'pseudonym': getUser(), 'token': getToken(), 'contact': newContact, 'group': false}),
 		contentType: "application/json; charset=utf-8",
 		dataType: 'json',
 		success: function (result, textStatus, xhr) {

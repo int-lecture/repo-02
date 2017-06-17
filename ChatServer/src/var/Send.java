@@ -34,15 +34,15 @@ public class Send {
 				// we would check the token, send a response
 
 				StorageProviderMongoDB db = new StorageProviderMongoDB();
-
 				String token = object.getString("token");
 				String from = object.getString("from");
 				String to = object.getString("to");
 				String date = object.getString("date");
 				currentTime.parse(date);
 				String text = object.getString("text");
-				long sequence = db.retrieveAndUpdateSequence(from, to);
-				Message newMessage = new Message(from, to, date, sequence, text);
+				boolean group = object.getBoolean("group");
+				long sequence = db.retrieveAndUpdateSequence(from, to, group);
+				Message newMessage = new Message(from, to, date, sequence, text, group);
 
 				if(token.equals(Cache.getCachedToken(from))){
 					db.storeMessage(newMessage);
@@ -64,6 +64,7 @@ public class Send {
 					} else {
 						System.out.println("try cash");
 						Cache.cacheToken(from, token, resp.getString("expire-date"));
+						db.storeMessage(newMessage);
 					}
 				}
 
@@ -73,7 +74,7 @@ public class Send {
 				createdDetails.put("sequence", sequence);
 				return Responder.created(createdDetails);
 			}
-			// If with the response is something wrong,
+			// If something is wrong with the response,
 			// get oudda this try and get catched
 			else {
 				return Responder.badRequest();

@@ -44,6 +44,12 @@ public class Profile {
 						contacts.put(contact);
 					}
 					profilDetails.put("contacts", contacts);
+					//Gruppen abrufen
+					JSONArray groups = new JSONArray();
+					for (String group : dbms.getGroups(profile)) {
+						groups.put(group);
+					}
+					profilDetails.put("groups", groups);
 					return Responder.created(profilDetails);
 				} else {
 					return Responder.unauthorised();

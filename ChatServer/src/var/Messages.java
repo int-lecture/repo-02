@@ -67,7 +67,6 @@ public class Messages {
 				String response;
 				try {
 				Client client = Client.create();
-		        
 		            response = client.resource(url + "/auth").accept("application/json")
 		                    .type("application/json").post(String.class, input);
 		            client.destroy();
@@ -100,6 +99,7 @@ public class Messages {
 					jsonMessage.put("date", m.getDate());
 					jsonMessage.put("text", m.getText());
 					jsonMessage.put("sequence", m.getSequence());
+					jsonMessage.put("group", m.getGroup());					
 				} catch (JSONException e) {
 					System.out.println("Fehler beim Erstellen der Antwort");
 				}

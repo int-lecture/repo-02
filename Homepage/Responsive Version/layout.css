@@ -84,6 +84,15 @@
 	border-color: black;
 }
 
+#gruppen {
+ padding-top: 2px;
+ background:#36749C;
+ color:black;
+ height: 94%;
+ border-style: solid;
+ border-color: black;
+}
+
 #kontaktbox{
 	height: 90%;
 	width: 100%;
@@ -95,6 +104,10 @@
 }
 
 #userBox > button {
+	width: 100%;
+}
+
+#gruppenBox > button {
 	width: 100%;
 }
 

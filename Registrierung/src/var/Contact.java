@@ -22,16 +22,27 @@ public class Contact {
 			// Check if all Request-Elements are there
 			if (object.getString("pseudonym") != null && object.getString("contact") != null && object.getString("token") != null) {
 				DBMS db = new DBMS();
-
+				
 				String pseudo = object.getString("pseudonym");
 				String contact = object.getString("contact");
 				String token = object.getString("token");
-				System.out.println(object.toString());
 				if (db.checkToken(pseudo, token)) {
-					try{
-						db.addContact(pseudo, contact);
-					} catch(InvalidParameterException e) {
-						return Responder.build(418, "Kontakt nicht gefunden", true);
+					if(object.getString("group") != null){
+						boolean group = object.getBoolean("group");
+						if(group){
+							db.addMember(pseudo, contact);
+						} else {
+							try{
+								db.addContact(pseudo, contact);
+							} catch(InvalidParameterException e) {
+								return Responder.build(418, "Kontakt nicht gefunden", true);
+							}						}
+					}else {
+						try{
+							db.addContact(pseudo, contact);
+						} catch(InvalidParameterException e) {
+							return Responder.build(418, "Kontakt nicht gefunden", true);
+						}
 					}
 				} else {
 					return Responder.unauthorised();

@@ -32,7 +32,7 @@ public class Responder {
 	}
 
 	static Response unauthorised() {
-		return Responder.build(Response.Status.UNAUTHORIZED, "böser bub", false);
+		return Responder.build(Response.Status.UNAUTHORIZED, "böser bub", true);
 	}
 
 	public static Response preFlight() {
@@ -46,6 +46,6 @@ public class Responder {
 	public static Response exception(Exception e) {
 		System.out.println(e.getMessage());
 		e.printStackTrace();
-		return Responder.build(Response.Status.BAD_REQUEST, e.getMessage(), false);
+		return Responder.build(Response.Status.BAD_REQUEST, e.getMessage(), true);
 	}
 }

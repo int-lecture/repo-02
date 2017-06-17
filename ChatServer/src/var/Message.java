@@ -6,13 +6,15 @@ public class Message {
 	private String date;
 	private long sequence;
 	private String text;
+	private Boolean group;
 
-	Message(String from, String to, String date, long sequence, String text){
+	Message(String from, String to, String date, long sequence, String text, boolean group){
 		this.setForm(from);
 		this.setTo(to);
 		this.setDate(date);
 		this.setSequence(sequence);
 		this.setText(text);
+		this.setGroup(group);
 	}
 
 	public Message() {
@@ -87,5 +89,13 @@ public class Message {
 	 */
 	public void setText(String text) {
 		this.text = text;
+	}
+
+	public void setGroup(boolean group) {
+		this.group = group;
+	}
+	
+	public boolean getGroup() {
+		return group;
 	}
 }

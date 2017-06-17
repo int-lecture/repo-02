@@ -10,7 +10,7 @@
 	<script src="messageConfig.js"></script>
 	<script src="contactConfig.js"></script>
 	<script src="savetyConfig.js"></script>
-
+	<script src="groupConfig.js"></script>
 
 </head>
 <body onkeypress="onEnter(event)">
@@ -47,7 +47,7 @@
 		     </div>
 		   </div>
 
-			 <!-- Einstellungen -->
+			 <!-- Kontakte -->
 			<div class="modal fade" id="contactsModal" role="dialog">
 				<div class="modal-dialog">
 					<div class="modal-content">
@@ -67,6 +67,27 @@
 				</div>
 			</div>
 
+			<!-- gruppen -->
+		 <div class="modal fade" id="groupModal" role="dialog">
+			 <div class="modal-dialog">
+				 <div class="modal-content">
+					 <div class="modal-header">
+						 <button type="button" class="close" data-dismiss="modal">&times;</button>
+						 <span class="modal-title">Gruppe hinzufügen</span>
+					 </div>
+					 <div class="modal-body">
+						Gruppenname:
+						 <input type="text" class="form-control" id="groupName">
+					 </div>
+					 <div class="modal-footer">
+							<button type="button" class="btn btn-primary" onclick=addGroup()>Speichern</button>
+						 <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+					 </div>
+				 </div>
+			 </div>
+		 </div>
+
+
 		 </div>
 			</div>
 		</div>
@@ -79,7 +100,16 @@
 					</button>
 				<div id="userBox">
 				</div>
-			</div>
+				<br>
+				<br>
+						<button type="button" class="btn btn-default" id="addGroup" data-toggle="modal" data-target="#groupModal" >
+							<span class="glyphicon glyphicon-user">
+							</span>
+								Gruppe hinzufügen
+						</button>
+					<div id="gruppenBox">
+					</div>
+				</div>
 			<div id="equal">
 				<div class="col-md-9" id="Chatfenster">
 					<div class="col-md-12" id="Chatkontakt">
