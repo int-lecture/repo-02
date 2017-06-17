@@ -39,25 +39,23 @@ class StorageProviderMongoDB {
     /**
      * @see var.chat.server.persistence.StorageProvider#retrieveAndUpdateSequence(java.lang.String)
      */
-    public synchronized long retrieveAndUpdateSequence(String userId) {
+    public synchronized long retrieveAndUpdateSequence(String userId, String recieverId) {
         MongoCollection<Document> sequences = database.getCollection(
                 "sequences");
 
-        Document seqDoc = sequences.find(eq("user", userId)).first();
+        Document seqDoc = sequences.find(and(eq("user", userId),eq("recieverId", recieverId))).first();
         long sequence = 1L;
-
         if (seqDoc != null) {
             sequence = seqDoc.getLong("sequence");
             sequence++;
             seqDoc.replace("sequence", sequence);
-            sequences.updateOne(eq("user", seqDoc.get("user")),
+            sequences.updateOne(and(eq("user", seqDoc.get("user")),eq("recieverId", recieverId)),
                     new Document("$set", seqDoc));
-        }
-        else {
+        } else {
             sequences.insertOne(new Document("sequence", sequence)
-                    .append("user", userId));
+                    .append("user", userId)
+                    .append("recieverId", recieverId));
         }
-
         return sequence;
     }
 

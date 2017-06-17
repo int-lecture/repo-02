@@ -41,9 +41,9 @@ public class Send {
 				String date = object.getString("date");
 				currentTime.parse(date);
 				String text = object.getString("text");
-				long sequence = db.retrieveAndUpdateSequence(to);
+				long sequence = db.retrieveAndUpdateSequence(from, to);
 				Message newMessage = new Message(from, to, date, sequence, text);
-				
+
 				if(token.equals(Cache.getCachedToken(from))){
 					db.storeMessage(newMessage);
 				} else {
@@ -66,7 +66,7 @@ public class Send {
 						Cache.cacheToken(from, token, resp.getString("expire-date"));
 					}
 				}
-				
+
 				JSONObject createdDetails = new JSONObject();
 				// Current Systemtime
 				createdDetails.put("date", currentTime.format(new Date())); // currentTime.toString()
