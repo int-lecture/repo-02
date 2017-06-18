@@ -13,7 +13,7 @@ import org.codehaus.jettison.json.JSONObject;
 
 @Path("/contact")
 public class Contact {
-	
+
 	@POST
 	@Consumes("application/json")
 	public Response addContact(String json) {
@@ -22,7 +22,7 @@ public class Contact {
 			// Check if all Request-Elements are there
 			if (object.getString("pseudonym") != null && object.getString("contact") != null && object.getString("token") != null) {
 				DBMS db = new DBMS();
-				
+
 				String pseudo = object.getString("pseudonym");
 				String contact = object.getString("contact");
 				String token = object.getString("token");
@@ -34,12 +34,14 @@ public class Contact {
 						} else {
 							try{
 								db.addContact(pseudo, contact);
+								db.addContact(contact, pseudo);
 							} catch(InvalidParameterException e) {
 								return Responder.build(418, "Kontakt nicht gefunden", true);
 							}						}
 					}else {
 						try{
 							db.addContact(pseudo, contact);
+							db.addContact(contact, pseudo);
 						} catch(InvalidParameterException e) {
 							return Responder.build(418, "Kontakt nicht gefunden", true);
 						}

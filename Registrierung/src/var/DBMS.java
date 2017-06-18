@@ -17,8 +17,6 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.WebResource;
 
 public class DBMS {
 
@@ -40,7 +38,7 @@ public class DBMS {
 	/** Mongo Collection for tokens which belongs to a account */
 
 	/**
-	 * 
+	 *
 	 * @param user
 	 * @param contact
 	 */
@@ -73,7 +71,7 @@ public class DBMS {
 		return contString;
 	}
 
-	public void createUser(String pseudonym, String password, String email) {
+	public synchronized boolean createUser(String pseudonym, String password, String email) {
 		MongoCollection<Document> accountCollection = database.getCollection("account");
 		Document doc = accountCollection.find(eq("pseudonym", pseudonym)).first();
 
@@ -82,13 +80,14 @@ public class DBMS {
 		}
 
 		Document newDoc = new Document();
-		newDoc.append("pseudonym", pseudonym);
 		String userPW = "";
 		try {
 			userPW = SecurityHelper.hashPassword(password);
 		} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
 			e.printStackTrace();
 		}
+
+		newDoc.append("pseudonym", pseudonym);
 		newDoc.append("password", userPW);
 		newDoc.append("email", email);
 		accountCollection.insertOne(newDoc);
@@ -99,6 +98,7 @@ public class DBMS {
 		tokenDoc.append("token", "save token");
 		tokenDoc.append("expire-date", new Date());
 		tokenCollection.insertOne(tokenDoc);
+		return true;
 	}
 
 	public boolean checkToken(String username, String token) {
@@ -148,7 +148,7 @@ public class DBMS {
 			memberCollection.insertOne(newDoc);
 		}
 	}
-	
+
 	String[] getGroups(String user){
 		MongoCollection<Document> memberCollection = database.getCollection("members");
 		FindIterable<Document> contacts = memberCollection.find(eq("member", user));

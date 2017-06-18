@@ -41,10 +41,9 @@ public class Registry {
 				String email = jsonObject.getString("user");
 				try {
 					DBMS dbms = new DBMS();
-					dbms.createUser(pseudonym, password, email);
+					System.out.println(dbms.createUser(pseudonym, password, email));
 					JSONObject profilDetails = new JSONObject();
 					profilDetails.put("success", "true");
-					dbms.addContact(pseudonym, "mama");
 					return Responder.ok(profilDetails);
 				} catch (InvalidParameterException e) {
 					return Responder.teapot();
