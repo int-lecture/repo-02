@@ -22,7 +22,7 @@ public class DBMS {
 
 	public static final String ISO8601 = "yyyy-MM-dd'T'HH:mm:ssZ";
 
-	private static final String MONGO_URL = "mongodb://141.19.142.56/userbase";
+	private static final String MONGO_URL = "mongodb://localhost/userbase";
 
 	/** URI to the MongoDB instance. */
 	private static MongoClientURI connectionString = new MongoClientURI(MONGO_URL);
@@ -106,7 +106,7 @@ public class DBMS {
 			if (token.equals(Cache.getCachedToken(username))) {
 				return true;
 			} else {
-				String url = "http://141.19.142.56:5001";
+				String url = "http://localhost:5001";
 				String input = "{\"token\": \"" + token + "\",\"pseudonym\": \"" + username + "\"}";
 				String response;
 				try {

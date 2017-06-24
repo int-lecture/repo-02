@@ -24,7 +24,7 @@ class StorageProviderMongoDB {
 	static final String dbToken = "token";
 	static final boolean allowEmailLogin = true;
 
-	private static final String MONGO_URL = "mongodb://141.19.142.56:27017";
+	private static final String MONGO_URL = "mongodb://localhost:27017";
 	/** URI to the MongoDB instance. */
 	private static MongoClientURI connectionString = new MongoClientURI(MONGO_URL);
 
