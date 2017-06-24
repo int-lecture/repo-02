@@ -39,16 +39,20 @@
 
 <div class="parallax"></div>
 
-<div style="height:450px;font-size:35px;text-align:center">
+<div style="height:550px;font-size:35px;text-align:center">
 Gib jedem Tag die Chance, der schönste deines Lebens zu werden.<br> – Mark Twain
 
 <br>
 <br>
-Wer lesen kann muss auch schreiben können! <br> - Fabian Munziger (ChiiHut-Mitgründer)
+Wer lesen kann muss auch schreiben können! <br> - Fabian Munzinger (ChiiHut-Mitgründer)
 
 <br>
 <br>
 Ein Reboot tut immer gut! <br> - David Casparby (ChiiHut-Mitgründer)
+
+<br>
+<br>
+Für uns ist es nur ein Mausklick, für die ist es ein ganzes Semester! <br> - Thomas Smits (Professor)
 </div>
 
 <div class="parallax"></div>

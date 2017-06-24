@@ -17,6 +17,15 @@ function tryLogin() {
 	});
 }
 
+function getUrl(key) {
+  var url = location.href;
+  key = key.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+  var regexS = "[\\?&]"+key+"=([^&#]*)";
+  var regex = new RegExp( regexS );
+  var results = regex.exec( url );
+  return results == null ? null : results[1];
+}
+
 function tokenValid(){
 	if(!getToken()){
 		window.location.href = "login.php";

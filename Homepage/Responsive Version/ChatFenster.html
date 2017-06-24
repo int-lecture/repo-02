@@ -1,4 +1,4 @@
-﻿<html>
+<html>
 <head>
 	<title>Secure Messenger</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -11,110 +11,113 @@
 	<script src="contactConfig.js"></script>
 	<script src="savetyConfig.js"></script>
 	<script src="groupConfig.js"></script>
+	<script src="logoutJS.js"></script>
 
 </head>
 <body onkeypress="onEnter(event)">
-	<div class="container-fluid">
-		<div class="row" id="kopfzeile" >
-			<div class="col-sm-12" id="titel">Secure Messenger
-				<img src="logo.jpg" id="titelbild" class="img-rounded">
-				<button type="button" class="btn btn-info btn-lg" id="settings" data-toggle="modal" data-target="#myModal" ><span class="glyphicon glyphicon-cog"></span></button>
+	<div id="all">
+
+		<div class="container-fluid">
+			<div class="row" id="kopfzeile" >
+				<div class="col-sm-12" id="titel">Secure Messenger
+					<img src="logo.jpg" id="titelbild" class="img-rounded">
+					<button type="button" class="btn btn-info btn-lg" id="settings" data-toggle="modal" data-target="#myModal" ><span class="glyphicon glyphicon-cog"></span></button>
 
 
-				<!-- Einstellungen -->
-		   <div class="modal fade" id="myModal" role="dialog">
-		     <div class="modal-dialog">
-		       <div class="modal-content">
-		         <div class="modal-header">
-		           <button type="button" class="close" data-dismiss="modal">&times;</button>
-		           <span class="modal-title">Einstellungen</span>
-		         </div>
-		         <div class="modal-body">
-		           CHAT-Server: (url und port)
-							 <input type="text" class="form-control" id="chatUrl">
-							 <br>
-							 LOGIN-Server: (url und port)
-							 <input type="text" class="form-control" id="loginUrl">
-							 <br>
-							REGISTRIER-Server: (url und port)
-							 <input type="text" class="form-control" id="registerUrl">
-		         </div>
-		         <div class="modal-footer">
-							  <button type="button" class="btn btn-primary" onclick=loadSettings()>Speichern</button>
-		           <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
-		         </div>
-		       </div>
-		     </div>
-		   </div>
-
-			 <!-- Kontakte -->
-			<div class="modal fade" id="contactsModal" role="dialog">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal">&times;</button>
-							<span class="modal-title">Kontakt hinzufügen</span>
-						</div>
-						<div class="modal-body">
-							Username deiner Mama:
-							<input type="text" class="form-control" id="contactName">
-						</div>
-						<div class="modal-footer">
-							 <button type="button" class="btn btn-primary" onclick=addContacts()>Speichern</button>
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+					<!-- Einstellungen -->
+					<div class="modal fade" id="myModal" role="dialog">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+									<span class="modal-title">Einstellungen</span>
+								</div>
+								<div class="modal-body">
+									CHAT-Server: (url und port)
+									<input type="text" class="form-control" id="chatUrl">
+									<br>
+									LOGIN-Server: (url und port)
+									<input type="text" class="form-control" id="loginUrl">
+									<br>
+									REGISTRIER-Server: (url und port)
+									<input type="text" class="form-control" id="registerUrl">
+									<br>
+									<button type="button" class="btn btn-danger" onclick=logout()>Logout</button>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-primary" onclick=loadSettings()>Speichern</button>
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+								</div>
+							</div>
 						</div>
 					</div>
+
+					<!-- Kontakte -->
+					<div class="modal fade" id="contactsModal" role="dialog">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+									<span class="modal-title">Kontakt hinzufügen</span>
+								</div>
+								<div class="modal-body">
+									Username deiner Mama:
+									<input type="text" class="form-control" id="contactName">
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-primary" onclick=addContacts()>Speichern</button>
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- gruppen -->
+					<div class="modal fade" id="groupModal" role="dialog">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+									<span class="modal-title">Gruppe hinzufügen</span>
+								</div>
+								<div class="modal-body">
+									Gruppenname:
+									<input type="text" class="form-control" id="groupName">
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-primary" onclick=addGroup()>Speichern</button>
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
 				</div>
-			</div>
-
-			<!-- gruppen -->
-		 <div class="modal fade" id="groupModal" role="dialog">
-			 <div class="modal-dialog">
-				 <div class="modal-content">
-					 <div class="modal-header">
-						 <button type="button" class="close" data-dismiss="modal">&times;</button>
-						 <span class="modal-title">Gruppe hinzufügen</span>
-					 </div>
-					 <div class="modal-body">
-						Gruppenname:
-						 <input type="text" class="form-control" id="groupName">
-					 </div>
-					 <div class="modal-footer">
-							<button type="button" class="btn btn-primary" onclick=addGroup()>Speichern</button>
-						 <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
-					 </div>
-				 </div>
-			 </div>
-		 </div>
-
-
-		 </div>
 			</div>
 		</div>
 		<div class="row equalheight">
 			<div class="col-md-3" id="kontakte">
-					<button type="button" class="btn btn-default" id="addContact" data-toggle="modal" data-target="#contactsModal" >
-						<span class="glyphicon glyphicon-user">
-						</span>
-							Kontakt hinzufügen
-					</button>
+				<button type="button" class="btn btn-default" id="addContact" data-toggle="modal" data-target="#contactsModal" >
+					<span class="glyphicon glyphicon-user">
+					</span>
+					Kontakt hinzufügen
+				</button>
 				<div id="userBox">
 				</div>
 				<br>
 				<br>
-						<button type="button" class="btn btn-default" id="addGroup" data-toggle="modal" data-target="#groupModal" >
-							<span class="glyphicon glyphicon-user">
-							</span>
-								Gruppe hinzufügen
-						</button>
-					<div id="gruppenBox">
-					</div>
+				<button type="button" class="btn btn-default" id="addGroup" data-toggle="modal" data-target="#groupModal" >
+					<span class="glyphicon glyphicon-user">
+					</span>
+					Gruppe hinzufügen
+				</button>
+				<div id="gruppenBox">
 				</div>
+			</div>
 			<div id="equal">
 				<div class="col-md-9" id="Chatfenster">
 					<div class="col-md-12" id="Chatkontakt">
-						<!-- <img src="benutzer.png" id="kontaktbild" class="img-rounded">
-						Beispielkontakt -->
 					</div>
 					<div id="chatBox">
 					</div>
@@ -131,5 +134,6 @@
 				</div>
 			</div>
 		</div>
-	</body>
-	</html>
+	</div>
+</body>
+</html>

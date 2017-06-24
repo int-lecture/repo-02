@@ -5,12 +5,12 @@
 	padding-top: 3px;
 	background:#36749C;
 	height: 50px;
-	font-family: Brush Script;
+	font-family: Calibri;
 	color: white;
 }
 
 #titel{
-	font-size: 32px;
+	font-size: 28px;
 	width: 100%;
 	color: #282F37;
 }
@@ -50,21 +50,24 @@
 }
 
 #messageName {
-	color:red;
+	color:#36749C;
 }
 
 #settings {
 	float: right;
 	color: black;
 	background: white;
-	width: 70px;
+	width: 5%;
+	min-width: 50px;
 }
 
 #titelbild {
 	float: left;
-	width: 50px;
+	min-width: 40px;
+	width: 4%;
 	height: 45px;
 }
+
 
 /* Für das Kommunikationsfenster bei Einstellungen */
 #mymodal{
@@ -196,7 +199,10 @@
 	border-color: #282F37;
 }
 
+#all {
+	max-width: 97vw;
+}
 
 body{
-  max-width: 99vw;
+	background-color: #282F37;
 }

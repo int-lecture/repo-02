@@ -1,16 +1,37 @@
 var groupSelected = false;
+var emptyContact
 
 window.onload = function() {
+  emptyContact = $("#Chatkontakt").text;
   showGroups();
   makeContactButton();
+  if (getUrl("c")) {
+    openChat(getUrl("c"), getUrl("g"));
+  }
+  if (typeof history.pushState === "function") {
+     history.pushState($("#Chatkontakt").text, null, null);
+     window.onpopstate = function () {
+         if(getUrl("c")){
+           openChat(getUrl("c"), getUrl("g"));
+         }
+     };
+}
 };
 
+window.onhashchange = function() {
+  if(getUrl("c")){
+    openChat(getUrl("c"), getUrl("g"));
+  }
+}
+
+
 function groupFenster(i){
-  var sequence = 0;
+  sequence = 0;
   groupSelected = true;
   var contact = $("#group" + i).text();
   document.getElementById("Chatkontakt").innerHTML= contact;
   $("#chatBox").html("");
+  window.history.pushState("", "", 'Chatfenster.html?c=' + contact + '&g=' + groupSelected);
 }
 
 function showGroups() {

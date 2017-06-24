@@ -1,10 +1,18 @@
 function chatFenster(i){
-	var sequence = 0;
+	messageList = [];
+	sequence = 0;
 	groupSelected = false;
 	var contact = $("#user" + i).text();
-	console.log(contact);
 	document.getElementById("Chatkontakt").innerHTML= contact;
 	$("#chatBox").html("");
+	window.history.pushState("", "", 'Chatfenster.html?c=' + contact + '&g=' + groupSelected);
+}
+
+function openChat(contact, group) {
+	document.getElementById("Chatkontakt").innerHTML= contact;
+	$("#chatBox").html("");
+	groupSelected = group;
+	console.log(contact + ", " + group);
 }
 
 function makeContactButton() {
@@ -38,7 +46,6 @@ function loadContacts(json) {
 							"</span>" + contacts[i] + "</button>";
 							var d1 = document.getElementById('userBox');
 							d1.insertAdjacentHTML("beforeend", htmlString);
-							console.log(contacts[i]);
 	}
 }
 
